@@ -6,6 +6,7 @@
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  background: #0f172a;
 }
 
 /* Location Marker Styles */
@@ -25,6 +26,16 @@
   animation: pulse 3s infinite;
 }
 
+.location-marker.current-location {
+  background: linear-gradient(135deg, #F59E0B 60%, #EF4444 100%);
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  border: 4px solid #ffffff;
+  animation: targetPulse 2s infinite;
+  z-index: 1000;
+}
+
 .location-marker:hover {
   transform: scale(1.2);
   box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4);
@@ -36,6 +47,12 @@
   100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
 }
 
+@keyframes targetPulse {
+  0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.6); }
+  70% { box-shadow: 0 0 0 20px rgba(245, 158, 11, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+}
+
 /* Loading and Error Overlays */
 .loading-overlay,
 .error-overlay {
@@ -43,13 +60,15 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: rgba(31, 41, 55, 0.9);
+  background: rgba(15, 23, 42, 0.95);
   color: #ffffff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
   z-index: 1000;
   text-align: center;
+  backdrop-filter: blur(10px);
+  border: 2px solid #334155;
 }
 
 .loading-overlay {
@@ -60,48 +79,273 @@
   background: rgba(239, 68, 68, 0.9);
 }
 
-/* Map Info Panel */
-.map-info {
+/* Game UI Styles */
+.game-ui {
   position: absolute;
   top: 20px;
   left: 20px;
-  background: rgba(31, 41, 55, 0.9);
-  color: #ffffff;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  right: 20px;
   z-index: 1000;
-  font-size: 14px;
+  pointer-events: none;
+}
+
+.game-ui > * {
+  pointer-events: auto;
+}
+
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(15, 23, 42, 0.9);
+  padding: 15px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(10px);
+  border: 2px solid #334155;
+  margin-bottom: 20px;
 }
 
-.map-info p {
-  margin: 5px 0;
-}
-
-.map-info strong {
+.game-header h2 {
+  margin: 0;
   color: #10B981;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  font-family: 'Arial Black', Arial, sans-serif;
 }
 
-/* Custom mapbox popup styles */
-.mapboxgl-popup-content {
-  background: #1f2937;
+.api-status {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.api-status.connected {
+  background: #10B981;
+  color: white;
+}
+
+.api-status.failed {
+  background: #EF4444;
+  color: white;
+}
+
+/* State Selection UI */
+.state-selection-ui {
+  background: rgba(15, 23, 42, 0.9);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border: 2px solid #334155;
   color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  padding: 15px;
-  max-width: 320px;
+  max-width: 600px;
 }
 
-.popup-content {
+.state-selection-ui h3 {
+  margin: 0 0 10px 0;
+  color: #F59E0B;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.available-states {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.state-button {
+  background: linear-gradient(135deg, #3B82F6, #1D4ED8);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+.state-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.5);
+  background: linear-gradient(135deg, #2563EB, #1E40AF);
+}
+
+.state-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.instruction {
+  font-size: 14px;
+  opacity: 0.8;
+  margin: 15px 0 0 0;
+}
+
+/* Loading State UI */
+.loading-state {
+  background: rgba(16, 185, 129, 0.9);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border: 2px solid #059669;
+  color: #ffffff;
+  text-align: center;
+  animation: loadingGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes loadingGlow {
+  from { box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3); }
+  to { box-shadow: 0 8px 32px rgba(16, 185, 129, 0.6); }
+}
+
+/* Location Navigation UI */
+.location-navigation-ui {
+  background: rgba(15, 23, 42, 0.9);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border: 2px solid #334155;
+  color: #ffffff;
+  max-width: 500px;
+}
+
+.current-state {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #334155;
+}
+
+.current-state h3 {
+  margin: 0;
+  color: #F59E0B;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.back-button {
+  background: linear-gradient(135deg, #6B7280, #4B5563);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  background: linear-gradient(135deg, #9CA3AF, #6B7280);
+  transform: translateY(-1px);
+}
+
+.location-info {
+  margin: 15px 0;
+  text-align: center;
+}
+
+.location-info h4 {
+  margin: 0 0 5px 0;
+  color: #10B981;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.navigation-controls {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.nav-button {
+  background: linear-gradient(135deg, #F59E0B, #D97706);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+  min-width: 120px;
+}
+
+.nav-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.5);
+  background: linear-gradient(135deg, #FBBF24, #F59E0B);
+}
+
+.nav-button:disabled {
+  background: linear-gradient(135deg, #6B7280, #4B5563);
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.keyboard-hint {
+  text-align: center;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #334155;
+}
+
+.keyboard-hint p {
+  margin: 0;
+  font-size: 12px;
+  opacity: 0.7;
+  color: #94A3B8;
+}
+
+/* Enhanced Popup Styles */
+.mapboxgl-popup-content {
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  padding: 0;
+  max-width: 350px;
+  border: 2px solid #334155;
+}
+
+.popup-content.game-popup {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, #10B981, #059669);
+  padding: 15px;
+  border-radius: 10px 10px 0 0;
+  margin-bottom: 15px;
 }
 
 .popup-title {
   font-size: 18px;
   font-weight: bold;
-  margin-bottom: 10px;
-  color: #10B981;
+  margin: 0;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.location-counter {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.popup-details {
+  padding: 0 15px 15px 15px;
 }
 
 .popup-details p {
@@ -117,29 +361,97 @@
 .status-active {
   color: #10B981;
   font-weight: bold;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .status-closed {
   color: #EF4444;
   font-weight: bold;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
+.popup-navigation {
+  display: flex;
+  gap: 10px;
+  padding: 15px;
+  border-top: 1px solid #334155;
+  background: rgba(15, 23, 42, 0.5);
+  border-radius: 0 0 10px 10px;
+}
+
+.popup-navigation button {
+  flex: 1;
+  background: linear-gradient(135deg, #F59E0B, #D97706);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.popup-navigation button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #FBBF24, #F59E0B);
+  transform: translateY(-1px);
+}
+
+.popup-navigation button:disabled {
+  background: linear-gradient(135deg, #6B7280, #4B5563);
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Custom mapbox popup tips */
 .mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip,
 .mapboxgl-popup-anchor-bottom-left .mapboxgl-popup-tip,
 .mapboxgl-popup-anchor-bottom-right .mapboxgl-popup-tip {
-  border-top-color: #1f2937;
+  border-top-color: #1e293b;
 }
 
 .mapboxgl-popup-anchor-top .mapboxgl-popup-tip,
 .mapboxgl-popup-anchor-top-left .mapboxgl-popup-tip,
 .mapboxgl-popup-anchor-top-right .mapboxgl-popup-tip {
-  border-bottom-color: #1f2937;
+  border-bottom-color: #1e293b;
 }
 
 .mapboxgl-popup-anchor-left .mapboxgl-popup-tip {
-  border-right-color: #1f2937;
+  border-right-color: #1e293b;
 }
 
 .mapboxgl-popup-anchor-right .mapboxgl-popup-tip {
-  border-left-color: #1f2937;
+  border-left-color: #1e293b;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .game-ui {
+    left: 10px;
+    right: 10px;
+  }
+  
+  .game-header {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+  
+  .available-states {
+    justify-content: center;
+  }
+  
+  .current-state {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+  
+  .navigation-controls {
+    flex-direction: column;
+  }
+  
+  .nav-button {
+    min-width: auto;
+  }
 }
