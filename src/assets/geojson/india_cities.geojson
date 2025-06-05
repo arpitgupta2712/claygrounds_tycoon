@@ -1,0 +1,3412 @@
+{
+  "type": "FeatureCollection",
+  "name": "indian_cities",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1,
+        "name": "Mumbai",
+        "state": "Maharashtra",
+        "type": "city",
+        "population_rank": 1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.825833,
+          18.975
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 2,
+        "name": "Delhi",
+        "state": "Delhi",
+        "type": "city",
+        "population_rank": 2
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.216667,
+          28.666667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 3,
+        "name": "Bangalore",
+        "state": "Karnataka",
+        "type": "city",
+        "population_rank": 3
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.583333,
+          12.983333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 4,
+        "name": "Hyderabad",
+        "state": "Telangana",
+        "type": "city",
+        "population_rank": 4
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.474444,
+          17.375278
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 5,
+        "name": "Ahmedabad",
+        "state": "Gujarat",
+        "type": "city",
+        "population_rank": 5
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.616667,
+          23.033333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 6,
+        "name": "Chennai",
+        "state": "Tamil Nadu",
+        "type": "city",
+        "population_rank": 6
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.283333,
+          13.083333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 7,
+        "name": "Kolkata",
+        "state": "West Bengal",
+        "type": "city",
+        "population_rank": 7
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          88.369722,
+          22.569722
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 8,
+        "name": "Surat",
+        "state": "Gujarat",
+        "type": "city",
+        "population_rank": 8
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.9,
+          20.966667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 9,
+        "name": "Pune",
+        "state": "Maharashtra",
+        "type": "city",
+        "population_rank": 9
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.866667,
+          18.533333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 10,
+        "name": "Jaipur",
+        "state": "Rajasthan",
+        "type": "city",
+        "population_rank": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          86.85,
+          24.583333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 11,
+        "name": "Lucknow",
+        "state": "Uttar Pradesh",
+        "type": "city",
+        "population_rank": 11
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.916667,
+          26.85
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 12,
+        "name": "Kanpur",
+        "state": "Uttar Pradesh",
+        "type": "city",
+        "population_rank": 12
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.35,
+          26.466667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 13,
+        "name": "Nagpur",
+        "state": "Maharashtra",
+        "type": "city",
+        "population_rank": 13
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          82.3,
+          23.3
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 14,
+        "name": "Indore",
+        "state": "Madhya Pradesh",
+        "type": "city",
+        "population_rank": 14
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.833333,
+          22.716667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 15,
+        "name": "Thane",
+        "state": "Maharashtra",
+        "type": "city",
+        "population_rank": 15
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.966667,
+          19.2
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 16,
+        "name": "Bhopal",
+        "state": "Madhya Pradesh",
+        "type": "city",
+        "population_rank": 16
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.4,
+          23.266667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 17,
+        "name": "Visakhapatnam",
+        "state": "Andhra Pradesh",
+        "type": "city",
+        "population_rank": 17
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          83.3,
+          17.7
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 18,
+        "name": "Pimpri-Chinchwad",
+        "state": "Maharashtra",
+        "type": "city",
+        "population_rank": 18
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.8009829,
+          18.6279288
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 19,
+        "name": "Patna",
+        "state": "Bihar",
+        "type": "city",
+        "population_rank": 19
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          82.666667,
+          23.3
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 20,
+        "name": "Vadodara",
+        "state": "Gujarat",
+        "type": "city",
+        "population_rank": 20
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.2,
+          22.3
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 21,
+        "name": "Ghaziabad",
+        "state": "Uttar Pradesh",
+        "type": "city",
+        "population_rank": 21
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.433333,
+          28.666667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 22,
+        "name": "Ludhiana",
+        "state": "Punjab",
+        "type": "city",
+        "population_rank": 22
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.85,
+          30.9
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 23,
+        "name": "Agra",
+        "state": "Uttar Pradesh",
+        "type": "city",
+        "population_rank": 23
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.016667,
+          27.183333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 24,
+        "name": "Nashik",
+        "state": "Maharashtra",
+        "type": "city",
+        "population_rank": 24
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.7903373,
+          20.0110224
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 25,
+        "name": "Faridabad",
+        "state": "Haryana",
+        "type": "city",
+        "population_rank": 25
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.316667,
+          28.433333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 26,
+        "name": "Meerut",
+        "state": "Uttar Pradesh",
+        "type": "city",
+        "population_rank": 26
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.7,
+          28.983333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 27,
+        "name": "Rajkot",
+        "state": "Gujarat",
+        "type": "city",
+        "population_rank": 27
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.5925,
+          25.731111
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 28,
+        "name": "Kalyan-Dombivali",
+        "state": "Maharashtra",
+        "type": "city",
+        "population_rank": 28
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.129889,
+          19.235433
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 29,
+        "name": "Vasai-Virar",
+        "state": "Maharashtra",
+        "type": "city",
+        "population_rank": 29
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8224901,
+          19.4258788
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 30,
+        "name": "Varanasi",
+        "state": "Uttar Pradesh",
+        "type": "city",
+        "population_rank": 30
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          83,
+          25.333333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 31,
+        "name": "Srinagar",
+        "state": "Jammu and Kashmir",
+        "type": "city",
+        "population_rank": 31
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.783333,
+          30.216667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 32,
+        "name": "Aurangabad",
+        "state": "Maharashtra",
+        "type": "city",
+        "population_rank": 32
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.9701,
+          26.596
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 33,
+        "name": "Dhanbad",
+        "state": "Jharkhand",
+        "type": "city",
+        "population_rank": 33
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          86.45,
+          23.8
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 34,
+        "name": "Amritsar",
+        "state": "Punjab",
+        "type": "city",
+        "population_rank": 34
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.865556,
+          31.633056
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 35,
+        "name": "Navi Mumbai",
+        "state": "Maharashtra",
+        "type": "city",
+        "population_rank": 35
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.029662,
+          19.033049
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 36,
+        "name": "Allahabad",
+        "state": "Uttar Pradesh",
+        "type": "city",
+        "population_rank": 36
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          81.85,
+          25.45
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 37,
+        "name": "Ranchi",
+        "state": "Jharkhand",
+        "type": "city",
+        "population_rank": 37
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          85.333333,
+          23.35
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 38,
+        "name": "Howrah",
+        "state": "West Bengal",
+        "type": "city",
+        "population_rank": 38
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          88.310278,
+          22.589167
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 39,
+        "name": "Coimbatore",
+        "state": "Tamil Nadu",
+        "type": "city",
+        "population_rank": 39
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.961389,
+          10.9925
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 40,
+        "name": "Jabalpur",
+        "state": "Madhya Pradesh",
+        "type": "city",
+        "population_rank": 40
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.95,
+          23.166667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 41,
+        "name": "Gwalior",
+        "state": "Madhya Pradesh",
+        "type": "city",
+        "population_rank": 41
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.179167,
+          26.223611
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 42,
+        "name": "Vijayawada",
+        "state": "Andhra Pradesh",
+        "type": "city",
+        "population_rank": 42
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.616667,
+          16.516667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 43,
+        "name": "Jodhpur",
+        "state": "Rajasthan",
+        "type": "city",
+        "population_rank": 43
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.03,
+          26.286667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 44,
+        "name": "Madurai",
+        "state": "Tamil Nadu",
+        "type": "city",
+        "population_rank": 44
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.116667,
+          9.933333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 45,
+        "name": "Raipur",
+        "state": "Chhattisgarh",
+        "type": "city",
+        "population_rank": 45
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.1,
+          30.316667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 46,
+        "name": "Kota",
+        "state": "Rajasthan",
+        "type": "city",
+        "population_rank": 46
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.671389,
+          29.825278
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 47,
+        "name": "Guwahati",
+        "state": "Assam",
+        "type": "city",
+        "population_rank": 47
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          91.733333,
+          26.183333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 48,
+        "name": "Chandigarh",
+        "state": "Chandigarh",
+        "type": "city",
+        "population_rank": 48
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.7933,
+          30.7343
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 49,
+        "name": "Solapur",
+        "state": "Maharashtra",
+        "type": "city",
+        "population_rank": 49
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.916667,
+          17.683333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 50,
+        "name": "Hubballi-Dharwad",
+        "state": "Karnataka",
+        "type": "city",
+        "population_rank": 50
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.123955,
+          15.364708
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 51,
+        "name": "Bareilly",
+        "state": "Uttar Pradesh",
+        "type": "city",
+        "population_rank": 51
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.416667,
+          28.35
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 52,
+        "name": "Moradabad",
+        "state": "Uttar Pradesh",
+        "type": "city",
+        "population_rank": 52
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.783333,
+          28.833333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 53,
+        "name": "Mysore",
+        "state": "Karnataka",
+        "type": "city",
+        "population_rank": 53
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.649722,
+          12.307222
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 54,
+        "name": "Gurgaon",
+        "state": "Haryana",
+        "type": "city",
+        "population_rank": 54
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.6766,
+          27.6928
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 55,
+        "name": "Aligarh",
+        "state": "Uttar Pradesh",
+        "type": "city",
+        "population_rank": 55
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.083333,
+          27.883333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 56,
+        "name": "Jalandhar",
+        "state": "Punjab",
+        "type": "city",
+        "population_rank": 56
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.433333,
+          23.9
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 57,
+        "name": "Tiruchirappalli",
+        "state": "Tamil Nadu",
+        "type": "city",
+        "population_rank": 57
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.685556,
+          10.805
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 58,
+        "name": "Bhubaneswar",
+        "state": "Orissa",
+        "type": "city",
+        "population_rank": 58
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          85.833333,
+          20.233333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 59,
+        "name": "Salem",
+        "state": "Tamil Nadu",
+        "type": "city",
+        "population_rank": 59
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.916667,
+          15.7
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 60,
+        "name": "Mira-Bhayandar",
+        "state": "Maharashtra",
+        "type": "city",
+        "population_rank": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.85439,
+          19.295233
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 61,
+        "name": "Warangal",
+        "state": "Telangana",
+        "type": "city",
+        "population_rank": 61
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.583333,
+          18
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 62,
+        "name": "Thiruvananthapuram",
+        "state": "Kerala",
+        "type": "city",
+        "population_rank": 62
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.956944,
+          8.506944
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 63,
+        "name": "Guntur",
+        "state": "Andhra Pradesh",
+        "type": "city",
+        "population_rank": 63
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.45,
+          16.3
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 64,
+        "name": "Bhiwandi",
+        "state": "Maharashtra",
+        "type": "city",
+        "population_rank": 64
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.066667,
+          19.3
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 65,
+        "name": "Saharanpur",
+        "state": "Uttar Pradesh",
+        "type": "city",
+        "population_rank": 65
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.55,
+          29.966667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 66,
+        "name": "Gorakhpur",
+        "state": "Uttar Pradesh",
+        "type": "city",
+        "population_rank": 66
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          83.373889,
+          26.755
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 67,
+        "name": "Bikaner",
+        "state": "Rajasthan",
+        "type": "city",
+        "population_rank": 67
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.3,
+          28.016667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 68,
+        "name": "Amravati",
+        "state": "Maharashtra",
+        "type": "city",
+        "population_rank": 68
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.75,
+          20.933333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 69,
+        "name": "Noida",
+        "state": "Uttar Pradesh",
+        "type": "city",
+        "population_rank": 69
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.3547609,
+          28.5726442
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 70,
+        "name": "Jamshedpur",
+        "state": "Jharkhand",
+        "type": "city",
+        "population_rank": 70
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          86.183333,
+          22.8
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 71,
+        "name": "Bhilai",
+        "state": "Chhattisgarh",
+        "type": "city",
+        "population_rank": 71
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          81.433333,
+          21.216667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 72,
+        "name": "Cuttack",
+        "state": "Orissa",
+        "type": "city",
+        "population_rank": 72
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          85.833333,
+          20.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 73,
+        "name": "Firozabad",
+        "state": "Uttar Pradesh",
+        "type": "city",
+        "population_rank": 73
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.416667,
+          27.15
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 74,
+        "name": "Kochi",
+        "state": "Kerala",
+        "type": "city",
+        "population_rank": 74
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.233333,
+          9.966667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 75,
+        "name": "Bhavnagar",
+        "state": "Gujarat",
+        "type": "city",
+        "population_rank": 75
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.15,
+          21.766667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 76,
+        "name": "Dehradun",
+        "state": "Uttarakhand",
+        "type": "city",
+        "population_rank": 76
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.0436813,
+          30.3255646
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 77,
+        "name": "Durgapur",
+        "state": "West Bengal",
+        "type": "city",
+        "population_rank": 77
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          87.733333,
+          24.75
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 78,
+        "name": "Asansol",
+        "state": "West Bengal",
+        "type": "city",
+        "population_rank": 78
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          87.283333,
+          24.233333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 79,
+        "name": "Nanded",
+        "state": "Maharashtra",
+        "type": "city",
+        "population_rank": 79
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.333333,
+          19.15
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 80,
+        "name": "Kolhapur",
+        "state": "Maharashtra",
+        "type": "city",
+        "population_rank": 80
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.216667,
+          16.7
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 81,
+        "name": "Ajmer",
+        "state": "Rajasthan",
+        "type": "city",
+        "population_rank": 81
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.633333,
+          26.45
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 82,
+        "name": "Gulbarga",
+        "state": "Karnataka",
+        "type": "city",
+        "population_rank": 82
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.833333,
+          17.333333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 83,
+        "name": "Jamnagar",
+        "state": "Gujarat",
+        "type": "city",
+        "population_rank": 83
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          70.066667,
+          22.466667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 84,
+        "name": "Ujjain",
+        "state": "Madhya Pradesh",
+        "type": "city",
+        "population_rank": 84
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.766667,
+          23.183333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 85,
+        "name": "Loni",
+        "state": "Uttar Pradesh",
+        "type": "city",
+        "population_rank": 85
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.283333,
+          28.75
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 86,
+        "name": "Siliguri",
+        "state": "West Bengal",
+        "type": "city",
+        "population_rank": 86
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          88.423611,
+          26.716111
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 87,
+        "name": "Jhansi",
+        "state": "Uttar Pradesh",
+        "type": "city",
+        "population_rank": 87
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.583333,
+          25.433333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 88,
+        "name": "Ulhasnagar",
+        "state": "Maharashtra",
+        "type": "city",
+        "population_rank": 88
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.15,
+          19.216667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 89,
+        "name": "Nellore",
+        "state": "Andhra Pradesh",
+        "type": "city",
+        "population_rank": 89
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.966667,
+          14.433333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 90,
+        "name": "Jammu",
+        "state": "Jammu and Kashmir",
+        "type": "city",
+        "population_rank": 90
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.866667,
+          32.733333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 91,
+        "name": "Sangli-Miraj & Kupwad",
+        "state": "Maharashtra",
+        "type": "city",
+        "population_rank": 91
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.565518,
+          16.860446
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 92,
+        "name": "Belgaum",
+        "state": "Karnataka",
+        "type": "city",
+        "population_rank": 92
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.5,
+          15.866667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 93,
+        "name": "Mangalore",
+        "state": "Karnataka",
+        "type": "city",
+        "population_rank": 93
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.835278,
+          12.863889
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 94,
+        "name": "Ambattur",
+        "state": "Tamil Nadu",
+        "type": "city",
+        "population_rank": 94
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.088611,
+          13.076667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 95,
+        "name": "Tirunelveli",
+        "state": "Tamil Nadu",
+        "type": "city",
+        "population_rank": 95
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.7,
+          8.733333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 96,
+        "name": "Malegaon",
+        "state": "Maharashtra",
+        "type": "city",
+        "population_rank": 96
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.533333,
+          20.55
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 97,
+        "name": "Gaya",
+        "state": "Bihar",
+        "type": "city",
+        "population_rank": 97
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          85,
+          24.783333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 98,
+        "name": "Jalgaon",
+        "state": "Maharashtra",
+        "type": "city",
+        "population_rank": 98
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.534444,
+          21.048611
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 99,
+        "name": "Udaipur",
+        "state": "Rajasthan",
+        "type": "city",
+        "population_rank": 99
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.9216,
+          26.6978
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 100,
+        "name": "Maheshtala",
+        "state": "West Bengal",
+        "type": "city",
+        "population_rank": 100
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          88.2532182,
+          22.508621
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 101,
+        "name": "Tirupur",
+        "state": "Tamil Nadu",
+        "type": "city",
+        "population_rank": 101
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.35,
+          11.1
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 102,
+        "name": "Davanagere",
+        "state": "Karnataka",
+        "type": "city",
+        "population_rank": 102
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.9289654951128,
+          14.4596984
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 103,
+        "name": "Kozhikode",
+        "state": "Kerala",
+        "type": "city",
+        "population_rank": 103
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.766667,
+          11.25
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 104,
+        "name": "Akola",
+        "state": "Maharashtra",
+        "type": "city",
+        "population_rank": 104
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.2,
+          24.766667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 105,
+        "name": "Kurnool",
+        "state": "Andhra Pradesh",
+        "type": "city",
+        "population_rank": 105
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.05,
+          15.833333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 106,
+        "name": "Rajpur Sonarpur",
+        "state": "West Bengal",
+        "type": "city",
+        "population_rank": 106
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          88.391473,
+          22.449089
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 107,
+        "name": "Bokaro",
+        "state": "Jharkhand",
+        "type": "city",
+        "population_rank": 107
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          85.966667,
+          23.783333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 108,
+        "name": "South Dumdum",
+        "state": "West Bengal",
+        "type": "city",
+        "population_rank": 108
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          88.4,
+          22.61
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 109,
+        "name": "Bellary",
+        "state": "Karnataka",
+        "type": "city",
+        "population_rank": 109
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.933333,
+          15.15
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 110,
+        "name": "Patiala",
+        "state": "Punjab",
+        "type": "city",
+        "population_rank": 110
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.400278,
+          30.326667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 111,
+        "name": "Gopalpur",
+        "state": "West Bengal",
+        "type": "city",
+        "population_rank": 111
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          87.8,
+          24.833333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 112,
+        "name": "Agartala",
+        "state": "Tripura",
+        "type": "city",
+        "population_rank": 112
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          91.275,
+          23.836389
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 113,
+        "name": "Bhagalpur",
+        "state": "Bihar",
+        "type": "city",
+        "population_rank": 113
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          83.872778,
+          26.169722
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 114,
+        "name": "Muzaffarnagar",
+        "state": "Uttar Pradesh",
+        "type": "city",
+        "population_rank": 114
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.683333,
+          29.466667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 115,
+        "name": "Bhatpara",
+        "state": "West Bengal",
+        "type": "city",
+        "population_rank": 115
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          88.408889,
+          22.871389
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 116,
+        "name": "Panihati",
+        "state": "West Bengal",
+        "type": "city",
+        "population_rank": 116
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          88.374444,
+          22.694167
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 117,
+        "name": "Latur",
+        "state": "Maharashtra",
+        "type": "city",
+        "population_rank": 117
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.583333,
+          18.4
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 118,
+        "name": "Dhule",
+        "state": "Maharashtra",
+        "type": "city",
+        "population_rank": 118
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.783333,
+          20.9
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 119,
+        "name": "Rohtak",
+        "state": "Haryana",
+        "type": "city",
+        "population_rank": 119
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.566667,
+          28.9
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 120,
+        "name": "Korba",
+        "state": "Chhattisgarh",
+        "type": "city",
+        "population_rank": 120
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          82.683333,
+          22.35
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 121,
+        "name": "Bhilwara",
+        "state": "Rajasthan",
+        "type": "city",
+        "population_rank": 121
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.633333,
+          25.35
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 122,
+        "name": "Brahmapur",
+        "state": "Orissa",
+        "type": "city",
+        "population_rank": 122
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          84.783333,
+          19.316667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 123,
+        "name": "Muzaffarpur",
+        "state": "Bihar",
+        "type": "city",
+        "population_rank": 123
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          85.4,
+          26.116667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 124,
+        "name": "Ahmednagar",
+        "state": "Maharashtra",
+        "type": "city",
+        "population_rank": 124
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.733333,
+          19.083333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 125,
+        "name": "Mathura",
+        "state": "Uttar Pradesh",
+        "type": "city",
+        "population_rank": 125
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.683333,
+          27.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 126,
+        "name": "Kollam",
+        "state": "Kerala",
+        "type": "city",
+        "population_rank": 126
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.591667,
+          8.880556
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 127,
+        "name": "Avadi",
+        "state": "Tamil Nadu",
+        "type": "city",
+        "population_rank": 127
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.101667,
+          13.115556
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 128,
+        "name": "Rajahmundry",
+        "state": "Andhra Pradesh",
+        "type": "city",
+        "population_rank": 128
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          81.783333,
+          16.983333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 129,
+        "name": "Kadapa",
+        "state": "Andhra Pradesh",
+        "type": "city",
+        "population_rank": 129
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.816667,
+          14.466667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 130,
+        "name": "Kamarhati",
+        "state": "West Bengal",
+        "type": "city",
+        "population_rank": 130
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          88.374722,
+          22.671111
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 131,
+        "name": "Bilaspur",
+        "state": "Chhattisgarh",
+        "type": "city",
+        "population_rank": 131
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          82.15,
+          22.083333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 132,
+        "name": "Shahjahanpur",
+        "state": "Uttar Pradesh",
+        "type": "city",
+        "population_rank": 132
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.916667,
+          27.883333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 133,
+        "name": "Bijapur",
+        "state": "Karnataka",
+        "type": "city",
+        "population_rank": 133
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.816667,
+          18.8
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 134,
+        "name": "Rampur",
+        "state": "Uttar Pradesh",
+        "type": "city",
+        "population_rank": 134
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          85.433333,
+          23.283333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 135,
+        "name": "Shivamogga (Shimoga)",
+        "state": "Karnataka",
+        "type": "city",
+        "population_rank": 135
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.568101,
+          13.92993
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 136,
+        "name": "Chandrapur",
+        "state": "Maharashtra",
+        "type": "city",
+        "population_rank": 136
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          83.883333,
+          19.6
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 137,
+        "name": "Junagadh",
+        "state": "Gujarat",
+        "type": "city",
+        "population_rank": 137
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          70.466667,
+          21.516667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 138,
+        "name": "Thrissur",
+        "state": "Kerala",
+        "type": "city",
+        "population_rank": 138
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.216667,
+          10.516667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 139,
+        "name": "Alwar",
+        "state": "Rajasthan",
+        "type": "city",
+        "population_rank": 139
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.6,
+          27.566667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 140,
+        "name": "Bardhaman",
+        "state": "West Bengal",
+        "type": "city",
+        "population_rank": 140
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          87.869444,
+          23.240556
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 141,
+        "name": "Kulti",
+        "state": "West Bengal",
+        "type": "city",
+        "population_rank": 141
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          86.85,
+          23.733333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 142,
+        "name": "Kakinada",
+        "state": "Andhra Pradesh",
+        "type": "city",
+        "population_rank": 142
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          82.216667,
+          16.933333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 143,
+        "name": "Nizamabad",
+        "state": "Telangana",
+        "type": "city",
+        "population_rank": 143
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          83.058889,
+          26.050556
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 144,
+        "name": "Parbhani",
+        "state": "Maharashtra",
+        "type": "city",
+        "population_rank": 144
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.783333,
+          19.266667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 145,
+        "name": "Tumkur",
+        "state": "Karnataka",
+        "type": "city",
+        "population_rank": 145
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.101667,
+          13.342222
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 146,
+        "name": "Hisar",
+        "state": "Haryana",
+        "type": "city",
+        "population_rank": 146
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.716667,
+          29.166667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 147,
+        "name": "Ozhukarai",
+        "state": "Puducherry",
+        "type": "city",
+        "population_rank": 147
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.712141,
+          11.94888
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 148,
+        "name": "Bihar Sharif",
+        "state": "Bihar",
+        "type": "city",
+        "population_rank": 148
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          85.516667,
+          25.183333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 149,
+        "name": "Panipat",
+        "state": "Haryana",
+        "type": "city",
+        "population_rank": 149
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.968056,
+          29.388889
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 150,
+        "name": "Darbhanga",
+        "state": "Bihar",
+        "type": "city",
+        "population_rank": 150
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          85.9,
+          26.166667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 151,
+        "name": "Bally",
+        "state": "West Bengal",
+        "type": "city",
+        "population_rank": 151
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.033333,
+          15.166667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 152,
+        "name": "Aizawl",
+        "state": "Mizoram",
+        "type": "city",
+        "population_rank": 152
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          92.7175,
+          23.724444
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 153,
+        "name": "Dewas",
+        "state": "Madhya Pradesh",
+        "type": "city",
+        "population_rank": 153
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.066667,
+          22.966667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 154,
+        "name": "Ichalkaranji",
+        "state": "Maharashtra",
+        "type": "city",
+        "population_rank": 154
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.466667,
+          16.7
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 155,
+        "name": "Tirupati",
+        "state": "Andhra Pradesh",
+        "type": "city",
+        "population_rank": 155
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.416667,
+          13.65
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 156,
+        "name": "Karnal",
+        "state": "Haryana",
+        "type": "city",
+        "population_rank": 156
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.983333,
+          29.683333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 157,
+        "name": "Bathinda",
+        "state": "Punjab",
+        "type": "city",
+        "population_rank": 157
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.9485371,
+          30.2081076
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 158,
+        "name": "Jalna",
+        "state": "Maharashtra",
+        "type": "city",
+        "population_rank": 158
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.2137,
+          24.0988
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 159,
+        "name": "Barasat",
+        "state": "West Bengal",
+        "type": "city",
+        "population_rank": 159
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          88.441111,
+          22.684167
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 160,
+        "name": "Kirari Suleman Nagar",
+        "state": "Delhi",
+        "type": "city",
+        "population_rank": 160
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.047811,
+          28.701638
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 161,
+        "name": "Purnia",
+        "state": "Bihar",
+        "type": "city",
+        "population_rank": 161
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          87.133333,
+          24.516667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 162,
+        "name": "Satna",
+        "state": "Madhya Pradesh",
+        "type": "city",
+        "population_rank": 162
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.833333,
+          24.583333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 163,
+        "name": "Mau",
+        "state": "Uttar Pradesh",
+        "type": "city",
+        "population_rank": 163
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          83.561111,
+          25.941667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 164,
+        "name": "Sonipat",
+        "state": "Haryana",
+        "type": "city",
+        "population_rank": 164
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.016667,
+          28.983333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 165,
+        "name": "Farrukhabad",
+        "state": "Uttar Pradesh",
+        "type": "city",
+        "population_rank": 165
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.566667,
+          27.4
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 166,
+        "name": "Sagar",
+        "state": "Madhya Pradesh",
+        "type": "city",
+        "population_rank": 166
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          82,
+          22.066667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 167,
+        "name": "Rourkela",
+        "state": "Orissa",
+        "type": "city",
+        "population_rank": 167
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          84.883333,
+          22.2
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 168,
+        "name": "Durg",
+        "state": "Chhattisgarh",
+        "type": "city",
+        "population_rank": 168
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          81.283333,
+          21.183333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 169,
+        "name": "Imphal",
+        "state": "Manipur",
+        "type": "city",
+        "population_rank": 169
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          93.95,
+          24.816667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 170,
+        "name": "Ratlam",
+        "state": "Madhya Pradesh",
+        "type": "city",
+        "population_rank": 170
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.066667,
+          23.316667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 171,
+        "name": "Hapur",
+        "state": "Uttar Pradesh",
+        "type": "city",
+        "population_rank": 171
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.783333,
+          28.716667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 172,
+        "name": "Anantapur",
+        "state": "Andhra Pradesh",
+        "type": "city",
+        "population_rank": 172
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.5342,
+          26.829
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 173,
+        "name": "Arrah",
+        "state": "Bihar",
+        "type": "city",
+        "population_rank": 173
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          84.666667,
+          25.566667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 174,
+        "name": "Karimnagar",
+        "state": "Telangana",
+        "type": "city",
+        "population_rank": 174
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.2581,
+          27.7974
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 175,
+        "name": "Etawah",
+        "state": "Uttar Pradesh",
+        "type": "city",
+        "population_rank": 175
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.0239,
+          26.7769
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 176,
+        "name": "Ambernath",
+        "state": "Maharashtra",
+        "type": "city",
+        "population_rank": 176
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.2004771,
+          19.2015607
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 177,
+        "name": "North Dumdum",
+        "state": "West Bengal",
+        "type": "city",
+        "population_rank": 177
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          88.41907,
+          22.65208
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 178,
+        "name": "Bharatpur",
+        "state": "Rajasthan",
+        "type": "city",
+        "population_rank": 178
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.3921,
+          27.1268
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 179,
+        "name": "Begusarai",
+        "state": "Bihar",
+        "type": "city",
+        "population_rank": 179
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          86.133333,
+          25.416667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 180,
+        "name": "New Delhi",
+        "state": "Delhi",
+        "type": "city",
+        "population_rank": 180
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2,
+          28.6
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 181,
+        "name": "Gandhidham",
+        "state": "Gujarat",
+        "type": "city",
+        "population_rank": 181
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          70.133333,
+          23.083333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 182,
+        "name": "Baranagar",
+        "state": "West Bengal",
+        "type": "city",
+        "population_rank": 182
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          88.365278,
+          22.643333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 183,
+        "name": "Tiruvottiyur",
+        "state": "Tamil Nadu",
+        "type": "city",
+        "population_rank": 183
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.304167,
+          13.157778
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 184,
+        "name": "Puducherry",
+        "state": "Puducherry",
+        "type": "city",
+        "population_rank": 184
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.83,
+          11.93
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 185,
+        "name": "Sikar",
+        "state": "Rajasthan",
+        "type": "city",
+        "population_rank": 185
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.15,
+          27.616667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 186,
+        "name": "Thoothukudi",
+        "state": "Tamil Nadu",
+        "type": "city",
+        "population_rank": 186
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.133333,
+          8.783333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 187,
+        "name": "Rewa",
+        "state": "Madhya Pradesh",
+        "type": "city",
+        "population_rank": 187
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.0231,
+          27.9161
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 188,
+        "name": "Mirzapur",
+        "state": "Uttar Pradesh",
+        "type": "city",
+        "population_rank": 188
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          82.583333,
+          25.15
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 189,
+        "name": "Raichur",
+        "state": "Karnataka",
+        "type": "city",
+        "population_rank": 189
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.366667,
+          16.2
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 190,
+        "name": "Pali",
+        "state": "Rajasthan",
+        "type": "city",
+        "population_rank": 190
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.543889,
+          29.85
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 191,
+        "name": "Khammam",
+        "state": "Telangana",
+        "type": "city",
+        "population_rank": 191
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.15,
+          17.25
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 192,
+        "name": "Vizianagaram",
+        "state": "Andhra Pradesh",
+        "type": "city",
+        "population_rank": 192
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          83.416667,
+          18.116667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 193,
+        "name": "Katihar",
+        "state": "Bihar",
+        "type": "city",
+        "population_rank": 193
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          87.583333,
+          25.533333
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 194,
+        "name": "Haridwar",
+        "state": "Uttarakhand",
+        "type": "city",
+        "population_rank": 194
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.166667,
+          29.966667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 195,
+        "name": "Sri Ganganagar",
+        "state": "Rajasthan",
+        "type": "city",
+        "population_rank": 195
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.883333,
+          29.916667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 196,
+        "name": "Karawal Nagar",
+        "state": "Delhi",
+        "type": "city",
+        "population_rank": 196
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.276926,
+          28.72831
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 197,
+        "name": "Nagercoil",
+        "state": "Tamil Nadu",
+        "type": "city",
+        "population_rank": 197
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.431389,
+          8.193889
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 198,
+        "name": "Mango",
+        "state": "Jharkhand",
+        "type": "city",
+        "population_rank": 198
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.1055442299247,
+          13.22526165
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 199,
+        "name": "Bulandshahr",
+        "state": "Uttar Pradesh",
+        "type": "city",
+        "population_rank": 199
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.85,
+          28.4
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 200,
+        "name": "Thanjavur",
+        "state": "Tamil Nadu",
+        "type": "city",
+        "population_rank": 200
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.15,
+          10.8
+        ]
+      }
+    }
+  ]
+}
