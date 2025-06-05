@@ -9,16 +9,20 @@ import '../../styles/states.css';
 import { api } from '../../services/api';
 import { testApiConnection } from '../../utils/testApi';
 import MapMarker from './MapMarker';
-import GameUI, { VIEW_MODES } from './GameUI';
-import MapStyleSwitcher, { MAP_STYLES } from './MapStyleSwitcher';
-import ViewControl, { VIEW_TYPES } from './ViewControl';
+import { VIEW_MODES } from './GameUI';
+import { VIEW_TYPES } from './ViewControl';
 import LocationModal from './LocationModal';
 import CitiesLayer, { createCityPopup } from './CitiesLayer';
-import CitiesControl from './CitiesControl';
 import DistrictBoundariesLayer, { createDistrictPopup } from './DistrictBoundariesLayer';
-import DistrictControl from './DistrictControl';
 import StateBoundariesLayer from './StateBoundariesLayer';
-import StateControl from './StateControl';
+import ControlSidebar from '../ui/ControlSidebar';
+import SidebarToggle from '../ui/SidebarToggle';
+import ViewControlPanel from '../ui/ViewControlPanel';
+import MapStyleControlPanel, { MAP_STYLES } from '../ui/MapStyleControlPanel';
+import StatesControlPanel from '../ui/StatesControlPanel';
+import CitiesControlPanel from '../ui/CitiesControlPanel';
+import DistrictsControlPanel from '../ui/DistrictsControlPanel';
+import TerritorySelectionPanel from '../ui/TerritorySelectionPanel';
 
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN || '';
 const indiaCenter = [78.9629, 20.5937];
@@ -118,6 +122,10 @@ const MapContainer = () => {
   const [cityPopup, setCityPopup] = useState(null);
   const [selectedDistrict, setSelectedDistrict] = useState(null);
   const [showDistricts] = useState(true);
+
+  // Sidebar state
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [leftSidebarOpen, setLeftSidebarOpen] = useState(true);
 
   // Initialize data
   useEffect(() => {
@@ -599,6 +607,24 @@ const MapContainer = () => {
     };
   }, [cityPopup]);
 
+  // Update map size when sidebar state changes
+  useEffect(() => {
+    if (mapRef.current) {
+      // Small delay to allow CSS transitions to complete
+      setTimeout(() => {
+        mapRef.current.resize();
+      }, 300);
+    }
+  }, [sidebarOpen, leftSidebarOpen]);
+
+  const mapContainerStyle = {
+    width: '100%',
+    height: '100vh',
+    marginRight: sidebarOpen ? 'var(--cg-sidebar-width)' : '0',
+    marginLeft: leftSidebarOpen && viewMode === VIEW_MODES.STATE_SELECTION ? 'var(--cg-sidebar-left-width)' : '0',
+    transition: 'margin var(--cg-transition-base)'
+  };
+
   if (!MAPBOX_TOKEN) {
     return (
       <div className="mapbox-map-container" style={{ 
@@ -628,7 +654,7 @@ const MapContainer = () => {
         </div>
       )}
       
-      <div ref={mapContainerRef} style={{ width: '100%', height: '100vh' }} />
+      <div ref={mapContainerRef} style={mapContainerStyle} />
       
       {/* Add State Boundaries Layer */}
       <StateBoundariesLayer
@@ -656,58 +682,145 @@ const MapContainer = () => {
         selectedDistrict={selectedDistrict}
       />
       
-      <GameUI
-        viewMode={viewMode}
-        apiTestResult={apiTestResult}
-        availableStates={availableStates}
-        selectedState={selectedState}
-        stateLocations={stateLocations}
-        currentLocationIndex={currentLocationIndex}
-        isAnimating={isAnimating}
-        onSelectState={selectState}
-        onBackToStateSelection={backToStateSelection}
-        onPrevLocation={prevLocation}
-        onNextLocation={nextLocation}
-      />
-      
-      <ViewControl
-        currentView={currentView}
-        onViewChange={handleViewChange}
-        isVisible={viewMode !== VIEW_MODES.STATE_FOCUSED}
-      />
-      
-      <MapStyleSwitcher
-        currentStyle={currentMapStyle}
-        onStyleChange={handleStyleChange}
-        isVisible={viewMode === VIEW_MODES.STATE_SELECTION}
+      {/* Left Sidebar for Territory Selection */}
+      {viewMode === VIEW_MODES.STATE_SELECTION && (
+        <ControlSidebar
+          isOpen={leftSidebarOpen}
+          onToggle={setLeftSidebarOpen}
+          title="Territory Selection"
+          className="cg-sidebar-left"
+        >
+          <TerritorySelectionPanel
+            viewMode={viewMode}
+            apiTestResult={apiTestResult}
+            availableStates={availableStates}
+            selectedState={selectedState}
+            onSelectState={selectState}
+            isAnimating={isAnimating}
+          />
+        </ControlSidebar>
+      )}
+
+      {/* Navigation UI for other modes */}
+      {(viewMode === VIEW_MODES.STATE_FOCUSED || viewMode === VIEW_MODES.LOCATION_NAVIGATION) && (
+        <div className="cg-navigation-ui">
+          {viewMode === VIEW_MODES.STATE_FOCUSED && (
+            <div className="cg-loading-state">
+              <div className="cg-loading-content">
+                <h3>🏗️ Entering {selectedState}...</h3>
+                <p>Loading 3D urban environment...</p>
+              </div>
+            </div>
+          )}
+          
+          {viewMode === VIEW_MODES.LOCATION_NAVIGATION && stateLocations.length > 0 && (
+            <div className="cg-location-navigation">
+              <div className="cg-navigation-header">
+                <div className="cg-current-state">
+                  <h3>🏗️ {selectedState}</h3>
+                  <button className="cg-btn cg-btn-outline cg-btn-sm" onClick={backToStateSelection}>
+                    ← Back to Map
+                  </button>
+                </div>
+              </div>
+              
+              <div className="cg-facility-info">
+                <h4>🏟️ {stateLocations[currentLocationIndex]?.location_name}</h4>
+                <p>{currentLocationIndex + 1} of {stateLocations.length} facilities</p>
+                <div className="cg-facility-status">
+                  <span className={`cg-status-badge ${(stateLocations[currentLocationIndex]?.operational_status || stateLocations[currentLocationIndex]?.current_status) === 'Active' ? 'active' : 'inactive'}`}>
+                    {(stateLocations[currentLocationIndex]?.operational_status || stateLocations[currentLocationIndex]?.current_status) || 'Unknown'}
+                  </span>
+                </div>
+              </div>
+              
+              <div className="cg-navigation-controls">
+                <button 
+                  onClick={prevLocation} 
+                  disabled={currentLocationIndex === 0}
+                  className="cg-btn cg-btn-secondary"
+                >
+                  ← Previous
+                </button>
+                <button 
+                  onClick={nextLocation} 
+                  disabled={currentLocationIndex === stateLocations.length - 1}
+                  className="cg-btn cg-btn-secondary"
+                >
+                  Next →
+                </button>
+              </div>
+              
+              <div className="cg-keyboard-hint">
+                <p>🎮 Use ← → arrow keys to navigate | ESC to go back</p>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Sidebar Toggle Button */}
+      <SidebarToggle 
+        isOpen={sidebarOpen}
+        onToggle={setSidebarOpen}
       />
 
-      {/* Add State Control */}
-      <StateControl
-        availableStates={availableStates}
-        selectedState={selectedState}
-        onStateSelect={selectState}
-        onClearSelection={clearStateSelection}
-        isVisible={viewMode === VIEW_MODES.STATE_SELECTION}
-      />
+      {/* Left Sidebar Toggle Button */}
+      {viewMode === VIEW_MODES.STATE_SELECTION && (
+        <SidebarToggle 
+          isOpen={leftSidebarOpen}
+          onToggle={setLeftSidebarOpen}
+          className="cg-sidebar-toggle-left"
+        />
+      )}
 
-      {/* Add Cities Control */}
-      <CitiesControl
-        showCities={showCities}
-        onToggleCities={setShowCities}
-        currentFilter={cityFilter}
-        onFilterChange={setCityFilter}
-        isControlVisible={viewMode === VIEW_MODES.STATE_SELECTION}
-      />
-      
-      {/* Add District Control */}
-      <DistrictControl
-        selectedState={selectedState}
-        selectedDistrict={selectedDistrict}
-        onDistrictSelect={handleDistrictSelect}
-        onClearSelection={clearStateSelection}
-        isVisible={selectedState !== null || showDistricts}
-      />
+      {/* Control Sidebar */}
+      <ControlSidebar
+        isOpen={sidebarOpen}
+        onToggle={setSidebarOpen}
+        title="Map Controls"
+      >
+        {/* View Control Panel */}
+        <ViewControlPanel
+          currentView={currentView}
+          onViewChange={handleViewChange}
+          isVisible={viewMode !== VIEW_MODES.STATE_FOCUSED}
+        />
+
+        {/* Map Style Control Panel */}
+        <MapStyleControlPanel
+          currentStyle={currentMapStyle}
+          onStyleChange={handleStyleChange}
+          isVisible={viewMode === VIEW_MODES.STATE_SELECTION}
+        />
+
+        {/* States Control Panel */}
+        <StatesControlPanel
+          availableStates={availableStates}
+          selectedState={selectedState}
+          onStateSelect={selectState}
+          onClearSelection={clearStateSelection}
+          isVisible={viewMode === VIEW_MODES.STATE_SELECTION}
+        />
+
+        {/* Cities Control Panel */}
+        <CitiesControlPanel
+          showCities={showCities}
+          onToggleCities={setShowCities}
+          currentFilter={cityFilter}
+          onFilterChange={setCityFilter}
+          isControlVisible={viewMode === VIEW_MODES.STATE_SELECTION}
+        />
+        
+        {/* Districts Control Panel */}
+        <DistrictsControlPanel
+          selectedState={selectedState}
+          selectedDistrict={selectedDistrict}
+          onDistrictSelect={handleDistrictSelect}
+          onClearSelection={clearStateSelection}
+          isVisible={selectedState !== null || showDistricts}
+        />
+      </ControlSidebar>
 
       <LocationModal
         location={selectedLocationForModal}

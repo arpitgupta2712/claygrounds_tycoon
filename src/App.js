@@ -1,10 +1,12 @@
 import './App.css';
-import MapContainer from './components/map/MapContainer.js';
+import './styles/theme.css';
+import './styles/layout.css';
+import Home from './pages/Home';
 
 function App() {
   return (
     <div className="App">
-      <MapContainer />
+      <Home />
     </div>
   );
 }

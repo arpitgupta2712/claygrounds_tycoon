@@ -71,8 +71,8 @@ const StateBoundariesLayer = ({
           type: 'fill',
           source: 'india-states',
           paint: {
-            'fill-color': '#B1F727',
-            'fill-opacity': 0.1,
+            'fill-color': '#000000',
+            'fill-opacity': 0.2,
           },
         });
         console.log('✅ State highlight layer added');
