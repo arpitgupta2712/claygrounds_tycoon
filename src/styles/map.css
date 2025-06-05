@@ -1,0 +1,145 @@
+/* Mapbox Map Container Styles */
+.mapbox-map-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Location Marker Styles */
+.location-marker {
+  background: linear-gradient(135deg, #10B981 60%, #3B82F6 100%);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 3px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  animation: pulse 3s infinite;
+}
+
+.location-marker:hover {
+  transform: scale(1.2);
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4);
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+  70% { box-shadow: 0 0 0 15px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+/* Loading and Error Overlays */
+.loading-overlay,
+.error-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(31, 41, 55, 0.9);
+  color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  text-align: center;
+}
+
+.loading-overlay {
+  background: rgba(16, 185, 129, 0.9);
+}
+
+.error-overlay {
+  background: rgba(239, 68, 68, 0.9);
+}
+
+/* Map Info Panel */
+.map-info {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: rgba(31, 41, 55, 0.9);
+  color: #ffffff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  font-size: 14px;
+  backdrop-filter: blur(10px);
+}
+
+.map-info p {
+  margin: 5px 0;
+}
+
+.map-info strong {
+  color: #10B981;
+}
+
+/* Custom mapbox popup styles */
+.mapboxgl-popup-content {
+  background: #1f2937;
+  color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  padding: 15px;
+  max-width: 320px;
+}
+
+.popup-content {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.popup-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #10B981;
+}
+
+.popup-details p {
+  margin: 8px 0;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.popup-details strong {
+  color: #e5e7eb;
+}
+
+.status-active {
+  color: #10B981;
+  font-weight: bold;
+}
+
+.status-closed {
+  color: #EF4444;
+  font-weight: bold;
+}
+
+.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-bottom-left .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-bottom-right .mapboxgl-popup-tip {
+  border-top-color: #1f2937;
+}
+
+.mapboxgl-popup-anchor-top .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-top-left .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-top-right .mapboxgl-popup-tip {
+  border-bottom-color: #1f2937;
+}
+
+.mapboxgl-popup-anchor-left .mapboxgl-popup-tip {
+  border-right-color: #1f2937;
+}
+
+.mapboxgl-popup-anchor-right .mapboxgl-popup-tip {
+  border-left-color: #1f2937;
+}
