@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClayGrounds Map Test</title>
+    
+    <!-- Mapbox GL JS -->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' />
+    
+    <style>
+        body { margin: 0; padding: 0; }
+        #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+        
+        .marker {
+            background: linear-gradient(135deg, #10B981 60%, #3B82F6 100%);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(59,130,246,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 3px solid #fff;
+            animation: pulse 2s infinite;
+        }
+        .marker:hover {
+            transform: scale(1.15);
+            box-shadow: 0 4px 16px rgba(16,185,129,0.3);
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(16,185,129,0.4); }
+            70% { box-shadow: 0 0 0 12px rgba(16,185,129,0); }
+            100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); }
+        }
+        .landmark-marker {
+            background: #fff;
+            border-radius: 8px;
+            padding: 4px 8px;
+            font-size: 13px;
+            color: #3B82F6;
+            border: 2px solid #3B82F6;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(59,130,246,0.2);
+        }
+        .popup {
+            max-width: 320px;
+        }
+        .popup-content {
+            padding: 10px;
+        }
+        .popup-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 18px;
+        }
+        .popup-details {
+            font-size: 15px;
+        }
+        .status-active { color: #10B981; }
+        .status-closed { color: #EF4444; }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script>
+        // Replace with your Mapbox access token
+        mapboxgl.accessToken = 'pk.eyJ1Ijoic2FtaXJzYWhuaSIsImEiOiJjbWJnc3JlcGQwMjJhMm9xbmU1MGF4Y3B0In0.JjQlh81e305lHD5RsHBfIQ';
+
+        // Initial focus on Delhi
+        const delhiCenter = [77.2090, 28.6139];
+        let highlightedState = 'Delhi';
+
+        // Famous Delhi landmarks
+        const landmarks = [
+            {
+                name: 'India Gate',
+                coords: [77.2295, 28.6129],
+                desc: 'Iconic war memorial in New Delhi.'
+            },
+            {
+                name: 'Qutub Minar',
+                coords: [77.1855, 28.5245],
+                desc: 'UNESCO World Heritage Site.'
+            }
+        ];
+
+        // Initialize the map
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/dark-v10',
+            center: delhiCenter,
+            zoom: 8,
+            pitch: 45,
+            bearing: -17.6,
+            antialias: true
+        });
+
+        // Add navigation controls
+        map.addControl(new mapboxgl.NavigationControl());
+
+        // Add 3D terrain and buildings
+        map.on('style.load', () => {
+            // 3D buildings
+            const layers = map.getStyle().layers;
+            let labelLayerId;
+            for (let i = 0; i < layers.length; i++) {
+                if (layers[i].type === 'symbol' && layers[i].layout['text-field']) {
+                    labelLayerId = layers[i].id;
+                    break;
+                }
+            }
+            map.addLayer({
+                'id': '3d-buildings',
+                'source': 'composite',
+                'source-layer': 'building',
+                'filter': ['==', 'extrude', 'true'],
+                'type': 'fill-extrusion',
+                'minzoom': 15,
+                'paint': {
+                    'fill-extrusion-color': '#aaa',
+                    'fill-extrusion-height': ["get", "height"],
+                    'fill-extrusion-base': ["get", "min_height"],
+                    'fill-extrusion-opacity': 0.6
+                }
+            }, labelLayerId);
+        });
+
+        // Add Indian states GeoJSON as a source and highlight Delhi
+        map.on('load', () => {
+            map.addSource('india-states', {
+                type: 'geojson',
+                data: 'india_states.geojson'
+            });
+            // Fill layer for highlighted state
+            map.addLayer({
+                id: 'state-highlight',
+                type: 'fill',
+                source: 'india-states',
+                paint: {
+                    'fill-color': '#3B82F6',
+                    'fill-opacity': 0.18
+                },
+                filter: ['==', ['get', 'st_nm'], highlightedState]
+            });
+            // Outline layer
+            map.addLayer({
+                id: 'state-outline',
+                type: 'line',
+                source: 'india-states',
+                paint: {
+                    'line-color': '#3B82F6',
+                    'line-width': 2
+                },
+                filter: ['==', ['get', 'st_nm'], highlightedState]
+            });
+
+            // Add landmarks
+            landmarks.forEach(lm => {
+                const el = document.createElement('div');
+                el.className = 'landmark-marker';
+                el.innerText = lm.name;
+                new mapboxgl.Marker(el)
+                    .setLngLat(lm.coords)
+                    .setPopup(new mapboxgl.Popup({ offset: 20 }).setHTML(`<b>${lm.name}</b><br>${lm.desc}`))
+                    .addTo(map);
+            });
+
+            // Fetch and add interactive location markers
+            fetchLocations();
+        });
+
+        // Update highlight on map move
+        map.on('moveend', () => {
+            const center = map.getCenter();
+            const point = map.project([center.lng, center.lat]);
+            const features = map.queryRenderedFeatures(point, { layers: ['state-highlight'] });
+            if (features.length > 0) {
+                const stateName = features[0].properties.st_nm;
+                if (stateName !== highlightedState) {
+                    highlightedState = stateName;
+                    map.setFilter('state-highlight', ['==', ['get', 'st_nm'], highlightedState]);
+                    map.setFilter('state-outline', ['==', ['get', 'st_nm'], highlightedState]);
+                    // Optionally, filter locations to this state only
+                    fetchLocations(stateName);
+                }
+            }
+        });
+
+        // Function to create a styled popup for locations
+        function createPopup(location) {
+            const statusClass = location.operational_status === 'Active' ? 'status-active' : 'status-closed';
+            return new mapboxgl.Popup({ offset: 28 })
+                .setHTML(`
+                    <div class="popup-content">
+                        <div class="popup-title">${location.location_name}</div>
+                        <div class="popup-details">
+                            <p>City: ${location.city}, ${location.state}</p>
+                            <p>Status: <span class="${statusClass}">${location.operational_status}</span></p>
+                            <p>Property Type: ${location.property_type}</p>
+                            <p>Management: ${location.management_status}</p>
+                            ${location.nickname ? `<p>Nickname: ${location.nickname}</p>` : ''}
+                        </div>
+                    </div>
+                `);
+        }
+
+        // Function to add animated, interactive markers for locations
+        let currentMarkers = [];
+        function addLocationMarkers(locations) {
+            // Remove old markers
+            currentMarkers.forEach(m => m.remove());
+            currentMarkers = [];
+            locations.forEach(location => {
+                if (!location.latitude || !location.longitude) return;
+                // Optionally, filter by highlightedState
+                if (highlightedState && location.state !== highlightedState) return;
+                const el = document.createElement('div');
+                el.className = 'marker';
+                el.title = location.location_name;
+                // Add icon or emoji for more interactivity
+                el.innerHTML = '<span style="font-size:18px;">⚽</span>';
+                // Add marker
+                const marker = new mapboxgl.Marker(el)
+                    .setLngLat([location.longitude, location.latitude])
+                    .setPopup(createPopup(location))
+                    .addTo(map);
+                currentMarkers.push(marker);
+            });
+        }
+
+        // Fetch locations from your API
+        async function fetchLocations(stateFilter) {
+            try {
+                const response = await fetch('https://partner.claygrounds.com/api/locations/all');
+                let locations = await response.json();
+                // Optionally filter by state
+                if (stateFilter) {
+                    locations = locations.filter(loc => loc.state === stateFilter);
+                }
+                addLocationMarkers(locations);
+            } catch (error) {
+                console.error('Error fetching locations:', error);
+            }
+        }
+    </script>
+</body>
+</html> 
