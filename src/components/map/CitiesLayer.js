@@ -1,11 +1,33 @@
-import React, { useEffect, useRef } from 'react';
-import indiaCities from '../../assets/geojson/india_cities.geojson';
+import { useEffect, useRef, useState } from 'react';
 
 const CitiesLayer = ({ map, isVisible = true, onCityClick = null }) => {
   const layersAddedRef = useRef(false);
+  const [indiaCities, setIndiaCities] = useState(null);
+
+  // Load cities data
+  useEffect(() => {
+    const loadCitiesData = async () => {
+      try {
+        const response = await fetch('/india_cities.geojson');
+        const data = await response.json();
+        console.log('🗺️ Cities GeoJSON loaded:', {
+          type: data?.type,
+          featuresCount: data?.features?.length,
+          sampleFeature: data?.features?.[0]?.properties
+        });
+        setIndiaCities(data);
+        // Store globally for helper functions
+        window.indiaCitiesData = data;
+      } catch (error) {
+        console.error('❌ Error loading cities data:', error);
+      }
+    };
+
+    loadCitiesData();
+  }, []);
 
   useEffect(() => {
-    if (!map || layersAddedRef.current) return;
+    if (!map || !indiaCities || layersAddedRef.current) return;
 
     const addCitiesLayer = () => {
       try {
@@ -68,7 +90,7 @@ const CitiesLayer = ({ map, isVisible = true, onCityClick = null }) => {
               'text-ignore-placement': false
             },
             paint: {
-              'text-color': '#1f2937',
+              'text-color': '#00cc81',
               'text-halo-color': '#ffffff',
               'text-halo-width': 1
             },
@@ -114,18 +136,25 @@ const CitiesLayer = ({ map, isVisible = true, onCityClick = null }) => {
 
     return () => {
       // Cleanup function
-      if (map.getLayer('cities-labels')) {
-        map.removeLayer('cities-labels');
+      try {
+        if (map && map.getStyle()) {
+          if (map.getLayer('cities-labels')) {
+            map.removeLayer('cities-labels');
+          }
+          if (map.getLayer('cities-points')) {
+            map.removeLayer('cities-points');
+          }
+          if (map.getSource('india-cities')) {
+            map.removeSource('india-cities');
+          }
+        }
+        layersAddedRef.current = false;
+      } catch (error) {
+        console.warn('Error during cities layer cleanup:', error);
+        layersAddedRef.current = false;
       }
-      if (map.getLayer('cities-points')) {
-        map.removeLayer('cities-points');
-      }
-      if (map.getSource('india-cities')) {
-        map.removeSource('india-cities');
-      }
-      layersAddedRef.current = false;
     };
-  }, [map, onCityClick]);
+  }, [map, onCityClick, indiaCities]);
 
   // Toggle layer visibility
   useEffect(() => {
@@ -165,9 +194,16 @@ export const createCityPopup = (city, coordinates) => {
 
 // Helper function to filter cities by state
 export const filterCitiesByState = (stateName) => {
+  const data = window.indiaCitiesData;
+  
+  if (!data || !data.features) {
+    console.warn('Cities data not loaded yet');
+    return { type: 'FeatureCollection', features: [] };
+  }
+  
   return {
     type: 'FeatureCollection',
-    features: indiaCities.features.filter(
+    features: data.features.filter(
       feature => feature.properties.state === stateName
     )
   };
@@ -175,9 +211,16 @@ export const filterCitiesByState = (stateName) => {
 
 // Helper function to get top N cities
 export const getTopCities = (n = 10) => {
+  const data = window.indiaCitiesData;
+  
+  if (!data || !data.features) {
+    console.warn('Cities data not loaded yet');
+    return { type: 'FeatureCollection', features: [] };
+  }
+  
   return {
     type: 'FeatureCollection',
-    features: indiaCities.features
+    features: data.features
       .filter(feature => feature.properties.population_rank <= n)
       .sort((a, b) => a.properties.population_rank - b.properties.population_rank)
   };

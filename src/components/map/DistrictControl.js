@@ -6,11 +6,13 @@ const DistrictControl = ({
   selectedState = null,
   selectedDistrict = null,
   onDistrictSelect = null,
+  onClearSelection = null,
   isVisible = true 
 }) => {
   const [isExpanded, setIsExpanded] = useState(true);
   const [districts, setDistricts] = useState([]);
-  const [stats, setStats] = useState({ total: 0, metro: 0, major: 0, city: 0, regional: 0 });
+  const [stats, setStats] = useState({ total: 0 });
+  const [showAllDistricts, setShowAllDistricts] = useState(false);
 
   // Update districts and stats when state changes
   useEffect(() => {
@@ -19,20 +21,22 @@ const DistrictControl = ({
       const stateStats = getDistrictStats(selectedState);
       setDistricts(stateDistricts);
       setStats(stateStats);
+      setShowAllDistricts(false);
     } else {
-      setDistricts([]);
-      setStats({ total: 0, metro: 0, major: 0, city: 0, regional: 0 });
+      // When no state is selected, optionally show all districts
+      if (showAllDistricts) {
+        const allDistricts = getDistrictsByState(null); // This should return all districts
+        const allStats = getDistrictStats(null);
+        setDistricts(allDistricts.slice(0, 50)); // Limit to first 50 for performance
+        setStats(allStats);
+      } else {
+        setDistricts([]);
+        setStats({ total: 0 });
+      }
     }
-  }, [selectedState]);
+  }, [selectedState, showAllDistricts]);
 
   if (!isVisible) return null;
-
-  const typeIcons = {
-    metro: '🏙️',
-    major: '🌆',
-    city: '🏘️',
-    regional: '🌾'
-  };
 
   const handleDistrictClick = (district) => {
     if (onDistrictSelect) {
@@ -40,19 +44,40 @@ const DistrictControl = ({
     }
   };
 
+  const handleClearSelection = () => {
+    if (onClearSelection) {
+      onClearSelection();
+    }
+  };
+
+  const toggleShowAllDistricts = () => {
+    setShowAllDistricts(!showAllDistricts);
+  };
+
   return (
     <div className="district-control">
       <div className="district-control-header">
         <span className="district-control-title">
-          🗺️ Districts {selectedState ? `- ${selectedState}` : ''}
+          🗺️ Districts {selectedState ? `- ${selectedState}` : showAllDistricts ? '- All India' : ''}
         </span>
-        <button 
-          className="district-toggle-btn"
-          onClick={() => setIsExpanded(!isExpanded)}
-          title={isExpanded ? "Collapse" : "Expand"}
-        >
-          {isExpanded ? '▼' : '▶'}
-        </button>
+        <div className="district-control-buttons">
+          {selectedState && onClearSelection && (
+            <button 
+              className="district-clear-btn"
+              onClick={handleClearSelection}
+              title="Clear state selection"
+            >
+              ✕
+            </button>
+          )}
+          <button 
+            className="district-toggle-btn"
+            onClick={() => setIsExpanded(!isExpanded)}
+            title={isExpanded ? "Collapse" : "Expand"}
+          >
+            {isExpanded ? '▼' : '▶'}
+          </button>
+        </div>
       </div>
 
       {isExpanded && (
@@ -60,8 +85,17 @@ const DistrictControl = ({
           {!selectedState ? (
             <div className="district-no-state">
               <span className="district-no-state-icon">🗺️</span>
-              <div className="district-no-state-text">Select a state to view districts</div>
-              <div className="district-no-state-hint">Click on any state on the map</div>
+              <div className="district-no-state-text">
+                {showAllDistricts ? 'Showing all districts' : 'Select a state or zoom in to view districts'}
+              </div>
+              <div className="district-no-state-hint">
+                <button 
+                  className="district-show-all-btn"
+                  onClick={toggleShowAllDistricts}
+                >
+                  {showAllDistricts ? 'Hide all districts' : 'Show all districts'}
+                </button>
+              </div>
             </div>
           ) : (
             <>
@@ -69,74 +103,45 @@ const DistrictControl = ({
               <div className="district-stats">
                 <div className="district-stat">
                   <span className="district-stat-number">{stats.total}</span>
-                  <span className="district-stat-label">Total</span>
-                </div>
-                <div className="district-stat">
-                  <span className="district-stat-number">{stats.metro + stats.major}</span>
-                  <span className="district-stat-label">Major</span>
+                  <span className="district-stat-label">
+                    {selectedState ? `Districts in ${selectedState}` : 'Total Districts'}
+                  </span>
                 </div>
               </div>
+            </>
+          )}
 
-              {/* District Legend */}
-              <div className="district-legend">
-                <div className="district-legend-title">District Types</div>
-                {stats.metro > 0 && (
-                  <div className="district-legend-item">
-                    <div className="district-legend-color metro"></div>
-                    <span className="district-legend-label">Metro ({stats.metro})</span>
-                  </div>
-                )}
-                {stats.major > 0 && (
-                  <div className="district-legend-item">
-                    <div className="district-legend-color major"></div>
-                    <span className="district-legend-label">Major City ({stats.major})</span>
-                  </div>
-                )}
-                {stats.city > 0 && (
-                  <div className="district-legend-item">
-                    <div className="district-legend-color city"></div>
-                    <span className="district-legend-label">City ({stats.city})</span>
-                  </div>
-                )}
-                {stats.regional > 0 && (
-                  <div className="district-legend-item">
-                    <div className="district-legend-color regional"></div>
-                    <span className="district-legend-label">Regional ({stats.regional})</span>
-                  </div>
-                )}
-              </div>
-
-              {/* District List */}
-              {districts.length > 0 && (
-                <div className="district-list">
-                  {districts.map((district, index) => (
-                    <div
-                      key={district.properties.id}
-                      className={`district-list-item ${
-                        selectedDistrict?.id === district.properties.id ? 'selected' : ''
-                      }`}
-                      onClick={() => handleDistrictClick(district)}
-                      title={`Click to select ${district.properties.name}`}
-                    >
-                      <div className="district-list-item-info">
-                        <div className="district-list-item-name">
-                          {district.properties.city_name}
-                        </div>
-                        <div className="district-list-item-type">
-                          {district.properties.district_type} district
-                          {district.properties.cities_count && 
-                            ` • ${district.properties.cities_count} cities`
-                          }
-                        </div>
-                      </div>
-                      <div className="district-list-item-icon">
-                        {typeIcons[district.properties.district_type]}
-                      </div>
+          {/* District List */}
+          {districts.length > 0 && (
+            <div className="district-list">
+              {districts.map((district, index) => (
+                <div
+                  key={district.properties.district || index}
+                  className={`district-list-item ${
+                    selectedDistrict?.district === district.properties.district ? 'selected' : ''
+                  }`}
+                  onClick={() => handleDistrictClick(district)}
+                  title={`Click to select ${district.properties.district}`}
+                >
+                  <div className="district-list-item-info">
+                    <div className="district-list-item-name">
+                      {district.properties.district}
                     </div>
-                  ))}
+                    <div className="district-list-item-type">
+                      {district.properties.st_nm} • Code: {district.properties.dt_code || 'N/A'}
+                    </div>
+                  </div>
+                  <div className="district-list-item-icon">
+                    🏛️
+                  </div>
+                </div>
+              ))}
+              {!selectedState && showAllDistricts && districts.length >= 50 && (
+                <div className="district-list-more">
+                  Showing first 50 districts. Select a state to see all districts.
                 </div>
               )}
-            </>
+            </div>
           )}
         </>
       )}

@@ -16,8 +16,6 @@ const CitiesControl = ({
   onFilterChange,
   isControlVisible = true 
 }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
-
   if (!isControlVisible) return null;
 
   return (

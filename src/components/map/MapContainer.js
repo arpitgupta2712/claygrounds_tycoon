@@ -3,6 +3,9 @@ import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '../../styles/map.css';
 import '../../styles/components.css';
+import '../../styles/cities.css';
+import '../../styles/districts.css';
+import '../../styles/states.css';
 import { api } from '../../services/api';
 import { testApiConnection } from '../../utils/testApi';
 import MapMarker from './MapMarker';
@@ -10,9 +13,12 @@ import GameUI, { VIEW_MODES } from './GameUI';
 import MapStyleSwitcher, { MAP_STYLES } from './MapStyleSwitcher';
 import ViewControl, { VIEW_TYPES } from './ViewControl';
 import LocationModal from './LocationModal';
-
-// Path to the GeoJSON file 
-import indiaStates from '../../assets/geojson/india_states.geojson';
+import CitiesLayer, { createCityPopup } from './CitiesLayer';
+import CitiesControl from './CitiesControl';
+import DistrictBoundariesLayer, { createDistrictPopup } from './DistrictBoundariesLayer';
+import DistrictControl from './DistrictControl';
+import StateBoundariesLayer from './StateBoundariesLayer';
+import StateControl from './StateControl';
 
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN || '';
 const indiaCenter = [78.9629, 20.5937];
@@ -33,6 +39,51 @@ const VIEW_SETTINGS = {
     stateZoom: 10,
     overviewZoom: 5
   }
+};
+
+// Helper function to map API state names to GeoJSON state names
+const mapApiStateToGeoJSONState = (apiStateName) => {
+  const stateMapping = {
+    'Delhi': 'Delhi',
+    'Uttar Pradesh': 'Uttar Pradesh', 
+    'Maharashtra': 'Maharashtra',
+    'Karnataka': 'Karnataka',
+    'Tamil Nadu': 'Tamil Nadu',
+    'West Bengal': 'West Bengal',
+    'Gujarat': 'Gujarat',
+    'Rajasthan': 'Rajasthan',
+    'Andhra Pradesh': 'Andhra Pradesh',
+    'Telangana': 'Telangana',
+    'Bihar': 'Bihar',
+    'Madhya Pradesh': 'Madhya Pradesh',
+    'Haryana': 'Haryana',
+    'Punjab': 'Punjab',
+    'Assam': 'Assam',
+    'Odisha': 'Odisha',
+    'Kerala': 'Kerala',
+    'Jharkhand': 'Jharkhand',
+    'Chhattisgarh': 'Chhattisgarh',
+    'Himachal Pradesh': 'Himachal Pradesh',
+    'Uttarakhand': 'Uttarakhand',
+    'Goa': 'Goa',
+    'Tripura': 'Tripura',
+    'Manipur': 'Manipur',
+    'Meghalaya': 'Meghalaya',
+    'Nagaland': 'Nagaland',
+    'Mizoram': 'Mizoram',
+    'Arunachal Pradesh': 'Arunachal Pradesh',
+    'Sikkim': 'Sikkim',
+    'Chandigarh': 'Chandigarh',
+    'Andaman and Nicobar Islands': 'Andaman & Nicobar Island',
+    'Dadra and Nagar Haveli': 'Dadara & Nagar Havelli',
+    'Daman and Diu': 'Daman & Diu',
+    'Lakshadweep': 'Lakshadweep',
+    'Puducherry': 'Puducherry',
+    'Jammu and Kashmir': 'Jammu & Kashmir',
+    'Ladakh': 'Ladakh'
+  };
+  
+  return stateMapping[apiStateName] || apiStateName;
 };
 
 const MapContainer = () => {
@@ -61,6 +112,13 @@ const MapContainer = () => {
   const [selectedLocationForModal, setSelectedLocationForModal] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // Cities and Districts state
+  const [showCities, setShowCities] = useState(true);
+  const [cityFilter, setCityFilter] = useState('all');
+  const [cityPopup, setCityPopup] = useState(null);
+  const [selectedDistrict, setSelectedDistrict] = useState(null);
+  const [showDistricts] = useState(true);
+
   // Initialize data
   useEffect(() => {
     const initializeData = async () => {
@@ -76,8 +134,15 @@ const MapContainer = () => {
           console.log('📍 Fetched locations:', locationData.length);
           setLocations(locationData);
           
-          const states = [...new Set(locationData.map(loc => loc.state))].sort();
-          setAvailableStates(states);
+          // Map API state names to GeoJSON state names
+          const apiStates = [...new Set(locationData.map(loc => loc.state))].sort();
+          const mappedStates = apiStates.map(mapApiStateToGeoJSONState).filter(Boolean);
+          const uniqueMappedStates = [...new Set(mappedStates)].sort();
+          
+          console.log('🗺️ API states:', apiStates);
+          console.log('🗺️ Mapped to GeoJSON states:', uniqueMappedStates);
+          
+          setAvailableStates(uniqueMappedStates);
           setError(null);
         } else {
           setError(`API Connection Failed: ${testResult.error}`);
@@ -100,7 +165,7 @@ const MapContainer = () => {
     markersRef.current = [];
   }, []);
 
-  // Add custom layers (states, 3D buildings) - moved up to avoid circular dependency
+  // Add custom layers (3D buildings) - moved up to avoid circular dependency
   const addCustomLayers = useCallback(() => {
     if (!mapRef.current) return;
     
@@ -134,54 +199,6 @@ const MapContainer = () => {
           }
         });
       }
-
-      // Add India states
-      if (!mapRef.current.getSource('india-states')) {
-        mapRef.current.addSource('india-states', {
-          type: 'geojson',
-          data: indiaStates,
-        });
-      }
-      
-      const stateLayers = ['state-highlight', 'state-boundaries', 'state-outline'];
-      stateLayers.forEach(layerId => {
-        if (mapRef.current.getLayer(layerId)) {
-          mapRef.current.removeLayer(layerId);
-        }
-      });
-      
-      mapRef.current.addLayer({
-        id: 'state-highlight',
-        type: 'fill',
-        source: 'india-states',
-        paint: {
-          'fill-color': '#3B82F6',
-          'fill-opacity': 0.1,
-        },
-      });
-      
-      mapRef.current.addLayer({
-        id: 'state-boundaries',
-        type: 'line',
-        source: 'india-states',
-        paint: {
-          'line-color': '#1E40AF',
-          'line-width': 2,
-          'line-opacity': 0.8
-        },
-      });
-
-      mapRef.current.addLayer({
-        id: 'state-outline',
-        type: 'line',
-        source: 'india-states',
-        paint: {
-          'line-color': '#F59E0B',
-          'line-width': 4,
-          'line-opacity': 0.9
-        },
-        filter: ['==', ['get', 'st_nm'], ''],
-      });
 
       console.log('✅ Custom layers added successfully');
     } catch (err) {
@@ -324,28 +341,130 @@ const MapContainer = () => {
     });
   }, [currentMapStyle, addCustomLayers]);
 
+  // Handle city click
+  const handleCityClick = useCallback((city, coordinates) => {
+    // Close existing popup
+    if (cityPopup) {
+      cityPopup.remove();
+    }
+    
+    // Create new popup
+    const popup = new mapboxgl.Popup({ offset: 15 })
+      .setLngLat([coordinates.lng, coordinates.lat])
+      .setHTML(createCityPopup(city, coordinates))
+      .addTo(mapRef.current);
+    
+    setCityPopup(popup);
+    
+    console.log(`🏙️ Clicked city: ${city.name}, ${city.state}`);
+  }, [cityPopup]);
+
+  // Handle district click
+  const handleDistrictClick = useCallback((district) => {
+    console.log('🗺️ District clicked:', district);
+    setSelectedDistrict(district);
+    
+    // Optional: Show popup
+    if (mapRef.current) {
+      new mapboxgl.Popup()
+        .setLngLat([district.lng || 77.2090, district.lat || 28.6139]) // Default to Delhi if no coordinates
+        .setHTML(createDistrictPopup(district))
+        .addTo(mapRef.current);
+    }
+    
+    // Optional: Filter locations by district if we have district-location mapping
+    // This could be implemented later when we have more detailed location data
+  }, []);
+
+  // Handle district selection from control
+  const handleDistrictSelect = useCallback((district) => {
+    console.log('🗺️ District selected from control:', district);
+    setSelectedDistrict(district);
+    
+    // Optionally zoom to district bounds
+    if (mapRef.current && district) {
+      // This would require district center coordinates
+      // For now, just log the selection
+      console.log('🗺️ Would zoom to district:', district.district);
+    }
+  }, []);
+
+  // Enhanced back to state selection that doesn't clear everything
+  const backToStateSelection = useCallback(() => {
+    if (isAnimating) return;
+    
+    console.log('🗺️ Going back to state selection (enhanced)');
+    setIsAnimating(true);
+    
+    // Clear current state selection but keep districts visible at appropriate zoom
+    setSelectedState(null);
+    setStateLocations([]);
+    setCurrentLocationIndex(0);
+    setIsModalOpen(false);
+    setSelectedDistrict(null);
+    
+    // Clear city popup
+    if (cityPopup) {
+      cityPopup.remove();
+      setCityPopup(null);
+    }
+    
+    // Clear location markers
+    clearMarkers();
+    
+    // Zoom out to show all of India
+    const settings = VIEW_SETTINGS[currentView];
+    mapRef.current.flyTo({
+      center: indiaCenter,
+      zoom: settings.overviewZoom,
+      pitch: settings.pitch,
+      bearing: settings.bearing,
+      duration: 2000,
+      essential: true
+    });
+    
+    // Set view mode back to state selection
+    setViewMode(VIEW_MODES.STATE_SELECTION);
+    
+    setTimeout(() => setIsAnimating(false), 2200);
+  }, [isAnimating, clearMarkers, currentView, cityPopup]);
+
+  // Add a new function to clear state selection but stay in current view
+  const clearStateSelection = useCallback(() => {
+    console.log('🗺️ Clearing state selection but keeping current view');
+    setSelectedState(null);
+    setStateLocations([]);
+    setCurrentLocationIndex(0);
+    setSelectedDistrict(null);
+    clearMarkers();
+  }, [clearMarkers]);
+
   // Select a state (moved up to avoid reference error)
   const selectState = useCallback(async (stateName) => {
     if (isAnimating || !mapRef.current) return;
+    
+    console.log('🏛️ selectState called with:', stateName);
+    console.log('🏛️ Current viewMode:', viewMode);
+    console.log('🏛️ isAnimating:', isAnimating);
     
     setIsAnimating(true);
     setSelectedState(stateName);
     setViewMode(VIEW_MODES.STATE_FOCUSED);
     
-    const stateFilteredLocations = locations.filter(loc => loc.state === stateName);
+    console.log('🗺️ State selected for districts:', stateName);
+    console.log('🗺️ This should trigger DistrictBoundariesLayer update');
+    
+    // Filter locations by their mapped GeoJSON state name
+    const stateFilteredLocations = locations.filter(location => {
+      const mappedStateName = mapApiStateToGeoJSONState(location.state);
+      return mappedStateName === stateName;
+    });
+    
+    console.log(`🏛️ Found ${stateFilteredLocations.length} locations for ${stateName} (mapped from API states)`);
     setStateLocations(stateFilteredLocations);
     setCurrentLocationIndex(0);
     
     console.log(`🏛️ Focusing on ${stateName} with ${stateFilteredLocations.length} locations`);
-    
-    // Filter layers
-    if (mapRef.current.getLayer('state-boundaries')) {
-      ['state-boundaries', 'state-highlight', 'state-outline'].forEach(layerId => {
-        if (mapRef.current.getLayer(layerId)) {
-          mapRef.current.setFilter(layerId, ['==', ['get', 'st_nm'], stateName]);
-        }
-      });
-    }
     
     // Fly to state bounds with current view settings
     if (stateFilteredLocations.length > 0) {
@@ -372,7 +491,7 @@ const MapContainer = () => {
       setIsAnimating(false);
     }, 2200);
     
-  }, [locations, isAnimating, addLocationMarkers, currentView]);
+  }, [locations, isAnimating, addLocationMarkers, currentView, viewMode]);
 
   // Navigation functions
   const nextLocation = useCallback(() => {
@@ -386,40 +505,6 @@ const MapContainer = () => {
       selectLocation(currentLocationIndex - 1);
     }
   }, [currentLocationIndex, selectLocation]);
-
-  const backToStateSelection = useCallback(() => {
-    if (isAnimating) return;
-    
-    setIsAnimating(true);
-    setViewMode(VIEW_MODES.STATE_SELECTION);
-    setSelectedState(null);
-    setStateLocations([]);
-    setCurrentLocationIndex(0);
-    setIsModalOpen(false); // Close modal when going back
-    
-    clearMarkers();
-    
-    // Show all states
-    if (mapRef.current.getLayer('state-boundaries')) {
-      ['state-boundaries', 'state-highlight', 'state-outline'].forEach(layerId => {
-        if (mapRef.current.getLayer(layerId)) {
-          mapRef.current.setFilter(layerId, null);
-        }
-      });
-    }
-    
-    const settings = VIEW_SETTINGS[currentView];
-    mapRef.current.flyTo({
-      center: indiaCenter,
-      zoom: settings.overviewZoom,
-      pitch: settings.pitch,
-      bearing: settings.bearing,
-      duration: 2000,
-      essential: true
-    });
-    
-    setTimeout(() => setIsAnimating(false), 2200);
-  }, [isAnimating, clearMarkers, currentView]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -488,40 +573,31 @@ const MapContainer = () => {
     // Add custom layers on style load
     map.on('style.load', addCustomLayers);
 
-    // State interaction handlers
-    map.on('click', 'state-highlight', (e) => {
-      if (viewMode !== VIEW_MODES.STATE_SELECTION || isAnimating) return;
-      const stateName = e.features[0].properties?.st_nm;
-      if (stateName && availableStates.includes(stateName)) {
-        selectState(stateName);
-      }
-    });
-
-    map.on('mouseenter', 'state-highlight', (e) => {
-      if (viewMode !== VIEW_MODES.STATE_SELECTION) return;
-      map.getCanvas().style.cursor = 'pointer';
-      const stateName = e.features[0].properties?.st_nm;
-      if (stateName && availableStates.includes(stateName)) {
-        if (map.getLayer('state-outline')) {
-          map.setFilter('state-outline', ['==', ['get', 'st_nm'], stateName]);
-        }
-      }
-    });
-
-    map.on('mouseleave', 'state-highlight', () => {
-      if (viewMode !== VIEW_MODES.STATE_SELECTION) return;
-      map.getCanvas().style.cursor = '';
-      if (map.getLayer('state-outline')) {
-        map.setFilter('state-outline', ['==', ['get', 'st_nm'], '']);
-      }
-    });
-
     return () => {
       clearMarkers();
+      if (cityPopup) {
+        cityPopup.remove();
+      }
       map.remove();
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Only run once on mount
+
+  // Clear district selection when state changes
+  useEffect(() => {
+    if (selectedState) {
+      setSelectedDistrict(null); // Clear district when state changes
+    }
+  }, [selectedState]);
+
+  // Cleanup city popup when component unmounts
+  useEffect(() => {
+    return () => {
+      if (cityPopup) {
+        cityPopup.remove();
+      }
+    };
+  }, [cityPopup]);
 
   if (!MAPBOX_TOKEN) {
     return (
@@ -554,6 +630,32 @@ const MapContainer = () => {
       
       <div ref={mapContainerRef} style={{ width: '100%', height: '100vh' }} />
       
+      {/* Add State Boundaries Layer */}
+      <StateBoundariesLayer
+        map={mapRef.current}
+        selectedState={selectedState}
+        availableStates={availableStates}
+        isVisible={true}
+        onStateClick={selectState}
+        viewMode={viewMode}
+      />
+      
+      {/* Add Cities Layer */}
+      <CitiesLayer
+        map={mapRef.current}
+        isVisible={showCities}
+        onCityClick={handleCityClick}
+      />
+      
+      {/* Add District Boundaries Layer */}
+      <DistrictBoundariesLayer
+        map={mapRef.current}
+        selectedState={selectedState}
+        isVisible={showDistricts}
+        onDistrictClick={handleDistrictClick}
+        selectedDistrict={selectedDistrict}
+      />
+      
       <GameUI
         viewMode={viewMode}
         apiTestResult={apiTestResult}
@@ -578,6 +680,33 @@ const MapContainer = () => {
         currentStyle={currentMapStyle}
         onStyleChange={handleStyleChange}
         isVisible={viewMode === VIEW_MODES.STATE_SELECTION}
+      />
+
+      {/* Add State Control */}
+      <StateControl
+        availableStates={availableStates}
+        selectedState={selectedState}
+        onStateSelect={selectState}
+        onClearSelection={clearStateSelection}
+        isVisible={viewMode === VIEW_MODES.STATE_SELECTION}
+      />
+
+      {/* Add Cities Control */}
+      <CitiesControl
+        showCities={showCities}
+        onToggleCities={setShowCities}
+        currentFilter={cityFilter}
+        onFilterChange={setCityFilter}
+        isControlVisible={viewMode === VIEW_MODES.STATE_SELECTION}
+      />
+      
+      {/* Add District Control */}
+      <DistrictControl
+        selectedState={selectedState}
+        selectedDistrict={selectedDistrict}
+        onDistrictSelect={handleDistrictSelect}
+        onClearSelection={clearStateSelection}
+        isVisible={selectedState !== null || showDistricts}
       />
 
       <LocationModal
