@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import ControlPanel from './ControlPanel';
-import { getAvailableStatesFromData, getStateStats } from '../map/StateBoundariesLayer';
+import { getAvailableStatesFromData, getStateStats } from '../map/layers/StateBoundariesLayer';
+import { useIndiaStatesData } from '../../hooks';
+import { DataLoadingSpinner, DataError, EmptyState } from './LoadingStates';
 
 const StatesControlPanel = ({ 
   availableStates = [],
@@ -9,31 +11,41 @@ const StatesControlPanel = ({
   onClearSelection = null,
   isVisible = true 
 }) => {
-  const [allStates, setAllStates] = useState([]);
-  const [stats, setStats] = useState({ total: 0 });
   const [showAllStates, setShowAllStates] = useState(false);
+  
+  // Use optimized data fetching hook
+  const { data: statesData, loading, error, refetch } = useIndiaStatesData();
 
-  // Load all states data
-  useEffect(() => {
-    const statesFromData = getAvailableStatesFromData();
-    const stateStats = getStateStats();
-    setAllStates(statesFromData);
-    setStats(stateStats);
-  }, []);
+  // Memoized computed values for better performance
+  const { allStates, stats } = useMemo(() => {
+    if (!statesData) {
+      return { allStates: [], stats: { total: 0 } };
+    }
+    
+    return {
+      allStates: getAvailableStatesFromData(),
+      stats: getStateStats()
+    };
+  }, [statesData]);
 
   if (!isVisible) return null;
 
-  const handleStateClick = (stateName) => {
+  // Memoized event handlers for better performance
+  const handleStateClick = useCallback((stateName) => {
     if (onStateSelect) {
       onStateSelect(stateName);
     }
-  };
+  }, [onStateSelect]);
 
-  const handleClearSelection = () => {
+  const handleClearSelection = useCallback(() => {
     if (onClearSelection) {
       onClearSelection();
     }
-  };
+  }, [onClearSelection]);
+
+  const handleToggleAllStates = useCallback(() => {
+    setShowAllStates(prev => !prev);
+  }, []);
 
   const clearButton = selectedState && onClearSelection ? (
     <button 
@@ -44,6 +56,62 @@ const StatesControlPanel = ({
       Clear
     </button>
   ) : null;
+
+  // Handle loading state
+  if (loading) {
+    return (
+      <ControlPanel
+        title="States"
+        icon="🏛️"
+        defaultExpanded={true}
+      >
+        <DataLoadingSpinner type="states" size="small" />
+      </ControlPanel>
+    );
+  }
+
+  // Handle error state
+  if (error) {
+    return (
+      <ControlPanel
+        title="States"
+        icon="🏛️"
+        defaultExpanded={true}
+      >
+        <DataError 
+          error={error} 
+          retry={refetch} 
+          dataType="states data"
+          compact={true}
+        />
+      </ControlPanel>
+    );
+  }
+
+  // Handle empty state
+  if (!statesData || allStates.length === 0) {
+    return (
+      <ControlPanel
+        title="States"
+        icon="🏛️"
+        defaultExpanded={true}
+      >
+        <EmptyState 
+          icon="🗺️"
+          title="No states data"
+          message="States information is not available."
+          action={
+            <button 
+              className="cg-btn cg-btn-primary cg-btn-sm"
+              onClick={refetch}
+            >
+              🔄 Reload Data
+            </button>
+          }
+        />
+      </ControlPanel>
+    );
+  }
 
   return (
     <ControlPanel
@@ -94,7 +162,7 @@ const StatesControlPanel = ({
       <div className="cg-control-group">
         <div 
           className="cg-toggle"
-          onClick={() => setShowAllStates(!showAllStates)}
+          onClick={handleToggleAllStates}
         >
           <div className={`cg-toggle-switch ${showAllStates ? 'active' : ''}`}></div>
           <div className="cg-toggle-label">Show all states</div>
@@ -138,4 +206,5 @@ const StatesControlPanel = ({
   );
 };
 
-export default StatesControlPanel; 
+// Memoize component to prevent unnecessary re-renders
+export default React.memo(StatesControlPanel); 

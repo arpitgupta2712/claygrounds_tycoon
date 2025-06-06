@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import ControlPanel from './ControlPanel';
-import { getDistrictsByState, getDistrictStats } from '../map/DistrictBoundariesLayer';
+import { getDistrictsByState, getDistrictStats } from '../map/layers/DistrictBoundariesLayer';
+import { useIndiaDistrictsData } from '../../hooks';
+import { DataLoadingSpinner, DataError, EmptyState } from './LoadingStates';
 
 const DistrictsControlPanel = ({ 
   selectedState = null,
@@ -9,45 +11,51 @@ const DistrictsControlPanel = ({
   onClearSelection = null,
   isVisible = true 
 }) => {
-  const [districts, setDistricts] = useState([]);
-  const [stats, setStats] = useState({ total: 0 });
   const [showAllDistricts, setShowAllDistricts] = useState(false);
+  
+  // Use optimized data fetching hook
+  const { data: districtsData, loading, error, refetch } = useIndiaDistrictsData();
 
-  // Update districts and stats when state changes
-  useEffect(() => {
-    if (selectedState) {
-      const stateDistricts = getDistrictsByState(selectedState);
-      const stateStats = getDistrictStats(selectedState);
-      setDistricts(stateDistricts);
-      setStats(stateStats);
-      setShowAllDistricts(false);
-    } else {
-      // When no state is selected, optionally show all districts
-      if (showAllDistricts) {
-        const allDistricts = getDistrictsByState(null); // This should return all districts
-        const allStats = getDistrictStats(null);
-        setDistricts(allDistricts.slice(0, 50)); // Limit to first 50 for performance
-        setStats(allStats);
-      } else {
-        setDistricts([]);
-        setStats({ total: 0 });
-      }
+  // Memoized computed values for better performance
+  const { districts, stats } = useMemo(() => {
+    if (!districtsData) {
+      return { districts: [], stats: { total: 0 } };
     }
-  }, [selectedState, showAllDistricts]);
+
+    if (selectedState) {
+      const stateDistricts = getDistrictsByState(selectedState, districtsData);
+      const stateStats = getDistrictStats(selectedState, districtsData);
+      return { districts: stateDistricts, stats: stateStats };
+    } else if (showAllDistricts) {
+      const allDistricts = getDistrictsByState(null, districtsData);
+      const allStats = getDistrictStats(null, districtsData);
+      return { 
+        districts: allDistricts.slice(0, 50), // Limit for performance
+        stats: allStats 
+      };
+    } else {
+      return { districts: [], stats: { total: 0 } };
+    }
+  }, [districtsData, selectedState, showAllDistricts]);
 
   if (!isVisible) return null;
 
-  const handleDistrictClick = (district) => {
+  // Memoized event handlers for better performance
+  const handleDistrictClick = useCallback((district) => {
     if (onDistrictSelect) {
       onDistrictSelect(district.properties);
     }
-  };
+  }, [onDistrictSelect]);
 
-  const handleClearSelection = () => {
+  const handleClearSelection = useCallback(() => {
     if (onClearSelection) {
       onClearSelection();
     }
-  };
+  }, [onClearSelection]);
+
+  const handleToggleAllDistricts = useCallback(() => {
+    setShowAllDistricts(prev => !prev);
+  }, []);
 
   const clearButton = selectedState && onClearSelection ? (
     <button 
@@ -64,6 +72,37 @@ const DistrictsControlPanel = ({
     : showAllDistricts 
       ? 'Districts - All India' 
       : 'Districts';
+
+  // Handle loading state
+  if (loading) {
+    return (
+      <ControlPanel
+        title="Districts"
+        icon="🗺️"
+        defaultExpanded={selectedState !== null}
+      >
+        <DataLoadingSpinner type="districts" size="small" />
+      </ControlPanel>
+    );
+  }
+
+  // Handle error state
+  if (error) {
+    return (
+      <ControlPanel
+        title="Districts"
+        icon="🗺️"
+        defaultExpanded={selectedState !== null}
+      >
+        <DataError 
+          error={error} 
+          retry={refetch} 
+          dataType="districts data"
+          compact={true}
+        />
+      </ControlPanel>
+    );
+  }
 
   return (
     <ControlPanel
@@ -90,7 +129,7 @@ const DistrictsControlPanel = ({
           {/* Show All Districts Toggle */}
           <div 
             className="cg-toggle"
-            onClick={() => setShowAllDistricts(!showAllDistricts)}
+            onClick={handleToggleAllDistricts}
           >
             <div className={`cg-toggle-switch ${showAllDistricts ? 'active' : ''}`}></div>
             <div className="cg-toggle-label">
@@ -155,4 +194,5 @@ const DistrictsControlPanel = ({
   );
 };
 
-export default DistrictsControlPanel; 
+// Memoize component to prevent unnecessary re-renders
+export default React.memo(DistrictsControlPanel); 

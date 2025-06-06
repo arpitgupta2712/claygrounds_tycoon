@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Auth from './pages/Auth';
 import Home from './pages/Home';
+import PerformanceMonitor from './components/ui/PerformanceMonitor';
+import { startCacheCleanup } from './utils/dataCache';
 import './styles/auth.css';
 import './App.css';
 import './styles/theme.css';
@@ -29,6 +31,16 @@ const ProtectedRoute = ({ children }) => {
 };
 
 const App = () => {
+  // Initialize cache cleanup on app start
+  useEffect(() => {
+    const stopCleanup = startCacheCleanup();
+    
+    // Cleanup on app unmount
+    return () => {
+      stopCleanup();
+    };
+  }, []);
+
   return (
     <Router>
       <Routes>
@@ -43,6 +55,9 @@ const App = () => {
         />
         {/* Add other protected routes here */}
       </Routes>
+      
+      {/* Performance Monitor (only visible in development) */}
+      <PerformanceMonitor />
     </Router>
   );
 };

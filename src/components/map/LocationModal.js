@@ -1,12 +1,110 @@
-import React from 'react';
+import React, { useMemo, useCallback } from 'react';
+import { InlineLoader, ErrorBoundary } from '../ui/LoadingStates';
 
-const LocationModal = ({ location, isOpen, onClose, onNavigate, locationIndex, totalLocations }) => {
+const LocationModal = ({ 
+  location, 
+  isOpen, 
+  onClose, 
+  onNavigate, 
+  locationIndex = 0, 
+  totalLocations = 1,
+  loading = false,
+  error = null 
+}) => {
   console.log(`🔄 LocationModal render - isOpen: ${isOpen}, location:`, location?.location_name);
   
-  if (!isOpen || !location) return null;
+  if (!isOpen) return null;
 
-  const status = location.operational_status || location.current_status || 'Unknown';
-  const isActive = status === 'Active';
+  // Memoized status calculation
+  const { status, isActive } = useMemo(() => {
+    if (!location) return { status: 'Unknown', isActive: false };
+    const locationStatus = location.operational_status || location.current_status || 'Unknown';
+    return {
+      status: locationStatus,
+      isActive: locationStatus === 'Active'
+    };
+  }, [location]);
+
+  // Memoized navigation handlers
+  const handlePrevious = useCallback(() => {
+    if (locationIndex > 0 && onNavigate) {
+      console.log('⬅️ Previous location clicked');
+      onNavigate(locationIndex - 1);
+    }
+  }, [locationIndex, onNavigate]);
+
+  const handleNext = useCallback(() => {
+    if (locationIndex < totalLocations - 1 && onNavigate) {
+      console.log('➡️ Next location clicked');
+      onNavigate(locationIndex + 1);
+    }
+  }, [locationIndex, totalLocations, onNavigate]);
+
+  const handleNavigateToLocation = useCallback(() => {
+    console.log('🎯 Navigate button clicked');
+    if (onNavigate) {
+      onNavigate();
+    }
+  }, [onNavigate]);
+
+  // Handle loading state
+  if (loading) {
+    return (
+      <div className="location-modal-overlay" onClick={onClose}>
+        <div className="location-modal" onClick={(e) => e.stopPropagation()}>
+          <div className="location-modal-header">
+            <h2>Loading Location...</h2>
+            <button className="modal-close-btn" onClick={onClose}>×</button>
+          </div>
+          <div className="location-modal-body">
+            <InlineLoader message="Loading location details..." />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Handle error state
+  if (error) {
+    return (
+      <div className="location-modal-overlay" onClick={onClose}>
+        <div className="location-modal" onClick={(e) => e.stopPropagation()}>
+          <div className="location-modal-header">
+            <h2>Error Loading Location</h2>
+            <button className="modal-close-btn" onClick={onClose}>×</button>
+          </div>
+          <div className="location-modal-body">
+            <ErrorBoundary 
+              error={error} 
+              title="Failed to load location details"
+              showDetails={false}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Handle missing location
+  if (!location) {
+    return (
+      <div className="location-modal-overlay" onClick={onClose}>
+        <div className="location-modal" onClick={(e) => e.stopPropagation()}>
+          <div className="location-modal-header">
+            <h2>Location Not Found</h2>
+            <button className="modal-close-btn" onClick={onClose}>×</button>
+          </div>
+          <div className="location-modal-body">
+            <div className="cg-empty-state">
+              <div className="cg-empty-icon">📍</div>
+              <h4 className="cg-empty-title">Location not available</h4>
+              <p className="cg-empty-message">The requested location could not be found.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   console.log(`📋 Rendering modal for: ${location.location_name}`);
 
@@ -98,10 +196,7 @@ const LocationModal = ({ location, isOpen, onClose, onNavigate, locationIndex, t
           <div className="location-actions">
             <button 
               className="primary-action-btn"
-              onClick={() => {
-                console.log('🎯 Navigate button clicked');
-                onNavigate && onNavigate();
-              }}
+              onClick={handleNavigateToLocation}
             >
               🎯 Navigate to This Location
             </button>
@@ -125,20 +220,14 @@ const LocationModal = ({ location, isOpen, onClose, onNavigate, locationIndex, t
             <button 
               className="nav-modal-btn"
               disabled={locationIndex === 0}
-              onClick={() => {
-                console.log('⬅️ Previous location clicked');
-                onNavigate && onNavigate(locationIndex - 1);
-              }}
+              onClick={handlePrevious}
             >
               ← Previous Location
             </button>
             <button 
               className="nav-modal-btn"
               disabled={locationIndex === totalLocations - 1}
-              onClick={() => {
-                console.log('➡️ Next location clicked');
-                onNavigate && onNavigate(locationIndex + 1);
-              }}
+              onClick={handleNext}
             >
               Next Location →
             </button>

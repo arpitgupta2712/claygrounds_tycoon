@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import ControlPanel from './ControlPanel';
+import { useIndiaCitiesData } from '../../hooks';
+import { DataLoadingSpinner, DataError } from './LoadingStates';
 
 const CITY_FILTERS = {
   ALL: { id: 'all', name: 'All Cities', icon: '🏙️', description: 'Show all cities' },
@@ -16,7 +18,56 @@ const CitiesControlPanel = ({
   onFilterChange,
   isControlVisible = true 
 }) => {
+  // Use optimized data fetching hook
+  const { data: citiesData, loading, error, refetch } = useIndiaCitiesData();
+
+  // Memoized event handlers for better performance
+  const handleToggleCities = useCallback(() => {
+    if (onToggleCities) {
+      onToggleCities(!showCities);
+    }
+  }, [onToggleCities, showCities]);
+
+  const handleFilterChange = useCallback((filterId) => {
+    if (onFilterChange) {
+      onFilterChange(filterId);
+    }
+  }, [onFilterChange]);
+
   if (!isControlVisible || !isVisible) return null;
+
+  // Handle loading state
+  if (loading) {
+    return (
+      <ControlPanel
+        title="Cities"
+        icon="🏙️"
+        badge="Loading..."
+        defaultExpanded={showCities}
+      >
+        <DataLoadingSpinner type="cities" size="small" />
+      </ControlPanel>
+    );
+  }
+
+  // Handle error state
+  if (error) {
+    return (
+      <ControlPanel
+        title="Cities"
+        icon="🏙️"
+        badge="Error"
+        defaultExpanded={showCities}
+      >
+        <DataError 
+          error={error} 
+          retry={refetch} 
+          dataType="cities data"
+          compact={true}
+        />
+      </ControlPanel>
+    );
+  }
 
   return (
     <ControlPanel
@@ -29,7 +80,7 @@ const CitiesControlPanel = ({
       <div className="cg-control-group">
         <div 
           className="cg-toggle"
-          onClick={() => onToggleCities && onToggleCities(!showCities)}
+          onClick={handleToggleCities}
         >
           <div className={`cg-toggle-switch ${showCities ? 'active' : ''}`}></div>
           <div className="cg-toggle-label">Show Cities</div>
@@ -45,7 +96,7 @@ const CitiesControlPanel = ({
               <button
                 key={filter.id}
                 className={`cg-filter-button ${currentFilter === filter.id ? 'active' : ''}`}
-                onClick={() => onFilterChange && onFilterChange(filter.id)}
+                onClick={() => handleFilterChange(filter.id)}
                 title={filter.description}
               >
                 <span>{filter.icon}</span>
@@ -78,5 +129,6 @@ const CitiesControlPanel = ({
   );
 };
 
-export default CitiesControlPanel;
+// Memoize component to prevent unnecessary re-renders
+export default React.memo(CitiesControlPanel);
 export { CITY_FILTERS }; 
