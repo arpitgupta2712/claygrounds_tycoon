@@ -16,16 +16,28 @@
   --cg-tycoon-info: #06B6D4;         /* Info Cyan - Information, Data */
   --cg-tycoon-success: #22C55E;      /* Success Light Green - Achievements */
   
-  /* Game UI Colors */
-  --cg-game-bg: #0F172A;             /* Dark game background */
-  --cg-game-bg-light: #1E293B;       /* Lighter game background */
-  --cg-game-panel: #1E293B;          /* Panel background */
-  --cg-game-panel-light: #334155;    /* Lighter panel background */
-  --cg-game-border: #334155;         /* Panel borders */
-  --cg-game-border-light: #475569;   /* Lighter borders */
-  --cg-game-text: #F1F5F9;           /* Light text */
-  --cg-game-text-muted: #94A3B8;     /* Muted text */
-  --cg-game-text-dark: #64748B;      /* Dark muted text */
+  /* Game UI Colors - Enhanced for immersive experience */
+  --cg-game-bg: #0A0E1A;             /* Deep space dark background */
+  --cg-game-bg-light: #1A1F2E;       /* Lighter game background */
+  --cg-game-panel: #1A1F2E;          /* Panel background with slight transparency */
+  --cg-game-panel-light: #252A3A;    /* Lighter panel background */
+  --cg-game-border: #2D3748;         /* Panel borders with glow effect */
+  --cg-game-border-light: #4A5568;   /* Lighter borders */
+  --cg-game-text: #E2E8F0;           /* Bright light text */
+  --cg-game-text-muted: #A0AEC0;     /* Muted text */
+  --cg-game-text-dark: #718096;      /* Dark muted text */
+  
+  /* Game-specific UI Colors */
+  --cg-game-header-bg: rgba(26, 31, 46, 0.95);
+  --cg-game-nav-bg: rgba(26, 31, 46, 0.98);
+  --cg-game-footer-bg: rgba(26, 31, 46, 0.95);
+  --cg-game-overlay: rgba(10, 14, 26, 0.8);
+  
+  /* Neon/Glow Colors for Game Elements */
+  --cg-neon-blue: #00D4FF;
+  --cg-neon-green: #00FF88;
+  --cg-neon-purple: #B794F6;
+  --cg-neon-orange: #FF8C00;
   
   /* Business Theme Colors */
   --cg-business-bg: #FFFFFF;         /* Light business background */
@@ -116,6 +128,14 @@
   --cg-game-margin: var(--cg-space-2);
   --cg-game-gap: var(--cg-space-3);
   
+  /* Semantic Spacing (used in component CSS files) */
+  --cg-spacing-xs: var(--cg-space-1);    /* 4px */
+  --cg-spacing-sm: var(--cg-space-2);    /* 8px */
+  --cg-spacing-md: var(--cg-space-4);    /* 16px */
+  --cg-spacing-lg: var(--cg-space-6);    /* 24px */
+  --cg-spacing-xl: var(--cg-space-8);    /* 32px */
+  --cg-spacing-2xl: var(--cg-space-12);  /* 48px */
+  
   /* Border Radius */
   --cg-radius-none: 0;
   --cg-radius-sm: 0.125rem;   /* 2px */
@@ -135,9 +155,14 @@
      LAYOUT DIMENSIONS
      ========================================================================== */
   
+  /* Container Widths */
+  --cg-container-max-width: 1200px;
+  
   /* Navigation Widths */
   --cg-left-nav-width: 280px;
   --cg-right-nav-width: 320px;
+  --cg-sidebar-width: 280px;
+  --cg-sidebar-width-collapsed: 64px;
   --cg-header-height: 64px;
   --cg-footer-height: 48px;
   
@@ -149,6 +174,8 @@
   --cg-breakpoint-2xl: 1536px;
   
   /* Z-Index Scale */
+  --cg-z-navigation: 1005;
+  --cg-z-header: 1010;
   --cg-z-dropdown: 1000;
   --cg-z-sticky: 1020;
   --cg-z-fixed: 1030;
@@ -165,6 +192,7 @@
   /* Transition Timings */
   --cg-transition-fast: 0.15s ease;
   --cg-transition-base: 0.3s ease;
+  --cg-transition-normal: 0.3s ease;
   --cg-transition-slow: 0.5s ease;
   --cg-transition-slower: 0.75s ease;
   
@@ -238,8 +266,19 @@
   --cg-bg-secondary: var(--cg-business-bg-alt);
   --cg-bg-panel: var(--cg-business-panel);
   --cg-border-color: var(--cg-business-border);
+  --cg-border-primary: var(--cg-business-border);
   --cg-text-primary: var(--cg-business-text);
   --cg-text-secondary: var(--cg-business-text-muted);
+  --cg-text-muted: var(--cg-business-text-muted);
+  
+  /* Semantic Color Variables (used in component CSS files) */
+  --cg-primary: var(--cg-tycoon-primary);
+  --cg-secondary: var(--cg-tycoon-secondary);
+  --cg-accent: var(--cg-tycoon-accent);
+  --cg-success: var(--cg-tycoon-success);
+  --cg-danger: var(--cg-tycoon-danger);
+  --cg-warning: var(--cg-tycoon-warning);
+  --cg-info: var(--cg-tycoon-info);
 }
 
 /* ==========================================================================
@@ -251,8 +290,10 @@
   --cg-bg-secondary: var(--cg-game-bg-light);
   --cg-bg-panel: var(--cg-game-panel);
   --cg-border-color: var(--cg-game-border);
+  --cg-border-primary: var(--cg-game-border);
   --cg-text-primary: var(--cg-game-text);
   --cg-text-secondary: var(--cg-game-text-muted);
+  --cg-text-muted: var(--cg-game-text-muted);
 }
 
 /* ==========================================================================

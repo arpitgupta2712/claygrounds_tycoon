@@ -5,7 +5,6 @@ import Home from './pages/Home';
 import PerformanceMonitor from './components/ui/PerformanceMonitor';
 import { startCacheCleanup } from './utils/dataCache';
 import './styles/main.css';
-import './App.css';
 
 function isTokenExpired(token) {
   if (!token) return true;

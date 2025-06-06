@@ -17,168 +17,141 @@ const LeftNavigation = ({
       }
     }
   }, []);
-  const navigationItems = [
+  const empireCommands = [
     {
-      id: 'dashboard',
-      icon: '🏠',
-      label: 'Dashboard',
-      description: 'Overview and analytics',
+      id: 'empire-overview',
+      icon: '🏛️',
+      label: 'Empire Overview',
+      description: 'Your sports empire at a glance',
       active: true,
-      path: '/home'
+      badge: 'NEW'
     },
     {
-      id: 'map',
+      id: 'build-facility',
+      icon: '🏗️',
+      label: 'Build Facility',
+      description: 'Construct new sports venues',
+      active: false,
+      badge: '3'
+    },
+    {
+      id: 'manage-territories',
       icon: '🗺️',
-      label: 'Interactive Map',
-      description: 'Explore territories in 3D',
+      label: 'Territory Control',
+      description: 'Expand your influence',
       active: false,
-      path: '/map'
+      badge: '36'
     },
     {
-      id: 'facilities',
-      icon: '🏟️',
-      label: 'Facilities',
-      description: 'Manage sports facilities',
+      id: 'financial-center',
+      icon: '💰',
+      label: 'Financial Center',
+      description: 'Revenue and investments',
       active: false,
-      path: '/facilities',
-      badge: '0'
+      badge: '₹0'
     },
     {
-      id: 'territories',
-      icon: '🎯',
-      label: 'Territories',
-      description: 'Territory management',
+      id: 'research-tech',
+      icon: '🔬',
+      label: 'Research & Tech',
+      description: 'Unlock new capabilities',
       active: false,
-      path: '/territories'
+      badge: '5'
     },
     {
-      id: 'analytics',
-      icon: '📊',
-      label: 'Analytics',
-      description: 'Performance insights',
+      id: 'staff-management',
+      icon: '👥',
+      label: 'Staff Management',
+      description: 'Hire and manage your team',
       active: false,
-      path: '/analytics'
-    },
-    {
-      id: 'reports',
-      icon: '📈',
-      label: 'Reports',
-      description: 'Generate reports',
-      active: false,
-      path: '/reports'
-    },
-    {
-      id: 'locations',
-      icon: '📍',
-      label: 'Locations',
-      description: 'Location database',
-      active: false,
-      path: '/locations'
-    },
-    {
-      id: 'settings',
-      icon: '⚙️',
-      label: 'Settings',
-      description: 'App configuration',
-      active: false,
-      path: '/settings'
+      badge: '12'
     }
   ];
 
   const quickActions = [
     {
-      id: 'add-facility',
-      icon: '➕',
-      label: 'Add Facility',
-      color: 'primary'
+      id: 'emergency-mode',
+      icon: '🚨',
+      label: 'Emergency Mode',
+      color: 'danger',
+      description: 'Crisis management'
     },
     {
-      id: 'export-data',
-      icon: '📤',
-      label: 'Export Data',
-      color: 'secondary'
+      id: 'auto-pilot',
+      icon: '🤖',
+      label: 'Auto-Pilot',
+      color: 'info',
+      description: 'AI assistance'
     },
     {
-      id: 'help',
-      icon: '❓',
-      label: 'Help & Support',
-      color: 'info'
+      id: 'market-analysis',
+      icon: '📈',
+      label: 'Market Intel',
+      color: 'accent',
+      description: 'Real-time insights'
     }
   ];
+
+
 
   if (!isOpen) return null;
 
   return (
-    <nav className={`cg-left-nav ${className}`}>
-      {/* Navigation Header */}
-      <div className="cg-nav-header">
-        <div className="cg-nav-title">
-          <span className="cg-nav-icon">🧭</span>
-          <span className="cg-nav-title-text">Navigation</span>
-        </div>
-        <button
-          className="cg-btn cg-btn-ghost cg-btn-icon-sm"
-          onClick={() => onToggle && onToggle(false)}
-          title="Close navigation"
-        >
-          ✕
-        </button>
-      </div>
-
-      {/* Main Navigation */}
-      <div className="cg-nav-content">
-        <div className="cg-nav-section">
-          <h3 className="cg-nav-section-title">Main Menu</h3>
-          <ul className="cg-nav-list">
-            {navigationItems.map((item) => (
-              <li key={item.id} className="cg-nav-item">
-                <a 
-                  href={`#${item.id}`}
-                  className={`cg-nav-link ${item.active ? 'active' : ''}`}
-                  title={item.description}
-                >
-                  <span className="cg-nav-link-icon">{item.icon}</span>
-                  <div className="cg-nav-link-content">
-                    <span className="cg-nav-link-label">{item.label}</span>
-                    <span className="cg-nav-link-description">{item.description}</span>
-                  </div>
-                </a>
-              </li>
-            ))}
-          </ul>
+    <nav className={`cg-nav cg-nav-left ${isOpen ? 'open' : ''} ${className}`}>
+      <div className="cg-nav-container">
+        {/* Command Center Header */}
+        <div className="cg-nav-header">
+          <h2 className="cg-nav-title">⚡ Command Center</h2>
+          <p className="cg-nav-subtitle">Empire Management</p>
         </div>
 
-        {/* Quick Actions */}
-        <div className="cg-nav-section">
-          <h3 className="cg-nav-section-title">Quick Actions</h3>
-          <div className="cg-nav-actions">
-            {quickActions.map((action) => (
-              <button
-                key={action.id}
-                className={`cg-btn cg-btn-${action.color} cg-btn-sm cg-nav-action`}
-                title={action.label}
-              >
-                <span className="cg-nav-action-icon">{action.icon}</span>
-                <span className="cg-nav-action-label">{action.label}</span>
-              </button>
-            ))}
+        {/* Empire Commands */}
+        <div className="cg-nav-body">
+          <div className="cg-nav-section">
+            <h3 className="cg-nav-section-title">Empire Commands</h3>
+            <ul className="cg-nav-menu">
+              {empireCommands.map((command) => (
+                <li key={command.id} className="cg-nav-item">
+                  <button 
+                    className={`cg-nav-link ${command.active ? 'active' : ''}`}
+                    title={command.description}
+                  >
+                    <span className="cg-nav-icon">{command.icon}</span>
+                    <span className="cg-nav-text">{command.label}</span>
+                    {command.badge && <span className="cg-nav-badge">{command.badge}</span>}
+                  </button>
+                </li>
+              ))}
+            </ul>
           </div>
+
+          {/* Quick Actions */}
+          <div className="cg-nav-section">
+            <h3 className="cg-nav-section-title">Quick Actions</h3>
+            <div className="cg-nav-actions">
+              {quickActions.map((action) => (
+                <button
+                  key={action.id}
+                  className={`cg-btn cg-btn-${action.color} cg-btn-sm cg-nav-action`}
+                  title={action.description}
+                >
+                  <span className="cg-nav-action-icon">{action.icon}</span>
+                  <span className="cg-nav-action-label">{action.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
         </div>
 
         {/* User Profile Section */}
-        <div className="cg-nav-section cg-nav-profile">
-          <div className="cg-profile-card">
-            <div className="cg-profile-avatar">
-              <span className="cg-profile-avatar-icon">👤</span>
+        <div className="cg-nav-footer">
+          <div className="cg-nav-user">
+            <div className="cg-nav-user-avatar">👤</div>
+            <div className="cg-nav-user-info">
+              <div className="cg-nav-user-name">{user?.employee_name || 'User'}</div>
+              <div className="cg-nav-user-role">{user?.designation || 'Employee'}</div>
             </div>
-            <div className="cg-profile-info">
-              <div className="cg-profile-name">{user?.employee_name || 'User'}</div>
-              <div className="cg-profile-role">{user?.designation || 'Employee'}</div>
-              <div className="cg-profile-access">{user?.access_role || 'User'}</div>
-            </div>
-            <button className="cg-btn cg-btn-ghost cg-btn-icon-sm cg-profile-menu">
-              ⋮
-            </button>
           </div>
         </div>
       </div>

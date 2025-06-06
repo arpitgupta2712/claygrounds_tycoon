@@ -5,38 +5,49 @@ const RightNavigation = ({
   onToggle,
   className = "" 
 }) => {
-  const controlSections = [
+  const gameControlSections = [
     {
-      id: 'view-controls',
-      title: 'View Controls',
-      icon: '👁️',
-      items: [
-        { id: 'zoom-in', icon: '🔍', label: 'Zoom In', shortcut: '+' },
-        { id: 'zoom-out', icon: '🔍', label: 'Zoom Out', shortcut: '-' },
-        { id: 'reset-view', icon: '🎯', label: 'Reset View', shortcut: 'R' },
-        { id: 'fullscreen', icon: '⛶', label: 'Fullscreen', shortcut: 'F' }
-      ]
-    },
-    {
-      id: 'map-layers',
-      title: 'Map Layers',
+      id: 'map-controls',
+      title: 'Map Controls',
       icon: '🗺️',
       items: [
-        { id: 'satellite', icon: '🛰️', label: 'Satellite View', toggle: true, active: false },
-        { id: 'terrain', icon: '🏔️', label: 'Terrain', toggle: true, active: true },
-        { id: 'traffic', icon: '🚦', label: 'Traffic', toggle: true, active: false },
-        { id: 'labels', icon: '🏷️', label: 'Labels', toggle: true, active: true }
+        { id: 'zoom-in', icon: '🔍+', label: 'Zoom In', shortcut: '+', action: true },
+        { id: 'zoom-out', icon: '🔍-', label: 'Zoom Out', shortcut: '-', action: true },
+        { id: 'reset-view', icon: '🎯', label: 'Reset View', shortcut: 'R', action: true },
+        { id: 'fullscreen', icon: '⛶', label: 'Fullscreen', shortcut: 'F11', action: true }
       ]
     },
     {
-      id: 'filters',
-      title: 'Data Filters',
-      icon: '🔍',
+      id: 'view-modes',
+      title: 'View Modes',
+      icon: '👁️',
       items: [
-        { id: 'active-facilities', icon: '✅', label: 'Active Facilities', toggle: true, active: true },
-        { id: 'inactive-facilities', icon: '❌', label: 'Inactive Facilities', toggle: true, active: false },
-        { id: 'high-performance', icon: '⭐', label: 'High Performance', toggle: true, active: false },
-        { id: 'recent-updates', icon: '🕒', label: 'Recent Updates', toggle: true, active: true }
+        { id: 'satellite', icon: '🛰️', label: 'Satellite View', toggle: true, active: false },
+        { id: 'terrain', icon: '🏔️', label: 'Terrain Mode', toggle: true, active: true },
+        { id: 'economic', icon: '💰', label: 'Economic View', toggle: true, active: false },
+        { id: 'population', icon: '👥', label: 'Population Density', toggle: true, active: false }
+      ]
+    },
+    {
+      id: 'game-filters',
+      title: 'Game Filters',
+      icon: '🎮',
+      items: [
+        { id: 'my-facilities', icon: '🏟️', label: 'My Facilities', toggle: true, active: true },
+        { id: 'competitors', icon: '⚔️', label: 'Competitors', toggle: true, active: true },
+        { id: 'opportunities', icon: '💎', label: 'Opportunities', toggle: true, active: true },
+        { id: 'threats', icon: '⚠️', label: 'Threats', toggle: true, active: false }
+      ]
+    },
+    {
+      id: 'game-settings',
+      title: 'Game Settings',
+      icon: '⚙️',
+      items: [
+        { id: 'auto-save', icon: '💾', label: 'Auto-Save', toggle: true, active: true },
+        { id: 'notifications', icon: '🔔', label: 'Notifications', toggle: true, active: true },
+        { id: 'sound-effects', icon: '🔊', label: 'Sound Effects', toggle: true, active: true },
+        { id: 'tutorial-mode', icon: '🎓', label: 'Tutorial Mode', toggle: true, active: false }
       ]
     }
   ];
@@ -51,26 +62,18 @@ const RightNavigation = ({
   if (!isOpen) return null;
 
   return (
-    <aside className={`cg-right-nav ${className}`}>
-      {/* Navigation Header */}
-      <div className="cg-nav-header">
-        <div className="cg-nav-title">
-          <span className="cg-nav-icon">⚙️</span>
-          <span className="cg-nav-title-text">Controls</span>
+    <aside className={`cg-nav cg-nav-right ${isOpen ? 'open' : ''} ${className}`}>
+      <div className="cg-nav-container">
+        {/* Game Control Header */}
+        <div className="cg-nav-header">
+          <h2 className="cg-nav-title">⚙️ Control Panel</h2>
+          <p className="cg-nav-subtitle">Game Controls & Settings</p>
         </div>
-        <button
-          className="cg-btn cg-btn-ghost cg-btn-icon-sm"
-          onClick={() => onToggle && onToggle(false)}
-          title="Close controls"
-        >
-          ✕
-        </button>
-      </div>
 
-      {/* Controls Content */}
-      <div className="cg-nav-content">
-        {/* Control Sections */}
-        {controlSections.map((section) => (
+        {/* Game Controls Content */}
+        <div className="cg-nav-body">
+        {/* Game Control Sections */}
+        {gameControlSections.map((section) => (
           <div key={section.id} className="cg-nav-section">
             <h3 className="cg-nav-section-title">
               <span className="cg-nav-section-icon">{section.icon}</span>
@@ -81,8 +84,8 @@ const RightNavigation = ({
               {section.items.map((item) => (
                 <div key={item.id} className="cg-control-item">
                   {item.toggle ? (
-                    // Toggle Control
-                    <label className="cg-toggle-control">
+                    // Toggle Control for Game Settings
+                    <label className="cg-game-toggle">
                       <input 
                         type="checkbox" 
                         defaultChecked={item.active}
@@ -95,12 +98,12 @@ const RightNavigation = ({
                       </div>
                     </label>
                   ) : (
-                    // Button Control
-                    <button className="cg-control-button">
+                    // Action Button Control
+                    <button className="cg-game-control-btn">
                       <span className="cg-control-icon">{item.icon}</span>
                       <span className="cg-control-label">{item.label}</span>
                       {item.shortcut && (
-                        <span className="cg-control-shortcut">{item.shortcut}</span>
+                        <kbd className="cg-control-shortcut">{item.shortcut}</kbd>
                       )}
                     </button>
                   )}
@@ -155,6 +158,7 @@ const RightNavigation = ({
               <span className="cg-status-value">Syncing</span>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </aside>

@@ -58,6 +58,12 @@
    BUTTON SIZES
    ========================================================================== */
 
+.cg-btn-xs {
+  height: 24px;
+  padding: var(--cg-space-1) var(--cg-space-2);
+  font-size: var(--cg-text-xs);
+}
+
 .cg-btn-sm {
   height: var(--cg-btn-height-sm);
   padding: var(--cg-space-1) var(--cg-space-3);
