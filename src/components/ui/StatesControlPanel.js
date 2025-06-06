@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import ControlPanel from './ControlPanel';
 import { getAvailableStatesFromData, getStateStats } from '../map/layers/StateBoundariesLayer';
 import { useIndiaStatesData } from '../../hooks';
@@ -28,8 +28,6 @@ const StatesControlPanel = ({
     };
   }, [statesData]);
 
-  if (!isVisible) return null;
-
   // Memoized event handlers for better performance
   const handleStateClick = useCallback((stateName) => {
     if (onStateSelect) {
@@ -46,6 +44,8 @@ const StatesControlPanel = ({
   const handleToggleAllStates = useCallback(() => {
     setShowAllStates(prev => !prev);
   }, []);
+
+  if (!isVisible) return null;
 
   const clearButton = selectedState && onClearSelection ? (
     <button 

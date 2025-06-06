@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import ControlPanel from './ControlPanel';
 import { getDistrictsByState, getDistrictStats } from '../map/layers/DistrictBoundariesLayer';
 import { useIndiaDistrictsData } from '../../hooks';
-import { DataLoadingSpinner, DataError, EmptyState } from './LoadingStates';
+import { DataLoadingSpinner, DataError } from './LoadingStates';
 
 const DistrictsControlPanel = ({ 
   selectedState = null,
@@ -38,8 +38,6 @@ const DistrictsControlPanel = ({
     }
   }, [districtsData, selectedState, showAllDistricts]);
 
-  if (!isVisible) return null;
-
   // Memoized event handlers for better performance
   const handleDistrictClick = useCallback((district) => {
     if (onDistrictSelect) {
@@ -56,6 +54,8 @@ const DistrictsControlPanel = ({
   const handleToggleAllDistricts = useCallback(() => {
     setShowAllDistricts(prev => !prev);
   }, []);
+
+  if (!isVisible) return null;
 
   const clearButton = selectedState && onClearSelection ? (
     <button 

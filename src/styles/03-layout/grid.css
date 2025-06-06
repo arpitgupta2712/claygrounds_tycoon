@@ -1,0 +1,489 @@
+/* ==========================================================================
+   GRID - ClayGrounds Tycoon
+   Grid layout system for tycoon game interface
+   ========================================================================== */
+
+/* ==========================================================================
+   CONTAINER SYSTEM
+   ========================================================================== */
+
+.cg-container {
+  width: 100%;
+  max-width: var(--cg-container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--cg-space-4);
+}
+
+.cg-container-fluid {
+  width: 100%;
+  padding: 0 var(--cg-space-4);
+}
+
+.cg-container-sm {
+  max-width: 640px;
+}
+
+.cg-container-md {
+  max-width: 768px;
+}
+
+.cg-container-lg {
+  max-width: 1024px;
+}
+
+.cg-container-xl {
+  max-width: 1280px;
+}
+
+/* ==========================================================================
+   FLEXBOX GRID SYSTEM
+   ========================================================================== */
+
+.cg-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 calc(var(--cg-space-4) * -0.5);
+}
+
+.cg-col {
+  flex: 1;
+  padding: 0 calc(var(--cg-space-4) * 0.5);
+}
+
+/* Column Sizes */
+.cg-col-1 { flex: 0 0 8.333333%; max-width: 8.333333%; }
+.cg-col-2 { flex: 0 0 16.666667%; max-width: 16.666667%; }
+.cg-col-3 { flex: 0 0 25%; max-width: 25%; }
+.cg-col-4 { flex: 0 0 33.333333%; max-width: 33.333333%; }
+.cg-col-5 { flex: 0 0 41.666667%; max-width: 41.666667%; }
+.cg-col-6 { flex: 0 0 50%; max-width: 50%; }
+.cg-col-7 { flex: 0 0 58.333333%; max-width: 58.333333%; }
+.cg-col-8 { flex: 0 0 66.666667%; max-width: 66.666667%; }
+.cg-col-9 { flex: 0 0 75%; max-width: 75%; }
+.cg-col-10 { flex: 0 0 83.333333%; max-width: 83.333333%; }
+.cg-col-11 { flex: 0 0 91.666667%; max-width: 91.666667%; }
+.cg-col-12 { flex: 0 0 100%; max-width: 100%; }
+
+.cg-col-auto {
+  flex: 0 0 auto;
+  width: auto;
+}
+
+/* ==========================================================================
+   CSS GRID SYSTEM
+   ========================================================================== */
+
+.cg-grid {
+  display: grid;
+  gap: var(--cg-space-4);
+}
+
+/* Grid Templates */
+.cg-grid-1 { grid-template-columns: 1fr; }
+.cg-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.cg-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.cg-grid-4 { grid-template-columns: repeat(4, 1fr); }
+.cg-grid-5 { grid-template-columns: repeat(5, 1fr); }
+.cg-grid-6 { grid-template-columns: repeat(6, 1fr); }
+
+/* Auto-fit grids */
+.cg-grid-auto-fit {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.cg-grid-auto-fill {
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
+/* Grid gaps */
+.cg-gap-0 { gap: 0; }
+.cg-gap-1 { gap: var(--cg-space-1); }
+.cg-gap-2 { gap: var(--cg-space-2); }
+.cg-gap-3 { gap: var(--cg-space-3); }
+.cg-gap-4 { gap: var(--cg-space-4); }
+.cg-gap-5 { gap: var(--cg-space-5); }
+.cg-gap-6 { gap: var(--cg-space-6); }
+.cg-gap-8 { gap: var(--cg-space-8); }
+
+/* Grid item spanning */
+.cg-span-1 { grid-column: span 1; }
+.cg-span-2 { grid-column: span 2; }
+.cg-span-3 { grid-column: span 3; }
+.cg-span-4 { grid-column: span 4; }
+.cg-span-5 { grid-column: span 5; }
+.cg-span-6 { grid-column: span 6; }
+.cg-span-full { grid-column: 1 / -1; }
+
+/* Row spanning */
+.cg-row-span-1 { grid-row: span 1; }
+.cg-row-span-2 { grid-row: span 2; }
+.cg-row-span-3 { grid-row: span 3; }
+.cg-row-span-4 { grid-row: span 4; }
+.cg-row-span-5 { grid-row: span 5; }
+.cg-row-span-6 { grid-row: span 6; }
+
+/* ==========================================================================
+   GAME-SPECIFIC LAYOUTS
+   ========================================================================== */
+
+/* Main Game Layout */
+.cg-game-layout {
+  display: grid;
+  grid-template-areas: 
+    "header header header"
+    "left-nav main right-nav"
+    "footer footer footer";
+  grid-template-columns: var(--cg-sidebar-width) 1fr var(--cg-sidebar-width);
+  grid-template-rows: var(--cg-header-height) 1fr auto;
+  min-height: 100vh;
+}
+
+.cg-game-header {
+  grid-area: header;
+}
+
+.cg-game-left-nav {
+  grid-area: left-nav;
+}
+
+.cg-game-main {
+  grid-area: main;
+  overflow: hidden;
+}
+
+.cg-game-right-nav {
+  grid-area: right-nav;
+}
+
+.cg-game-footer {
+  grid-area: footer;
+}
+
+/* Dashboard Layout */
+.cg-dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--cg-space-6);
+  padding: var(--cg-space-6);
+}
+
+/* Stats Grid */
+.cg-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--cg-space-4);
+}
+
+/* Territory Grid */
+.cg-territory-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: var(--cg-space-4);
+  padding: var(--cg-space-4);
+}
+
+/* Map Layout */
+.cg-map-layout {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.cg-map-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.cg-map-controls {
+  position: absolute;
+  top: var(--cg-space-4);
+  right: var(--cg-space-4);
+  z-index: var(--cg-z-floating);
+}
+
+/* ==========================================================================
+   ALIGNMENT UTILITIES
+   ========================================================================== */
+
+/* Flexbox alignment */
+.cg-flex {
+  display: flex;
+}
+
+.cg-inline-flex {
+  display: inline-flex;
+}
+
+.cg-flex-col {
+  flex-direction: column;
+}
+
+.cg-flex-row {
+  flex-direction: row;
+}
+
+.cg-flex-wrap {
+  flex-wrap: wrap;
+}
+
+.cg-flex-nowrap {
+  flex-wrap: nowrap;
+}
+
+/* Justify content */
+.cg-justify-start {
+  justify-content: flex-start;
+}
+
+.cg-justify-end {
+  justify-content: flex-end;
+}
+
+.cg-justify-center {
+  justify-content: center;
+}
+
+.cg-justify-between {
+  justify-content: space-between;
+}
+
+.cg-justify-around {
+  justify-content: space-around;
+}
+
+.cg-justify-evenly {
+  justify-content: space-evenly;
+}
+
+/* Align items */
+.cg-items-start {
+  align-items: flex-start;
+}
+
+.cg-items-end {
+  align-items: flex-end;
+}
+
+.cg-items-center {
+  align-items: center;
+}
+
+.cg-items-baseline {
+  align-items: baseline;
+}
+
+.cg-items-stretch {
+  align-items: stretch;
+}
+
+/* Align content */
+.cg-content-start {
+  align-content: flex-start;
+}
+
+.cg-content-end {
+  align-content: flex-end;
+}
+
+.cg-content-center {
+  align-content: center;
+}
+
+.cg-content-between {
+  align-content: space-between;
+}
+
+.cg-content-around {
+  align-content: space-around;
+}
+
+.cg-content-evenly {
+  align-content: space-evenly;
+}
+
+/* Align self */
+.cg-self-auto {
+  align-self: auto;
+}
+
+.cg-self-start {
+  align-self: flex-start;
+}
+
+.cg-self-end {
+  align-self: flex-end;
+}
+
+.cg-self-center {
+  align-self: center;
+}
+
+.cg-self-stretch {
+  align-self: stretch;
+}
+
+/* Flex grow/shrink */
+.cg-flex-1 {
+  flex: 1 1 0%;
+}
+
+.cg-flex-auto {
+  flex: 1 1 auto;
+}
+
+.cg-flex-initial {
+  flex: 0 1 auto;
+}
+
+.cg-flex-none {
+  flex: none;
+}
+
+.cg-grow {
+  flex-grow: 1;
+}
+
+.cg-grow-0 {
+  flex-grow: 0;
+}
+
+.cg-shrink {
+  flex-shrink: 1;
+}
+
+.cg-shrink-0 {
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   RESPONSIVE GRID SYSTEM
+   ========================================================================== */
+
+/* Mobile First Responsive Columns */
+@media (min-width: 640px) {
+  .cg-sm-col-1 { flex: 0 0 8.333333%; max-width: 8.333333%; }
+  .cg-sm-col-2 { flex: 0 0 16.666667%; max-width: 16.666667%; }
+  .cg-sm-col-3 { flex: 0 0 25%; max-width: 25%; }
+  .cg-sm-col-4 { flex: 0 0 33.333333%; max-width: 33.333333%; }
+  .cg-sm-col-5 { flex: 0 0 41.666667%; max-width: 41.666667%; }
+  .cg-sm-col-6 { flex: 0 0 50%; max-width: 50%; }
+  .cg-sm-col-7 { flex: 0 0 58.333333%; max-width: 58.333333%; }
+  .cg-sm-col-8 { flex: 0 0 66.666667%; max-width: 66.666667%; }
+  .cg-sm-col-9 { flex: 0 0 75%; max-width: 75%; }
+  .cg-sm-col-10 { flex: 0 0 83.333333%; max-width: 83.333333%; }
+  .cg-sm-col-11 { flex: 0 0 91.666667%; max-width: 91.666667%; }
+  .cg-sm-col-12 { flex: 0 0 100%; max-width: 100%; }
+}
+
+@media (min-width: 768px) {
+  .cg-md-col-1 { flex: 0 0 8.333333%; max-width: 8.333333%; }
+  .cg-md-col-2 { flex: 0 0 16.666667%; max-width: 16.666667%; }
+  .cg-md-col-3 { flex: 0 0 25%; max-width: 25%; }
+  .cg-md-col-4 { flex: 0 0 33.333333%; max-width: 33.333333%; }
+  .cg-md-col-5 { flex: 0 0 41.666667%; max-width: 41.666667%; }
+  .cg-md-col-6 { flex: 0 0 50%; max-width: 50%; }
+  .cg-md-col-7 { flex: 0 0 58.333333%; max-width: 58.333333%; }
+  .cg-md-col-8 { flex: 0 0 66.666667%; max-width: 66.666667%; }
+  .cg-md-col-9 { flex: 0 0 75%; max-width: 75%; }
+  .cg-md-col-10 { flex: 0 0 83.333333%; max-width: 83.333333%; }
+  .cg-md-col-11 { flex: 0 0 91.666667%; max-width: 91.666667%; }
+  .cg-md-col-12 { flex: 0 0 100%; max-width: 100%; }
+}
+
+@media (min-width: 1024px) {
+  .cg-lg-col-1 { flex: 0 0 8.333333%; max-width: 8.333333%; }
+  .cg-lg-col-2 { flex: 0 0 16.666667%; max-width: 16.666667%; }
+  .cg-lg-col-3 { flex: 0 0 25%; max-width: 25%; }
+  .cg-lg-col-4 { flex: 0 0 33.333333%; max-width: 33.333333%; }
+  .cg-lg-col-5 { flex: 0 0 41.666667%; max-width: 41.666667%; }
+  .cg-lg-col-6 { flex: 0 0 50%; max-width: 50%; }
+  .cg-lg-col-7 { flex: 0 0 58.333333%; max-width: 58.333333%; }
+  .cg-lg-col-8 { flex: 0 0 66.666667%; max-width: 66.666667%; }
+  .cg-lg-col-9 { flex: 0 0 75%; max-width: 75%; }
+  .cg-lg-col-10 { flex: 0 0 83.333333%; max-width: 83.333333%; }
+  .cg-lg-col-11 { flex: 0 0 91.666667%; max-width: 91.666667%; }
+  .cg-lg-col-12 { flex: 0 0 100%; max-width: 100%; }
+}
+
+@media (min-width: 1280px) {
+  .cg-xl-col-1 { flex: 0 0 8.333333%; max-width: 8.333333%; }
+  .cg-xl-col-2 { flex: 0 0 16.666667%; max-width: 16.666667%; }
+  .cg-xl-col-3 { flex: 0 0 25%; max-width: 25%; }
+  .cg-xl-col-4 { flex: 0 0 33.333333%; max-width: 33.333333%; }
+  .cg-xl-col-5 { flex: 0 0 41.666667%; max-width: 41.666667%; }
+  .cg-xl-col-6 { flex: 0 0 50%; max-width: 50%; }
+  .cg-xl-col-7 { flex: 0 0 58.333333%; max-width: 58.333333%; }
+  .cg-xl-col-8 { flex: 0 0 66.666667%; max-width: 66.666667%; }
+  .cg-xl-col-9 { flex: 0 0 75%; max-width: 75%; }
+  .cg-xl-col-10 { flex: 0 0 83.333333%; max-width: 83.333333%; }
+  .cg-xl-col-11 { flex: 0 0 91.666667%; max-width: 91.666667%; }
+  .cg-xl-col-12 { flex: 0 0 100%; max-width: 100%; }
+}
+
+/* Responsive Game Layout */
+@media (max-width: 1024px) {
+  .cg-game-layout {
+    grid-template-areas: 
+      "header header"
+      "main main"
+      "footer footer";
+    grid-template-columns: 1fr;
+  }
+  
+  .cg-game-left-nav,
+  .cg-game-right-nav {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .cg-container,
+  .cg-container-fluid {
+    padding: 0 var(--cg-space-3);
+  }
+  
+  .cg-row {
+    margin: 0 calc(var(--cg-space-3) * -0.5);
+  }
+  
+  .cg-col {
+    padding: 0 calc(var(--cg-space-3) * 0.5);
+  }
+  
+  .cg-dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: var(--cg-space-4);
+    padding: var(--cg-space-4);
+  }
+  
+  .cg-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--cg-space-3);
+  }
+  
+  .cg-territory-grid {
+    grid-template-columns: 1fr;
+    gap: var(--cg-space-3);
+    padding: var(--cg-space-3);
+  }
+}
+
+@media (max-width: 480px) {
+  .cg-container,
+  .cg-container-fluid {
+    padding: 0 var(--cg-space-2);
+  }
+  
+  .cg-stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .cg-map-controls {
+    top: var(--cg-space-2);
+    right: var(--cg-space-2);
+  }
+} 

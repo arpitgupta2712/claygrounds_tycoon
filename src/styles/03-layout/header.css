@@ -1,0 +1,519 @@
+/* ==========================================================================
+   HEADER - ClayGrounds Tycoon
+   Header layout styles for tycoon game interface
+   ========================================================================== */
+
+/* ==========================================================================
+   BASE HEADER STYLES
+   ========================================================================== */
+
+.cg-header {
+  /* Layout */
+  position: sticky;
+  top: 0;
+  z-index: var(--cg-z-header);
+  
+  /* Sizing */
+  height: var(--cg-header-height);
+  
+  /* Appearance */
+  background-color: var(--cg-bg-primary);
+  border-bottom: 1px solid var(--cg-border-color);
+  box-shadow: var(--cg-shadow-sm);
+  
+  /* Backdrop */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  
+  /* Performance */
+  transform: translateZ(0);
+}
+
+.cg-header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  max-width: var(--cg-container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--cg-space-4);
+}
+
+/* ==========================================================================
+   HEADER BRAND/LOGO
+   ========================================================================== */
+
+.cg-header-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--cg-space-3);
+  text-decoration: none;
+  color: var(--cg-text-primary);
+  font-weight: var(--cg-font-bold);
+  font-size: var(--cg-text-lg);
+  transition: color var(--cg-transition-fast);
+}
+
+.cg-header-brand:hover {
+  color: var(--cg-tycoon-primary);
+}
+
+.cg-header-logo {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--cg-radius-md);
+}
+
+.cg-header-title {
+  font-family: var(--cg-font-primary);
+  font-weight: var(--cg-font-bold);
+  color: var(--cg-text-primary);
+  margin: 0;
+}
+
+/* ==========================================================================
+   HEADER NAVIGATION
+   ========================================================================== */
+
+.cg-header-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--cg-space-6);
+}
+
+.cg-header-nav-list {
+  display: flex;
+  align-items: center;
+  gap: var(--cg-space-4);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cg-header-nav-item {
+  position: relative;
+}
+
+.cg-header-nav-link {
+  display: flex;
+  align-items: center;
+  gap: var(--cg-space-2);
+  padding: var(--cg-space-2) var(--cg-space-3);
+  color: var(--cg-text-secondary);
+  text-decoration: none;
+  font-weight: var(--cg-font-medium);
+  border-radius: var(--cg-radius-md);
+  transition: all var(--cg-transition-fast);
+}
+
+.cg-header-nav-link:hover {
+  color: var(--cg-text-primary);
+  background-color: var(--cg-bg-secondary);
+}
+
+.cg-header-nav-link.active {
+  color: var(--cg-tycoon-primary);
+  background-color: rgba(16, 185, 129, 0.1);
+}
+
+.cg-header-nav-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 var(--cg-space-1);
+  background-color: var(--cg-tycoon-accent);
+  color: white;
+  font-size: var(--cg-text-xs);
+  font-weight: var(--cg-font-bold);
+  border-radius: var(--cg-radius-full);
+  line-height: 1;
+}
+
+/* ==========================================================================
+   HEADER ACTIONS
+   ========================================================================== */
+
+.cg-header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--cg-space-3);
+}
+
+.cg-header-search {
+  position: relative;
+  width: 300px;
+}
+
+.cg-header-search-input {
+  width: 100%;
+  height: 36px;
+  padding: 0 var(--cg-space-3) 0 var(--cg-space-10);
+  background-color: var(--cg-bg-secondary);
+  border: 1px solid var(--cg-border-color);
+  border-radius: var(--cg-radius-full);
+  font-size: var(--cg-text-sm);
+  transition: all var(--cg-transition-fast);
+}
+
+.cg-header-search-input:focus {
+  outline: none;
+  border-color: var(--cg-tycoon-primary);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+  background-color: var(--cg-bg-primary);
+}
+
+.cg-header-search-icon {
+  position: absolute;
+  left: var(--cg-space-3);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  color: var(--cg-text-muted);
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   HEADER USER MENU
+   ========================================================================== */
+
+.cg-header-user {
+  position: relative;
+}
+
+.cg-header-user-trigger {
+  display: flex;
+  align-items: center;
+  gap: var(--cg-space-2);
+  padding: var(--cg-space-2);
+  background: none;
+  border: none;
+  border-radius: var(--cg-radius-md);
+  cursor: pointer;
+  transition: background-color var(--cg-transition-fast);
+}
+
+.cg-header-user-trigger:hover {
+  background-color: var(--cg-bg-secondary);
+}
+
+.cg-header-user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--cg-radius-full);
+  background-color: var(--cg-tycoon-primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--cg-font-bold);
+  font-size: var(--cg-text-sm);
+}
+
+.cg-header-user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.cg-header-user-name {
+  font-size: var(--cg-text-sm);
+  font-weight: var(--cg-font-medium);
+  color: var(--cg-text-primary);
+  line-height: 1.2;
+}
+
+.cg-header-user-role {
+  font-size: var(--cg-text-xs);
+  color: var(--cg-text-muted);
+  line-height: 1.2;
+}
+
+/* ==========================================================================
+   GAME-SPECIFIC HEADER ELEMENTS
+   ========================================================================== */
+
+/* Money Display */
+.cg-header-money {
+  display: flex;
+  align-items: center;
+  gap: var(--cg-space-2);
+  padding: var(--cg-space-2) var(--cg-space-3);
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  border-radius: var(--cg-radius-md);
+  color: var(--cg-tycoon-accent);
+  font-family: var(--cg-font-mono);
+  font-weight: var(--cg-font-bold);
+  font-size: var(--cg-text-sm);
+}
+
+.cg-header-money-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--cg-tycoon-accent);
+}
+
+/* Stats Display */
+.cg-header-stats {
+  display: flex;
+  align-items: center;
+  gap: var(--cg-space-4);
+}
+
+.cg-header-stat {
+  display: flex;
+  align-items: center;
+  gap: var(--cg-space-1);
+  font-size: var(--cg-text-sm);
+  color: var(--cg-text-secondary);
+}
+
+.cg-header-stat-value {
+  font-family: var(--cg-font-mono);
+  font-weight: var(--cg-font-bold);
+  color: var(--cg-text-primary);
+}
+
+.cg-header-stat-icon {
+  width: 14px;
+  height: 14px;
+}
+
+/* Notifications */
+.cg-header-notifications {
+  position: relative;
+}
+
+.cg-header-notifications-trigger {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: none;
+  border-radius: var(--cg-radius-md);
+  color: var(--cg-text-secondary);
+  cursor: pointer;
+  transition: all var(--cg-transition-fast);
+}
+
+.cg-header-notifications-trigger:hover {
+  background-color: var(--cg-bg-secondary);
+  color: var(--cg-text-primary);
+}
+
+.cg-header-notifications-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
+  background-color: var(--cg-tycoon-danger);
+  border-radius: var(--cg-radius-full);
+  border: 2px solid var(--cg-bg-primary);
+}
+
+/* ==========================================================================
+   HEADER VARIANTS
+   ========================================================================== */
+
+/* Game Mode Header */
+.cg-header-game {
+  background: linear-gradient(135deg, var(--cg-game-panel) 0%, var(--cg-game-panel-light) 100%);
+  border-bottom-color: var(--cg-game-border);
+  color: var(--cg-game-text);
+}
+
+.cg-header-game .cg-header-title,
+.cg-header-game .cg-header-nav-link {
+  color: var(--cg-game-text);
+}
+
+.cg-header-game .cg-header-nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Transparent Header */
+.cg-header-transparent {
+  background-color: transparent;
+  border-bottom: none;
+  box-shadow: none;
+}
+
+.cg-header-transparent.scrolled {
+  background-color: var(--cg-bg-primary);
+  border-bottom: 1px solid var(--cg-border-color);
+  box-shadow: var(--cg-shadow-sm);
+}
+
+/* ==========================================================================
+   MOBILE HEADER
+   ========================================================================== */
+
+.cg-header-mobile-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: none;
+  border-radius: var(--cg-radius-md);
+  color: var(--cg-text-primary);
+  cursor: pointer;
+  transition: background-color var(--cg-transition-fast);
+}
+
+.cg-header-mobile-toggle:hover {
+  background-color: var(--cg-bg-secondary);
+}
+
+.cg-header-mobile-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: var(--cg-bg-primary);
+  border-bottom: 1px solid var(--cg-border-color);
+  box-shadow: var(--cg-shadow-lg);
+  padding: var(--cg-space-4);
+}
+
+.cg-header-mobile-menu.open {
+  display: block;
+}
+
+.cg-header-mobile-nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cg-space-2);
+}
+
+.cg-header-mobile-nav .cg-header-nav-link {
+  padding: var(--cg-space-3);
+  border-radius: var(--cg-radius-md);
+}
+
+/* ==========================================================================
+   RESPONSIVE HEADER
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .cg-header-container {
+    padding: 0 var(--cg-space-3);
+  }
+  
+  .cg-header-nav {
+    display: none;
+  }
+  
+  .cg-header-mobile-toggle {
+    display: flex;
+  }
+  
+  .cg-header-search {
+    display: none;
+  }
+  
+  .cg-header-actions {
+    gap: var(--cg-space-2);
+  }
+  
+  .cg-header-user-info {
+    display: none;
+  }
+  
+  .cg-header-stats {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .cg-header-container {
+    padding: 0 var(--cg-space-2);
+  }
+  
+  .cg-header-brand {
+    gap: var(--cg-space-2);
+  }
+  
+  .cg-header-title {
+    font-size: var(--cg-text-base);
+  }
+  
+  .cg-header-money {
+    padding: var(--cg-space-1) var(--cg-space-2);
+    font-size: var(--cg-text-xs);
+  }
+}
+
+/* ==========================================================================
+   ACCESSIBILITY ENHANCEMENTS
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .cg-header,
+  .cg-header-nav-link,
+  .cg-header-user-trigger,
+  .cg-header-notifications-trigger {
+    transition: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .cg-header {
+    border-bottom-width: 2px;
+  }
+  
+  .cg-header-nav-link.active {
+    border: 2px solid var(--cg-tycoon-primary);
+  }
+}
+
+/* ==========================================================================
+   HEADER ANIMATIONS
+   ========================================================================== */
+
+@keyframes cg-header-slide-down {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.cg-header-animate {
+  animation: cg-header-slide-down 0.3s ease-out;
+}
+
+/* Sticky header scroll effect */
+.cg-header-sticky {
+  transition: all var(--cg-transition-fast);
+}
+
+.cg-header-sticky.scrolled {
+  height: calc(var(--cg-header-height) - 8px);
+  box-shadow: var(--cg-shadow-md);
+}
+
+.cg-header-sticky.scrolled .cg-header-container {
+  padding: 0 var(--cg-space-3);
+}
+
+.cg-header-sticky.scrolled .cg-header-logo {
+  width: 28px;
+  height: 28px;
+}
+
+.cg-header-sticky.scrolled .cg-header-title {
+  font-size: var(--cg-text-base);
+} 

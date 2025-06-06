@@ -1,0 +1,507 @@
+/* ==========================================================================
+   MODALS - ClayGrounds Tycoon
+   Modal and overlay components for tycoon game interface
+   ========================================================================== */
+
+/* ==========================================================================
+   BASE MODAL STYLES
+   ========================================================================== */
+
+.cg-modal {
+  /* Layout */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--cg-z-modal);
+  
+  /* Appearance */
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  
+  /* States */
+  opacity: 0;
+  visibility: hidden;
+  
+  /* Transitions */
+  transition: all var(--cg-transition-fast);
+  
+  /* Performance */
+  transform: translateZ(0);
+}
+
+.cg-modal.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.cg-modal-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: var(--cg-space-4);
+}
+
+.cg-modal-content {
+  /* Layout */
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  
+  /* Appearance */
+  background-color: var(--cg-bg-primary);
+  border-radius: var(--cg-radius-xl);
+  box-shadow: var(--cg-shadow-xl);
+  border: 1px solid var(--cg-border-color);
+  
+  /* Scrolling */
+  overflow: hidden;
+  
+  /* Animation */
+  transform: scale(0.95) translateY(20px);
+  transition: transform var(--cg-transition-fast);
+}
+
+.cg-modal.open .cg-modal-content {
+  transform: scale(1) translateY(0);
+}
+
+/* ==========================================================================
+   MODAL PARTS
+   ========================================================================== */
+
+.cg-modal-header {
+  padding: var(--cg-space-6) var(--cg-space-6) var(--cg-space-4);
+  border-bottom: 1px solid var(--cg-border-color);
+}
+
+.cg-modal-title {
+  font-size: var(--cg-text-xl);
+  font-weight: var(--cg-font-semibold);
+  color: var(--cg-text-primary);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.cg-modal-subtitle {
+  font-size: var(--cg-text-sm);
+  color: var(--cg-text-secondary);
+  margin: var(--cg-space-2) 0 0 0;
+}
+
+.cg-modal-close {
+  position: absolute;
+  top: var(--cg-space-4);
+  right: var(--cg-space-4);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  border-radius: var(--cg-radius-md);
+  color: var(--cg-text-muted);
+  cursor: pointer;
+  transition: all var(--cg-transition-fast);
+}
+
+.cg-modal-close:hover {
+  background-color: var(--cg-bg-secondary);
+  color: var(--cg-text-primary);
+}
+
+.cg-modal-body {
+  padding: var(--cg-space-6);
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.cg-modal-footer {
+  padding: var(--cg-space-4) var(--cg-space-6) var(--cg-space-6);
+  border-top: 1px solid var(--cg-border-color);
+  display: flex;
+  gap: var(--cg-space-3);
+  justify-content: flex-end;
+}
+
+/* ==========================================================================
+   MODAL SIZES
+   ========================================================================== */
+
+.cg-modal-sm .cg-modal-content {
+  max-width: 400px;
+}
+
+.cg-modal-lg .cg-modal-content {
+  max-width: 800px;
+}
+
+.cg-modal-xl .cg-modal-content {
+  max-width: 1200px;
+}
+
+.cg-modal-fullscreen .cg-modal-content {
+  width: 100vw;
+  height: 100vh;
+  max-width: none;
+  max-height: none;
+  border-radius: 0;
+}
+
+/* ==========================================================================
+   FLOATING PANELS (Map Controls)
+   ========================================================================== */
+
+.cg-floating-panel {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--cg-radius-lg);
+  box-shadow: var(--cg-shadow-lg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: var(--cg-z-floating);
+  min-width: 200px;
+  transition: all var(--cg-transition-fast);
+}
+
+.cg-floating-panel:hover {
+  box-shadow: var(--cg-shadow-xl);
+}
+
+/* Map Style Switcher */
+.map-style-switcher {
+  top: 20px;
+  right: 20px;
+}
+
+.style-switcher-header {
+  padding: var(--cg-space-3) var(--cg-space-4);
+  border-bottom: 1px solid var(--cg-border-color);
+}
+
+.style-switcher-title {
+  font-size: var(--cg-text-sm);
+  font-weight: var(--cg-font-semibold);
+  color: var(--cg-text-primary);
+  margin: 0;
+}
+
+.style-options {
+  padding: var(--cg-space-2);
+  display: grid;
+  gap: var(--cg-space-1);
+}
+
+.style-option {
+  display: flex;
+  align-items: center;
+  gap: var(--cg-space-3);
+  padding: var(--cg-space-2) var(--cg-space-3);
+  border: none;
+  border-radius: var(--cg-radius-md);
+  background: transparent;
+  cursor: pointer;
+  transition: all var(--cg-transition-fast);
+  text-align: left;
+  width: 100%;
+}
+
+.style-option:hover {
+  background-color: var(--cg-bg-secondary);
+}
+
+.style-option.active {
+  background-color: var(--cg-tycoon-secondary);
+  color: white;
+}
+
+.style-option.active .style-name {
+  color: white;
+}
+
+.style-icon {
+  font-size: 16px;
+  min-width: 20px;
+  text-align: center;
+  color: var(--cg-text-secondary);
+}
+
+.style-option.active .style-icon {
+  color: white;
+}
+
+.style-name {
+  font-size: var(--cg-text-sm);
+  font-weight: var(--cg-font-medium);
+  color: var(--cg-text-primary);
+  flex: 1;
+}
+
+/* View Control */
+.view-control {
+  top: 20px;
+  right: 240px; /* Position to the left of style switcher */
+  min-width: 180px;
+}
+
+.view-control-header {
+  padding: var(--cg-space-3) var(--cg-space-4);
+  border-bottom: 1px solid var(--cg-border-color);
+}
+
+.view-control-title {
+  font-size: var(--cg-text-sm);
+  font-weight: var(--cg-font-semibold);
+  color: var(--cg-text-primary);
+  margin: 0;
+}
+
+.view-options {
+  padding: var(--cg-space-2);
+  display: grid;
+  gap: var(--cg-space-1);
+}
+
+.view-option {
+  display: flex;
+  align-items: center;
+  gap: var(--cg-space-3);
+  padding: var(--cg-space-2) var(--cg-space-3);
+  border: none;
+  border-radius: var(--cg-radius-md);
+  background: transparent;
+  cursor: pointer;
+  transition: all var(--cg-transition-fast);
+  text-align: left;
+  width: 100%;
+}
+
+.view-option:hover {
+  background-color: var(--cg-bg-secondary);
+}
+
+.view-option.active {
+  background-color: var(--cg-tycoon-primary);
+  color: white;
+}
+
+.view-option.active .view-name {
+  color: white;
+}
+
+.view-icon {
+  font-size: 16px;
+  min-width: 20px;
+  text-align: center;
+  color: var(--cg-text-secondary);
+}
+
+.view-option.active .view-icon {
+  color: white;
+}
+
+.view-name {
+  font-size: var(--cg-text-sm);
+  font-weight: var(--cg-font-medium);
+  color: var(--cg-text-primary);
+  flex: 1;
+}
+
+.view-description {
+  padding: var(--cg-space-2) var(--cg-space-4) var(--cg-space-3);
+  border-top: 1px solid var(--cg-border-color);
+}
+
+.current-view-desc {
+  font-size: var(--cg-text-xs);
+  color: var(--cg-text-muted);
+  font-style: italic;
+  margin: 0;
+}
+
+/* ==========================================================================
+   GAME-SPECIFIC MODALS
+   ========================================================================== */
+
+/* Achievement Modal */
+.cg-modal-achievement {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(34, 197, 94, 0.05) 100%);
+}
+
+.cg-modal-achievement .cg-modal-content {
+  border-color: var(--cg-tycoon-success);
+  box-shadow: var(--cg-glow-primary), var(--cg-shadow-xl);
+}
+
+/* Money Transaction Modal */
+.cg-modal-money {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
+}
+
+.cg-modal-money .cg-modal-content {
+  border-color: var(--cg-tycoon-accent);
+  box-shadow: var(--cg-glow-accent), var(--cg-shadow-xl);
+}
+
+/* Territory Modal */
+.cg-modal-territory .cg-modal-content {
+  border-color: var(--cg-tycoon-secondary);
+}
+
+/* ==========================================================================
+   RESPONSIVE MODALS
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .cg-modal-container {
+    padding: var(--cg-space-2);
+    align-items: flex-end;
+  }
+  
+  .cg-modal-content {
+    max-height: 95vh;
+    border-radius: var(--cg-radius-lg) var(--cg-radius-lg) 0 0;
+  }
+  
+  .cg-modal-header,
+  .cg-modal-body,
+  .cg-modal-footer {
+    padding-left: var(--cg-space-4);
+    padding-right: var(--cg-space-4);
+  }
+  
+  .cg-modal-footer {
+    flex-direction: column;
+  }
+  
+  .cg-modal-footer .cg-btn {
+    width: 100%;
+  }
+  
+  /* Floating panels on mobile */
+  .map-style-switcher {
+    right: 10px;
+    min-width: 160px;
+  }
+  
+  .view-control {
+    right: 10px;
+    top: 180px; /* Stack vertically on mobile */
+    min-width: 160px;
+  }
+  
+  .style-option,
+  .view-option {
+    padding: var(--cg-space-2);
+    gap: var(--cg-space-2);
+  }
+  
+  .style-icon,
+  .view-icon {
+    font-size: 14px;
+  }
+  
+  .style-name,
+  .view-name {
+    font-size: var(--cg-text-xs);
+  }
+}
+
+@media (max-width: 480px) {
+  .cg-modal-container {
+    padding: 0;
+  }
+  
+  .cg-modal-content {
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+  }
+  
+  .view-control {
+    top: 140px; /* Adjust for smaller screens */
+  }
+}
+
+/* ==========================================================================
+   ACCESSIBILITY ENHANCEMENTS
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .cg-modal,
+  .cg-modal-content,
+  .cg-floating-panel,
+  .style-option,
+  .view-option {
+    transition: none;
+  }
+  
+  .cg-modal.open .cg-modal-content {
+    transform: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .cg-modal-content,
+  .cg-floating-panel {
+    border-width: 2px;
+  }
+  
+  .style-option.active,
+  .view-option.active {
+    border: 2px solid white;
+  }
+}
+
+/* ==========================================================================
+   MODAL ANIMATIONS
+   ========================================================================== */
+
+@keyframes cg-modal-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes cg-modal-slide-up {
+  from {
+    transform: translateY(100px) scale(0.95);
+  }
+  to {
+    transform: translateY(0) scale(1);
+  }
+}
+
+.cg-modal-animate {
+  animation: cg-modal-fade-in 0.3s ease-out;
+}
+
+.cg-modal-animate .cg-modal-content {
+  animation: cg-modal-slide-up 0.3s ease-out;
+}
+
+/* Floating panel entrance animation */
+@keyframes cg-panel-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cg-floating-panel {
+  animation: cg-panel-slide-in 0.3s ease-out;
+} 

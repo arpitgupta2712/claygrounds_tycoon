@@ -1,0 +1,475 @@
+/* ==========================================================================
+   BUTTONS - ClayGrounds Tycoon
+   Comprehensive button system for tycoon game interface
+   ========================================================================== */
+
+/* ==========================================================================
+   BASE BUTTON STYLES
+   ========================================================================== */
+
+.cg-btn {
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--cg-space-2);
+  
+  /* Sizing */
+  height: var(--cg-btn-height-base);
+  padding: var(--cg-btn-padding-y) var(--cg-btn-padding-x);
+  
+  /* Typography */
+  font-family: var(--cg-font-primary);
+  font-size: var(--cg-text-base);
+  font-weight: var(--cg-font-medium);
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  
+  /* Appearance */
+  border: 1px solid transparent;
+  border-radius: var(--cg-radius-md);
+  background-color: transparent;
+  cursor: pointer;
+  
+  /* Transitions */
+  transition: all var(--cg-transition-fast);
+  
+  /* Accessibility */
+  user-select: none;
+  -webkit-user-select: none;
+  
+  /* Performance */
+  transform: translateZ(0);
+}
+
+.cg-btn:focus {
+  outline: 2px solid var(--cg-tycoon-secondary);
+  outline-offset: 2px;
+}
+
+.cg-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   BUTTON SIZES
+   ========================================================================== */
+
+.cg-btn-sm {
+  height: var(--cg-btn-height-sm);
+  padding: var(--cg-space-1) var(--cg-space-3);
+  font-size: var(--cg-text-sm);
+}
+
+.cg-btn-lg {
+  height: var(--cg-btn-height-lg);
+  padding: var(--cg-space-3) var(--cg-space-6);
+  font-size: var(--cg-text-lg);
+}
+
+.cg-btn-block {
+  width: 100%;
+}
+
+/* ==========================================================================
+   BUTTON VARIANTS
+   ========================================================================== */
+
+/* Primary Button - Main actions */
+.cg-btn-primary {
+  background-color: var(--cg-tycoon-primary);
+  color: white;
+  border-color: var(--cg-tycoon-primary);
+  box-shadow: var(--cg-shadow-sm);
+}
+
+.cg-btn-primary:hover {
+  background-color: #059669; /* Darker green */
+  border-color: #059669;
+  box-shadow: var(--cg-shadow-md);
+  transform: translateY(-1px);
+}
+
+.cg-btn-primary:active {
+  background-color: #047857; /* Even darker green */
+  transform: translateY(0);
+  box-shadow: var(--cg-shadow-sm);
+}
+
+/* Secondary Button - Secondary actions */
+.cg-btn-secondary {
+  background-color: var(--cg-tycoon-secondary);
+  color: white;
+  border-color: var(--cg-tycoon-secondary);
+  box-shadow: var(--cg-shadow-sm);
+}
+
+.cg-btn-secondary:hover {
+  background-color: #2563EB; /* Darker blue */
+  border-color: #2563EB;
+  box-shadow: var(--cg-shadow-md);
+  transform: translateY(-1px);
+}
+
+.cg-btn-secondary:active {
+  background-color: #1D4ED8; /* Even darker blue */
+  transform: translateY(0);
+  box-shadow: var(--cg-shadow-sm);
+}
+
+/* Accent Button - Special actions (money, achievements) */
+.cg-btn-accent {
+  background-color: var(--cg-tycoon-accent);
+  color: white;
+  border-color: var(--cg-tycoon-accent);
+  box-shadow: var(--cg-shadow-sm);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.cg-btn-accent:hover {
+  background-color: #D97706; /* Darker gold */
+  border-color: #D97706;
+  box-shadow: var(--cg-glow-accent), var(--cg-shadow-md);
+  transform: translateY(-1px);
+}
+
+.cg-btn-accent:active {
+  background-color: #B45309; /* Even darker gold */
+  transform: translateY(0);
+  box-shadow: var(--cg-shadow-sm);
+}
+
+/* Danger Button - Destructive actions */
+.cg-btn-danger {
+  background-color: var(--cg-tycoon-danger);
+  color: white;
+  border-color: var(--cg-tycoon-danger);
+  box-shadow: var(--cg-shadow-sm);
+}
+
+.cg-btn-danger:hover {
+  background-color: #DC2626; /* Darker red */
+  border-color: #DC2626;
+  box-shadow: var(--cg-shadow-md);
+  transform: translateY(-1px);
+}
+
+.cg-btn-danger:active {
+  background-color: #B91C1C; /* Even darker red */
+  transform: translateY(0);
+  box-shadow: var(--cg-shadow-sm);
+}
+
+/* Warning Button - Caution actions */
+.cg-btn-warning {
+  background-color: var(--cg-tycoon-warning);
+  color: white;
+  border-color: var(--cg-tycoon-warning);
+  box-shadow: var(--cg-shadow-sm);
+}
+
+.cg-btn-warning:hover {
+  background-color: #EA580C; /* Darker orange */
+  border-color: #EA580C;
+  box-shadow: var(--cg-shadow-md);
+  transform: translateY(-1px);
+}
+
+.cg-btn-warning:active {
+  background-color: #C2410C; /* Even darker orange */
+  transform: translateY(0);
+  box-shadow: var(--cg-shadow-sm);
+}
+
+/* Info Button - Information actions */
+.cg-btn-info {
+  background-color: var(--cg-tycoon-info);
+  color: white;
+  border-color: var(--cg-tycoon-info);
+  box-shadow: var(--cg-shadow-sm);
+}
+
+.cg-btn-info:hover {
+  background-color: #0891B2; /* Darker cyan */
+  border-color: #0891B2;
+  box-shadow: var(--cg-shadow-md);
+  transform: translateY(-1px);
+}
+
+.cg-btn-info:active {
+  background-color: #0E7490; /* Even darker cyan */
+  transform: translateY(0);
+  box-shadow: var(--cg-shadow-sm);
+}
+
+/* Success Button - Success actions */
+.cg-btn-success {
+  background-color: var(--cg-tycoon-success);
+  color: white;
+  border-color: var(--cg-tycoon-success);
+  box-shadow: var(--cg-shadow-sm);
+}
+
+.cg-btn-success:hover {
+  background-color: #16A34A; /* Darker green */
+  border-color: #16A34A;
+  box-shadow: var(--cg-shadow-md);
+  transform: translateY(-1px);
+}
+
+.cg-btn-success:active {
+  background-color: #15803D; /* Even darker green */
+  transform: translateY(0);
+  box-shadow: var(--cg-shadow-sm);
+}
+
+/* ==========================================================================
+   OUTLINE BUTTONS
+   ========================================================================== */
+
+.cg-btn-outline {
+  background-color: transparent;
+  color: var(--cg-text-primary);
+  border-color: var(--cg-border-color);
+}
+
+.cg-btn-outline:hover {
+  background-color: var(--cg-bg-secondary);
+  border-color: var(--cg-tycoon-primary);
+  color: var(--cg-tycoon-primary);
+}
+
+.cg-btn-outline-primary {
+  color: var(--cg-tycoon-primary);
+  border-color: var(--cg-tycoon-primary);
+}
+
+.cg-btn-outline-primary:hover {
+  background-color: var(--cg-tycoon-primary);
+  color: white;
+}
+
+.cg-btn-outline-secondary {
+  color: var(--cg-tycoon-secondary);
+  border-color: var(--cg-tycoon-secondary);
+}
+
+.cg-btn-outline-secondary:hover {
+  background-color: var(--cg-tycoon-secondary);
+  color: white;
+}
+
+/* ==========================================================================
+   GHOST BUTTONS
+   ========================================================================== */
+
+.cg-btn-ghost {
+  background-color: transparent;
+  color: var(--cg-text-secondary);
+  border-color: transparent;
+}
+
+.cg-btn-ghost:hover {
+  background-color: var(--cg-bg-secondary);
+  color: var(--cg-text-primary);
+}
+
+/* ==========================================================================
+   ICON BUTTONS
+   ========================================================================== */
+
+.cg-btn-icon {
+  width: var(--cg-btn-height-base);
+  height: var(--cg-btn-height-base);
+  padding: 0;
+  border-radius: var(--cg-radius-md);
+}
+
+.cg-btn-icon-sm {
+  width: var(--cg-btn-height-sm);
+  height: var(--cg-btn-height-sm);
+}
+
+.cg-btn-icon-lg {
+  width: var(--cg-btn-height-lg);
+  height: var(--cg-btn-height-lg);
+}
+
+.cg-btn-icon-round {
+  border-radius: var(--cg-radius-full);
+}
+
+/* ==========================================================================
+   GAME-SPECIFIC BUTTONS
+   ========================================================================== */
+
+/* Game Action Button */
+.cg-btn-game {
+  background: linear-gradient(135deg, var(--cg-game-panel) 0%, var(--cg-game-panel-light) 100%);
+  color: var(--cg-game-text);
+  border-color: var(--cg-game-border);
+  box-shadow: var(--cg-game-shadow);
+}
+
+.cg-btn-game:hover {
+  background: linear-gradient(135deg, var(--cg-game-panel-light) 0%, var(--cg-game-border) 100%);
+  box-shadow: var(--cg-game-shadow-lg);
+  transform: translateY(-2px);
+}
+
+/* Money Button */
+.cg-btn-money {
+  background: linear-gradient(135deg, var(--cg-tycoon-accent) 0%, #D97706 100%);
+  color: white;
+  border-color: var(--cg-tycoon-accent);
+  box-shadow: var(--cg-glow-accent);
+  font-family: var(--cg-font-mono);
+  font-weight: var(--cg-font-bold);
+}
+
+.cg-btn-money:hover {
+  box-shadow: var(--cg-glow-accent), var(--cg-shadow-lg);
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* Achievement Button */
+.cg-btn-achievement {
+  background: linear-gradient(135deg, var(--cg-tycoon-success) 0%, var(--cg-tycoon-primary) 100%);
+  color: white;
+  border-color: var(--cg-tycoon-success);
+  box-shadow: var(--cg-glow-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.cg-btn-achievement::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left var(--cg-transition-slow);
+}
+
+.cg-btn-achievement:hover::before {
+  left: 100%;
+}
+
+/* ==========================================================================
+   BUTTON GROUPS
+   ========================================================================== */
+
+.cg-btn-group {
+  display: inline-flex;
+  border-radius: var(--cg-radius-md);
+  overflow: hidden;
+  box-shadow: var(--cg-shadow-sm);
+}
+
+.cg-btn-group .cg-btn {
+  border-radius: 0;
+  border-right-width: 0;
+}
+
+.cg-btn-group .cg-btn:first-child {
+  border-top-left-radius: var(--cg-radius-md);
+  border-bottom-left-radius: var(--cg-radius-md);
+}
+
+.cg-btn-group .cg-btn:last-child {
+  border-top-right-radius: var(--cg-radius-md);
+  border-bottom-right-radius: var(--cg-radius-md);
+  border-right-width: 1px;
+}
+
+.cg-btn-group .cg-btn:not(:first-child):not(:last-child) {
+  border-radius: 0;
+}
+
+/* ==========================================================================
+   LOADING STATES
+   ========================================================================== */
+
+.cg-btn-loading {
+  position: relative;
+  color: transparent;
+  pointer-events: none;
+}
+
+.cg-btn-loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  border: 2px solid currentColor;
+  border-radius: var(--cg-radius-full);
+  border-top-color: transparent;
+  animation: cg-spin 0.8s linear infinite;
+}
+
+@keyframes cg-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE BUTTONS
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .cg-btn {
+    height: 44px; /* Larger touch targets on mobile */
+    padding: var(--cg-space-2) var(--cg-space-4);
+  }
+  
+  .cg-btn-sm {
+    height: 36px;
+  }
+  
+  .cg-btn-lg {
+    height: 52px;
+  }
+  
+  .cg-btn-icon {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* ==========================================================================
+   ACCESSIBILITY ENHANCEMENTS
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .cg-btn {
+    transition: none;
+  }
+  
+  .cg-btn:hover {
+    transform: none;
+  }
+  
+  .cg-btn-achievement::before {
+    transition: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .cg-btn {
+    border-width: 2px;
+  }
+  
+  .cg-btn-outline {
+    border-width: 2px;
+  }
+} 

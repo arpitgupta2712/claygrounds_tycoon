@@ -1,0 +1,417 @@
+/* ==========================================================================
+   TYPOGRAPHY - ClayGrounds Tycoon
+   Typography system optimized for tycoon game interface
+   ========================================================================== */
+
+/* ==========================================================================
+   FONT IMPORTS
+   ========================================================================== */
+
+/* Import Inter font for better readability */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* ==========================================================================
+   HEADING STYLES
+   ========================================================================== */
+
+h1, .cg-h1 {
+  font-size: var(--cg-text-5xl);
+  font-weight: var(--cg-font-extrabold);
+  line-height: var(--cg-leading-tight);
+  color: var(--cg-text-primary);
+  margin-bottom: var(--cg-space-6);
+  font-family: var(--cg-font-display);
+}
+
+h2, .cg-h2 {
+  font-size: var(--cg-text-4xl);
+  font-weight: var(--cg-font-bold);
+  line-height: var(--cg-leading-tight);
+  color: var(--cg-text-primary);
+  margin-bottom: var(--cg-space-5);
+  font-family: var(--cg-font-display);
+}
+
+h3, .cg-h3 {
+  font-size: var(--cg-text-3xl);
+  font-weight: var(--cg-font-bold);
+  line-height: var(--cg-leading-tight);
+  color: var(--cg-text-primary);
+  margin-bottom: var(--cg-space-4);
+  font-family: var(--cg-font-display);
+}
+
+h4, .cg-h4 {
+  font-size: var(--cg-text-2xl);
+  font-weight: var(--cg-font-semibold);
+  line-height: var(--cg-leading-tight);
+  color: var(--cg-text-primary);
+  margin-bottom: var(--cg-space-3);
+  font-family: var(--cg-font-display);
+}
+
+h5, .cg-h5 {
+  font-size: var(--cg-text-xl);
+  font-weight: var(--cg-font-semibold);
+  line-height: var(--cg-leading-tight);
+  color: var(--cg-text-primary);
+  margin-bottom: var(--cg-space-3);
+  font-family: var(--cg-font-display);
+}
+
+h6, .cg-h6 {
+  font-size: var(--cg-text-lg);
+  font-weight: var(--cg-font-medium);
+  line-height: var(--cg-leading-tight);
+  color: var(--cg-text-primary);
+  margin-bottom: var(--cg-space-2);
+  font-family: var(--cg-font-display);
+}
+
+/* ==========================================================================
+   BODY TEXT STYLES
+   ========================================================================== */
+
+p, .cg-text {
+  font-size: var(--cg-text-base);
+  font-weight: var(--cg-font-normal);
+  line-height: var(--cg-leading-normal);
+  color: var(--cg-text-primary);
+  margin-bottom: var(--cg-space-4);
+}
+
+.cg-text-large {
+  font-size: var(--cg-text-lg);
+  line-height: var(--cg-leading-relaxed);
+}
+
+.cg-text-small {
+  font-size: var(--cg-text-sm);
+  line-height: var(--cg-leading-normal);
+}
+
+.cg-text-xs {
+  font-size: var(--cg-text-xs);
+  line-height: var(--cg-leading-normal);
+}
+
+/* ==========================================================================
+   TEXT COLORS
+   ========================================================================== */
+
+.cg-text-primary {
+  color: var(--cg-text-primary);
+}
+
+.cg-text-secondary {
+  color: var(--cg-text-secondary);
+}
+
+.cg-text-muted {
+  color: var(--cg-game-text-muted);
+}
+
+.cg-text-success {
+  color: var(--cg-tycoon-success);
+}
+
+.cg-text-warning {
+  color: var(--cg-tycoon-warning);
+}
+
+.cg-text-danger {
+  color: var(--cg-tycoon-danger);
+}
+
+.cg-text-info {
+  color: var(--cg-tycoon-info);
+}
+
+.cg-text-accent {
+  color: var(--cg-tycoon-accent);
+}
+
+/* ==========================================================================
+   FONT WEIGHTS
+   ========================================================================== */
+
+.cg-font-light {
+  font-weight: var(--cg-font-light);
+}
+
+.cg-font-normal {
+  font-weight: var(--cg-font-normal);
+}
+
+.cg-font-medium {
+  font-weight: var(--cg-font-medium);
+}
+
+.cg-font-semibold {
+  font-weight: var(--cg-font-semibold);
+}
+
+.cg-font-bold {
+  font-weight: var(--cg-font-bold);
+}
+
+.cg-font-extrabold {
+  font-weight: var(--cg-font-extrabold);
+}
+
+/* ==========================================================================
+   SPECIAL TEXT STYLES
+   ========================================================================== */
+
+/* Game Title Style */
+.cg-game-title {
+  font-family: var(--cg-font-display);
+  font-size: var(--cg-text-4xl);
+  font-weight: var(--cg-font-extrabold);
+  line-height: var(--cg-leading-tight);
+  color: var(--cg-tycoon-accent);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  margin-bottom: var(--cg-space-4);
+}
+
+/* Subtitle Style */
+.cg-subtitle {
+  font-size: var(--cg-text-lg);
+  font-weight: var(--cg-font-medium);
+  color: var(--cg-text-secondary);
+  margin-bottom: var(--cg-space-6);
+}
+
+/* Money/Currency Display */
+.cg-money {
+  font-family: var(--cg-font-mono);
+  font-size: var(--cg-text-xl);
+  font-weight: var(--cg-font-bold);
+  color: var(--cg-tycoon-accent);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.cg-money-large {
+  font-size: var(--cg-text-3xl);
+}
+
+.cg-money-small {
+  font-size: var(--cg-text-base);
+}
+
+/* Statistics Display */
+.cg-stat-number {
+  font-family: var(--cg-font-mono);
+  font-size: var(--cg-text-2xl);
+  font-weight: var(--cg-font-bold);
+  line-height: var(--cg-leading-tight);
+  color: var(--cg-text-primary);
+}
+
+.cg-stat-label {
+  font-size: var(--cg-text-sm);
+  font-weight: var(--cg-font-medium);
+  color: var(--cg-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Code/Monospace Text */
+.cg-code {
+  font-family: var(--cg-font-mono);
+  font-size: var(--cg-text-sm);
+  background-color: var(--cg-game-panel);
+  color: var(--cg-tycoon-accent);
+  padding: var(--cg-space-1) var(--cg-space-2);
+  border-radius: var(--cg-radius-base);
+  border: 1px solid var(--cg-game-border);
+}
+
+/* Keyboard Shortcut Display */
+.cg-kbd {
+  font-family: var(--cg-font-mono);
+  font-size: var(--cg-text-xs);
+  font-weight: var(--cg-font-semibold);
+  background-color: var(--cg-game-panel);
+  color: var(--cg-game-text);
+  padding: var(--cg-space-1) var(--cg-space-2);
+  border-radius: var(--cg-radius-base);
+  border: 1px solid var(--cg-game-border);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   TEXT ALIGNMENT
+   ========================================================================== */
+
+.cg-text-left {
+  text-align: left;
+}
+
+.cg-text-center {
+  text-align: center;
+}
+
+.cg-text-right {
+  text-align: right;
+}
+
+.cg-text-justify {
+  text-align: justify;
+}
+
+/* ==========================================================================
+   TEXT DECORATION
+   ========================================================================== */
+
+.cg-underline {
+  text-decoration: underline;
+}
+
+.cg-line-through {
+  text-decoration: line-through;
+}
+
+.cg-no-underline {
+  text-decoration: none;
+}
+
+/* ==========================================================================
+   TEXT TRANSFORM
+   ========================================================================== */
+
+.cg-uppercase {
+  text-transform: uppercase;
+}
+
+.cg-lowercase {
+  text-transform: lowercase;
+}
+
+.cg-capitalize {
+  text-transform: capitalize;
+}
+
+.cg-normal-case {
+  text-transform: none;
+}
+
+/* ==========================================================================
+   LETTER SPACING
+   ========================================================================== */
+
+.cg-tracking-tight {
+  letter-spacing: -0.025em;
+}
+
+.cg-tracking-normal {
+  letter-spacing: 0;
+}
+
+.cg-tracking-wide {
+  letter-spacing: 0.025em;
+}
+
+.cg-tracking-wider {
+  letter-spacing: 0.05em;
+}
+
+.cg-tracking-widest {
+  letter-spacing: 0.1em;
+}
+
+/* ==========================================================================
+   LINE HEIGHT
+   ========================================================================== */
+
+.cg-leading-tight {
+  line-height: var(--cg-leading-tight);
+}
+
+.cg-leading-normal {
+  line-height: var(--cg-leading-normal);
+}
+
+.cg-leading-relaxed {
+  line-height: var(--cg-leading-relaxed);
+}
+
+/* ==========================================================================
+   RESPONSIVE TYPOGRAPHY
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  h1, .cg-h1 {
+    font-size: var(--cg-text-4xl);
+  }
+  
+  h2, .cg-h2 {
+    font-size: var(--cg-text-3xl);
+  }
+  
+  h3, .cg-h3 {
+    font-size: var(--cg-text-2xl);
+  }
+  
+  .cg-game-title {
+    font-size: var(--cg-text-3xl);
+  }
+  
+  .cg-money {
+    font-size: var(--cg-text-lg);
+  }
+  
+  .cg-money-large {
+    font-size: var(--cg-text-2xl);
+  }
+  
+  .cg-stat-number {
+    font-size: var(--cg-text-xl);
+  }
+}
+
+/* ==========================================================================
+   GAME-SPECIFIC TYPOGRAPHY
+   ========================================================================== */
+
+/* Achievement Text */
+.cg-achievement {
+  font-size: var(--cg-text-sm);
+  font-weight: var(--cg-font-semibold);
+  color: var(--cg-tycoon-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Status Badge Text */
+.cg-status-text {
+  font-size: var(--cg-text-xs);
+  font-weight: var(--cg-font-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Tooltip Text */
+.cg-tooltip-text {
+  font-size: var(--cg-text-sm);
+  font-weight: var(--cg-font-medium);
+  line-height: var(--cg-leading-normal);
+  color: var(--cg-game-text);
+}
+
+/* Error Message Text */
+.cg-error-text {
+  font-size: var(--cg-text-sm);
+  font-weight: var(--cg-font-medium);
+  color: var(--cg-tycoon-danger);
+  line-height: var(--cg-leading-normal);
+}
+
+/* Success Message Text */
+.cg-success-text {
+  font-size: var(--cg-text-sm);
+  font-weight: var(--cg-font-medium);
+  color: var(--cg-tycoon-success);
+  line-height: var(--cg-leading-normal);
+} 

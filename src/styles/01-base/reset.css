@@ -1,0 +1,318 @@
+/* ==========================================================================
+   CSS RESET - ClayGrounds Tycoon
+   Modern CSS reset optimized for game interface
+   ========================================================================== */
+
+/* ==========================================================================
+   MODERN CSS RESET
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin and padding */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* ==========================================================================
+   ROOT & BODY
+   ========================================================================== */
+
+html {
+  /* Improve text rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  
+  /* Prevent iOS text size adjust after orientation change */
+  -webkit-text-size-adjust: 100%;
+  
+  /* Enable smooth scrolling */
+  scroll-behavior: smooth;
+  
+  /* Set base font size */
+  font-size: 16px;
+  
+  /* Prevent horizontal scroll */
+  overflow-x: hidden;
+}
+
+body {
+  /* Set default font */
+  font-family: var(--cg-font-primary);
+  font-size: var(--cg-text-base);
+  font-weight: var(--cg-font-normal);
+  line-height: var(--cg-leading-normal);
+  
+  /* Set default colors */
+  color: var(--cg-text-primary);
+  background-color: var(--cg-bg-primary);
+  
+  /* Improve text rendering */
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+  /* Prevent horizontal scroll */
+  overflow-x: hidden;
+  
+  /* Set minimum height */
+  min-height: 100vh;
+  
+  /* Enable hardware acceleration for smooth animations */
+  transform: translateZ(0);
+}
+
+/* ==========================================================================
+   TYPOGRAPHY RESET
+   ========================================================================== */
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--cg-font-semibold);
+  line-height: var(--cg-leading-tight);
+  color: var(--cg-text-primary);
+}
+
+p {
+  line-height: var(--cg-leading-normal);
+  color: var(--cg-text-primary);
+}
+
+a {
+  color: var(--cg-tycoon-secondary);
+  text-decoration: none;
+  transition: color var(--cg-transition-fast);
+}
+
+a:hover {
+  color: var(--cg-tycoon-primary);
+}
+
+a:focus {
+  outline: 2px solid var(--cg-tycoon-secondary);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   FORM ELEMENTS RESET
+   ========================================================================== */
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  margin: 0;
+}
+
+button,
+input {
+  overflow: visible;
+}
+
+button,
+select {
+  text-transform: none;
+}
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="url"],
+input[type="search"],
+textarea,
+select {
+  appearance: none;
+  background-color: transparent;
+  border: var(--cg-input-border-width) solid var(--cg-border-color);
+  border-radius: var(--cg-radius-md);
+  padding: var(--cg-space-2) var(--cg-input-padding-x);
+  font-size: var(--cg-text-base);
+  line-height: var(--cg-leading-normal);
+  color: var(--cg-text-primary);
+  transition: border-color var(--cg-transition-fast), box-shadow var(--cg-transition-fast);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--cg-tycoon-secondary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* ==========================================================================
+   LIST RESET
+   ========================================================================== */
+
+ul,
+ol {
+  list-style: none;
+}
+
+/* ==========================================================================
+   MEDIA RESET
+   ========================================================================== */
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+img {
+  border-style: none;
+}
+
+svg {
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   TABLE RESET
+   ========================================================================== */
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+th,
+td {
+  text-align: left;
+  vertical-align: top;
+}
+
+/* ==========================================================================
+   ACCESSIBILITY
+   ========================================================================== */
+
+/* Hide content visually but keep it available to screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus styles for keyboard navigation */
+*:focus {
+  outline: 2px solid var(--cg-tycoon-secondary);
+  outline-offset: 2px;
+}
+
+/* Remove focus outline for mouse users */
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Ensure focus is visible for keyboard users */
+*:focus-visible {
+  outline: 2px solid var(--cg-tycoon-secondary);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   HIGH CONTRAST MODE
+   ========================================================================== */
+
+@media (prefers-contrast: high) {
+  button,
+  input,
+  select,
+  textarea {
+    border-width: 2px;
+  }
+}
+
+/* ==========================================================================
+   PRINT STYLES
+   ========================================================================== */
+
+@media print {
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+  
+  img {
+    page-break-inside: avoid;
+  }
+  
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+  
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+} 

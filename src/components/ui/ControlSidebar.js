@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import '../../styles/sidebar.css';
 
 const ControlSidebar = ({ 
   isOpen = true, 

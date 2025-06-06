@@ -1,0 +1,339 @@
+/* ==========================================================================
+   FOOTER - ClayGrounds Tycoon
+   Footer layout styles for tycoon game interface
+   ========================================================================== */
+
+/* ==========================================================================
+   BASE FOOTER STYLES
+   ========================================================================== */
+
+.cg-footer {
+  /* Layout */
+  position: relative;
+  z-index: var(--cg-z-footer);
+  
+  /* Sizing */
+  min-height: var(--cg-footer-height);
+  
+  /* Appearance */
+  background-color: var(--cg-bg-primary);
+  border-top: 1px solid var(--cg-border-color);
+  
+  /* Performance */
+  transform: translateZ(0);
+}
+
+.cg-footer-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--cg-footer-height);
+  max-width: var(--cg-container-max-width);
+  margin: 0 auto;
+  padding: var(--cg-space-4);
+}
+
+/* ==========================================================================
+   FOOTER CONTENT
+   ========================================================================== */
+
+.cg-footer-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--cg-space-2);
+  color: var(--cg-text-secondary);
+  font-size: var(--cg-text-sm);
+}
+
+.cg-footer-logo {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--cg-radius-sm);
+}
+
+.cg-footer-text {
+  color: var(--cg-text-muted);
+  font-size: var(--cg-text-sm);
+  margin: 0;
+}
+
+.cg-footer-links {
+  display: flex;
+  align-items: center;
+  gap: var(--cg-space-4);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cg-footer-link {
+  color: var(--cg-text-secondary);
+  text-decoration: none;
+  font-size: var(--cg-text-sm);
+  transition: color var(--cg-transition-fast);
+}
+
+.cg-footer-link:hover {
+  color: var(--cg-tycoon-primary);
+}
+
+/* ==========================================================================
+   GAME-SPECIFIC FOOTER ELEMENTS
+   ========================================================================== */
+
+/* Game Stats in Footer */
+.cg-footer-stats {
+  display: flex;
+  align-items: center;
+  gap: var(--cg-space-6);
+}
+
+.cg-footer-stat {
+  display: flex;
+  align-items: center;
+  gap: var(--cg-space-2);
+  font-size: var(--cg-text-sm);
+  color: var(--cg-text-secondary);
+}
+
+.cg-footer-stat-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--cg-text-muted);
+}
+
+.cg-footer-stat-value {
+  font-family: var(--cg-font-mono);
+  font-weight: var(--cg-font-bold);
+  color: var(--cg-text-primary);
+}
+
+.cg-footer-stat-label {
+  color: var(--cg-text-muted);
+}
+
+/* Game Status Indicator */
+.cg-footer-status {
+  display: flex;
+  align-items: center;
+  gap: var(--cg-space-2);
+  padding: var(--cg-space-2) var(--cg-space-3);
+  background-color: var(--cg-bg-secondary);
+  border-radius: var(--cg-radius-full);
+  font-size: var(--cg-text-xs);
+}
+
+.cg-footer-status-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--cg-radius-full);
+  background-color: var(--cg-tycoon-success);
+  animation: cg-pulse 2s infinite;
+}
+
+.cg-footer-status-text {
+  color: var(--cg-text-secondary);
+  font-weight: var(--cg-font-medium);
+}
+
+/* Quick Actions */
+.cg-footer-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--cg-space-2);
+}
+
+.cg-footer-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  border-radius: var(--cg-radius-md);
+  color: var(--cg-text-muted);
+  cursor: pointer;
+  transition: all var(--cg-transition-fast);
+}
+
+.cg-footer-action:hover {
+  background-color: var(--cg-bg-secondary);
+  color: var(--cg-text-primary);
+}
+
+/* ==========================================================================
+   FOOTER VARIANTS
+   ========================================================================== */
+
+/* Sticky Footer */
+.cg-footer-sticky {
+  position: sticky;
+  bottom: 0;
+  box-shadow: var(--cg-shadow-sm);
+}
+
+/* Fixed Footer */
+.cg-footer-fixed {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  box-shadow: var(--cg-shadow-md);
+}
+
+/* Game Mode Footer */
+.cg-footer-game {
+  background: linear-gradient(135deg, var(--cg-game-panel) 0%, var(--cg-game-panel-light) 100%);
+  border-top-color: var(--cg-game-border);
+  color: var(--cg-game-text);
+}
+
+.cg-footer-game .cg-footer-text,
+.cg-footer-game .cg-footer-link {
+  color: var(--cg-game-text);
+}
+
+.cg-footer-game .cg-footer-link:hover {
+  color: var(--cg-tycoon-primary);
+}
+
+/* Minimal Footer */
+.cg-footer-minimal {
+  min-height: auto;
+  padding: var(--cg-space-3) 0;
+  text-align: center;
+}
+
+.cg-footer-minimal .cg-footer-container {
+  flex-direction: column;
+  gap: var(--cg-space-2);
+  min-height: auto;
+}
+
+/* ==========================================================================
+   RESPONSIVE FOOTER
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .cg-footer-container {
+    flex-direction: column;
+    gap: var(--cg-space-3);
+    padding: var(--cg-space-3);
+    text-align: center;
+  }
+  
+  .cg-footer-links {
+    gap: var(--cg-space-3);
+  }
+  
+  .cg-footer-stats {
+    gap: var(--cg-space-4);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .cg-footer-actions {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .cg-footer-container {
+    padding: var(--cg-space-2);
+  }
+  
+  .cg-footer-links {
+    flex-direction: column;
+    gap: var(--cg-space-2);
+  }
+  
+  .cg-footer-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--cg-space-2);
+  }
+  
+  .cg-footer-brand {
+    flex-direction: column;
+    gap: var(--cg-space-1);
+  }
+}
+
+/* ==========================================================================
+   ACCESSIBILITY ENHANCEMENTS
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .cg-footer-action,
+  .cg-footer-link {
+    transition: none;
+  }
+  
+  .cg-footer-status-indicator {
+    animation: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .cg-footer {
+    border-top-width: 2px;
+  }
+}
+
+/* ==========================================================================
+   FOOTER ANIMATIONS
+   ========================================================================== */
+
+@keyframes cg-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes cg-footer-slide-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.cg-footer-animate {
+  animation: cg-footer-slide-up 0.3s ease-out;
+}
+
+/* ==========================================================================
+   FOOTER UTILITIES
+   ========================================================================== */
+
+.cg-footer-spacer {
+  height: var(--cg-footer-height);
+  flex-shrink: 0;
+}
+
+.cg-footer-divider {
+  width: 1px;
+  height: 20px;
+  background-color: var(--cg-border-color);
+  margin: 0 var(--cg-space-2);
+}
+
+.cg-footer-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 var(--cg-space-1);
+  background-color: var(--cg-tycoon-accent);
+  color: white;
+  font-size: var(--cg-text-xs);
+  font-weight: var(--cg-font-bold);
+  border-radius: var(--cg-radius-full);
+  line-height: 1;
+} 

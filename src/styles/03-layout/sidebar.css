@@ -1,0 +1,222 @@
+/* ==========================================================================
+   SIDEBAR - ClayGrounds Tycoon
+   Sidebar layout styles for tycoon game interface
+   ========================================================================== */
+
+/* ==========================================================================
+   BASE SIDEBAR STYLES
+   ========================================================================== */
+
+.cg-sidebar {
+  /* Layout */
+  position: fixed;
+  top: var(--cg-header-height);
+  bottom: 0;
+  z-index: var(--cg-z-sidebar);
+  
+  /* Sizing */
+  width: var(--cg-sidebar-width);
+  
+  /* Appearance */
+  background-color: var(--cg-bg-primary);
+  border-right: 1px solid var(--cg-border-color);
+  box-shadow: var(--cg-shadow-sm);
+  
+  /* Scrolling */
+  overflow-y: auto;
+  overflow-x: hidden;
+  
+  /* Transitions */
+  transition: all var(--cg-transition-normal);
+  
+  /* Performance */
+  transform: translateZ(0);
+}
+
+.cg-sidebar-left {
+  left: 0;
+}
+
+.cg-sidebar-right {
+  right: 0;
+  border-right: none;
+  border-left: 1px solid var(--cg-border-color);
+}
+
+/* ==========================================================================
+   SIDEBAR CONTAINER
+   ========================================================================== */
+
+.cg-sidebar-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: var(--cg-space-4);
+}
+
+.cg-sidebar-header {
+  margin-bottom: var(--cg-space-4);
+  padding-bottom: var(--cg-space-3);
+  border-bottom: 1px solid var(--cg-border-color);
+}
+
+.cg-sidebar-title {
+  font-size: var(--cg-text-lg);
+  font-weight: var(--cg-font-semibold);
+  color: var(--cg-text-primary);
+  margin: 0 0 var(--cg-space-2) 0;
+}
+
+.cg-sidebar-subtitle {
+  font-size: var(--cg-text-sm);
+  color: var(--cg-text-secondary);
+  margin: 0;
+}
+
+.cg-sidebar-body {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.cg-sidebar-footer {
+  margin-top: var(--cg-space-4);
+  padding-top: var(--cg-space-3);
+  border-top: 1px solid var(--cg-border-color);
+}
+
+/* ==========================================================================
+   SIDEBAR STATES
+   ========================================================================== */
+
+.cg-sidebar-collapsed {
+  width: var(--cg-sidebar-width-collapsed);
+}
+
+.cg-sidebar-hidden {
+  transform: translateX(-100%);
+}
+
+.cg-sidebar-right.cg-sidebar-hidden {
+  transform: translateX(100%);
+}
+
+/* ==========================================================================
+   SIDEBAR VARIANTS
+   ========================================================================== */
+
+/* Game Mode Sidebar */
+.cg-sidebar-game {
+  background: linear-gradient(180deg, var(--cg-game-panel) 0%, var(--cg-game-panel-light) 100%);
+  border-color: var(--cg-game-border);
+  color: var(--cg-game-text);
+}
+
+.cg-sidebar-game .cg-sidebar-title {
+  color: var(--cg-game-text);
+}
+
+/* Floating Sidebar */
+.cg-sidebar-floating {
+  position: absolute;
+  top: var(--cg-space-4);
+  bottom: var(--cg-space-4);
+  left: var(--cg-space-4);
+  width: calc(var(--cg-sidebar-width) - var(--cg-space-8));
+  border-radius: var(--cg-radius-xl);
+  box-shadow: var(--cg-shadow-lg);
+  border: 1px solid var(--cg-border-color);
+}
+
+.cg-sidebar-floating.cg-sidebar-right {
+  left: auto;
+  right: var(--cg-space-4);
+}
+
+/* ==========================================================================
+   RESPONSIVE SIDEBAR
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .cg-sidebar {
+    width: var(--cg-sidebar-width-collapsed);
+  }
+}
+
+@media (max-width: 768px) {
+  .cg-sidebar {
+    transform: translateX(-100%);
+  }
+  
+  .cg-sidebar-right {
+    transform: translateX(100%);
+  }
+  
+  .cg-sidebar.open {
+    transform: translateX(0);
+  }
+  
+  .cg-sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: var(--cg-z-overlay);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--cg-transition-fast);
+  }
+  
+  .cg-sidebar-overlay.open {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+/* ==========================================================================
+   ACCESSIBILITY ENHANCEMENTS
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .cg-sidebar {
+    transition: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .cg-sidebar {
+    border-width: 2px;
+  }
+}
+
+/* ==========================================================================
+   SIDEBAR ANIMATIONS
+   ========================================================================== */
+
+@keyframes cg-sidebar-slide-in {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes cg-sidebar-slide-in-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.cg-sidebar-animate {
+  animation: cg-sidebar-slide-in 0.3s ease-out;
+}
+
+.cg-sidebar-right.cg-sidebar-animate {
+  animation: cg-sidebar-slide-in-right 0.3s ease-out;
+} 

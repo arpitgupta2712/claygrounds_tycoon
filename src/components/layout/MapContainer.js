@@ -6,7 +6,7 @@ import StatesControlPanel from '../ui/StatesControlPanel';
 import DistrictsControlPanel from '../ui/DistrictsControlPanel';
 import MapStyleControlPanel from '../ui/MapStyleControlPanel';
 import ViewControlPanel from '../ui/ViewControlPanel';
-import { DataLoadingSpinner } from '../ui/LoadingStates';
+// DataLoadingSpinner import removed as it's not used
 import { mapApiStateToGeoJson } from '../../utils/stateNameMap';
 import { getStateFillColorExpression } from '../../utils/mapHighlightUtils';
 
@@ -22,7 +22,6 @@ const MapContainer = ({ className = "" }) => {
   const [selectedDistricts, setSelectedDistricts] = useState(new Set());
 
   const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN || '';
-  const indiaCenter = [78.9629, 20.5937];
 
   // Get theme colors from CSS variables
   const getThemeColor = (varName, fallback) => {
@@ -57,6 +56,7 @@ const MapContainer = ({ className = "" }) => {
     if (!mapContainerRef.current || !MAPBOX_TOKEN) return;
 
     mapboxgl.accessToken = MAPBOX_TOKEN;
+    const indiaCenter = [78.9629, 20.5937];
 
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
@@ -109,7 +109,7 @@ const MapContainer = ({ className = "" }) => {
     return () => {
       map.remove();
     };
-  }, [MAPBOX_TOKEN, indiaCenter, locations, activeStateFill]);
+  }, [MAPBOX_TOKEN, locations, activeStateFill]);
 
   // Effect to handle boundary layer switching
   useEffect(() => {

@@ -1,0 +1,157 @@
+/* ==========================================================================
+   MAIN CSS - ClayGrounds Tycoon
+   CSS Import Orchestrator - Organized Architecture
+   ========================================================================== */
+
+/* ==========================================================================
+   01. BASE STYLES
+   Foundation styles that everything else builds upon
+   ========================================================================== */
+
+@import './01-base/variables.css';
+@import './01-base/reset.css';
+@import './01-base/typography.css';
+
+/* ==========================================================================
+   02. COMPONENT STYLES
+   Reusable component styles
+   ========================================================================== */
+
+@import './02-components/buttons.css';
+@import './02-components/forms.css';
+@import './02-components/cards.css';
+@import './02-components/modals.css';
+
+/* ==========================================================================
+   03. LAYOUT STYLES
+   Layout and structural styles
+   ========================================================================== */
+
+@import './03-layout/grid.css';
+@import './03-layout/header.css';
+@import './03-layout/navigation.css';
+@import './03-layout/sidebar.css';
+@import './03-layout/footer.css';
+
+/* ==========================================================================
+   04. PAGE STYLES
+   Page-specific styles
+   ========================================================================== */
+
+@import './04-pages/auth.css';
+@import './04-pages/home.css';
+
+/* ==========================================================================
+   05. GAME STYLES
+   Tycoon game-specific styles
+   ========================================================================== */
+
+@import './05-game/tycoon.css';
+@import './05-game/map.css';
+
+/* ==========================================================================
+   GLOBAL UTILITIES
+   Global utility classes and overrides
+   ========================================================================== */
+
+/* Utility Classes */
+.cg-hidden {
+  display: none !important;
+}
+
+.cg-sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.cg-clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive Utilities */
+@media (max-width: 640px) {
+  .cg-hidden-mobile {
+    display: none !important;
+  }
+}
+
+@media (min-width: 641px) {
+  .cg-hidden-desktop {
+    display: none !important;
+  }
+}
+
+/* Theme Switching Utilities */
+.cg-theme-transition {
+  transition: background-color var(--cg-transition-base),
+              color var(--cg-transition-base),
+              border-color var(--cg-transition-base);
+}
+
+/* Performance Optimizations */
+.cg-gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.cg-smooth-scroll {
+  scroll-behavior: smooth;
+}
+
+/* ==========================================================================
+   DEVELOPMENT HELPERS
+   Only visible in development mode
+   ========================================================================== */
+
+/* Development Grid Overlay */
+.cg-dev-grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(rgba(255, 0, 0, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 0, 0, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity var(--cg-transition-base);
+}
+
+.cg-dev-grid.active {
+  opacity: 1;
+}
+
+/* Component Boundaries (Development) */
+.cg-dev-boundaries * {
+  outline: 1px solid rgba(255, 0, 0, 0.2) !important;
+}
+
+/* ==========================================================================
+   PRINT STYLES
+   ========================================================================== */
+
+@media print {
+  /* Hide non-essential elements */
+  .cg-no-print {
+    display: none !important;
+  }
+  
+  /* Optimize for print */
+  .cg-print-optimize {
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+  }
+} 

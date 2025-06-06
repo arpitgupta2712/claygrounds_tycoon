@@ -1,0 +1,590 @@
+/* ==========================================================================
+   CARDS - ClayGrounds Tycoon
+   Comprehensive card system for tycoon game interface
+   ========================================================================== */
+
+/* ==========================================================================
+   BASE CARD STYLES
+   ========================================================================== */
+
+.cg-card {
+  /* Layout */
+  display: flex;
+  flex-direction: column;
+  
+  /* Appearance */
+  background-color: var(--cg-bg-primary);
+  border: 1px solid var(--cg-border-color);
+  border-radius: var(--cg-radius-lg);
+  box-shadow: var(--cg-shadow-sm);
+  
+  /* Transitions */
+  transition: all var(--cg-transition-fast);
+  
+  /* Performance */
+  transform: translateZ(0);
+}
+
+.cg-card:hover {
+  box-shadow: var(--cg-shadow-md);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   CARD PARTS
+   ========================================================================== */
+
+.cg-card-header {
+  padding: var(--cg-space-4) var(--cg-space-4) 0;
+  border-bottom: 1px solid var(--cg-border-color);
+  margin-bottom: var(--cg-space-4);
+}
+
+.cg-card-header:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: var(--cg-space-4);
+}
+
+.cg-card-body {
+  padding: var(--cg-space-4);
+  flex: 1;
+}
+
+.cg-card-footer {
+  padding: 0 var(--cg-space-4) var(--cg-space-4);
+  border-top: 1px solid var(--cg-border-color);
+  margin-top: var(--cg-space-4);
+  padding-top: var(--cg-space-4);
+}
+
+.cg-card-footer:first-child {
+  border-top: none;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* ==========================================================================
+   CARD TITLES & TEXT
+   ========================================================================== */
+
+.cg-card-title {
+  margin: 0 0 var(--cg-space-2) 0;
+  font-size: var(--cg-text-lg);
+  font-weight: var(--cg-font-semibold);
+  color: var(--cg-text-primary);
+  line-height: 1.3;
+}
+
+.cg-card-subtitle {
+  margin: 0 0 var(--cg-space-3) 0;
+  font-size: var(--cg-text-sm);
+  color: var(--cg-text-secondary);
+  line-height: 1.4;
+}
+
+.cg-card-text {
+  margin: 0 0 var(--cg-space-3) 0;
+  color: var(--cg-text-primary);
+  line-height: 1.6;
+}
+
+.cg-card-text:last-child {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   CARD SIZES
+   ========================================================================== */
+
+.cg-card-sm {
+  border-radius: var(--cg-radius-md);
+}
+
+.cg-card-sm .cg-card-header,
+.cg-card-sm .cg-card-body,
+.cg-card-sm .cg-card-footer {
+  padding: var(--cg-space-3);
+}
+
+.cg-card-sm .cg-card-header {
+  padding-bottom: 0;
+  margin-bottom: var(--cg-space-3);
+}
+
+.cg-card-sm .cg-card-footer {
+  padding-top: var(--cg-space-3);
+  margin-top: var(--cg-space-3);
+}
+
+.cg-card-lg {
+  border-radius: var(--cg-radius-xl);
+}
+
+.cg-card-lg .cg-card-header,
+.cg-card-lg .cg-card-body,
+.cg-card-lg .cg-card-footer {
+  padding: var(--cg-space-6);
+}
+
+.cg-card-lg .cg-card-header {
+  padding-bottom: 0;
+  margin-bottom: var(--cg-space-6);
+}
+
+.cg-card-lg .cg-card-footer {
+  padding-top: var(--cg-space-6);
+  margin-top: var(--cg-space-6);
+}
+
+/* ==========================================================================
+   CARD VARIANTS
+   ========================================================================== */
+
+/* Primary Card */
+.cg-card-primary {
+  border-color: var(--cg-tycoon-primary);
+  background-color: rgba(16, 185, 129, 0.02);
+}
+
+.cg-card-primary .cg-card-header {
+  background-color: rgba(16, 185, 129, 0.05);
+  border-color: rgba(16, 185, 129, 0.2);
+}
+
+/* Secondary Card */
+.cg-card-secondary {
+  border-color: var(--cg-tycoon-secondary);
+  background-color: rgba(59, 130, 246, 0.02);
+}
+
+.cg-card-secondary .cg-card-header {
+  background-color: rgba(59, 130, 246, 0.05);
+  border-color: rgba(59, 130, 246, 0.2);
+}
+
+/* Accent Card */
+.cg-card-accent {
+  border-color: var(--cg-tycoon-accent);
+  background-color: rgba(245, 158, 11, 0.02);
+}
+
+.cg-card-accent .cg-card-header {
+  background-color: rgba(245, 158, 11, 0.05);
+  border-color: rgba(245, 158, 11, 0.2);
+}
+
+/* Success Card */
+.cg-card-success {
+  border-color: var(--cg-tycoon-success);
+  background-color: rgba(34, 197, 94, 0.02);
+}
+
+.cg-card-success .cg-card-header {
+  background-color: rgba(34, 197, 94, 0.05);
+  border-color: rgba(34, 197, 94, 0.2);
+}
+
+/* Warning Card */
+.cg-card-warning {
+  border-color: var(--cg-tycoon-warning);
+  background-color: rgba(251, 146, 60, 0.02);
+}
+
+.cg-card-warning .cg-card-header {
+  background-color: rgba(251, 146, 60, 0.05);
+  border-color: rgba(251, 146, 60, 0.2);
+}
+
+/* Danger Card */
+.cg-card-danger {
+  border-color: var(--cg-tycoon-danger);
+  background-color: rgba(239, 68, 68, 0.02);
+}
+
+.cg-card-danger .cg-card-header {
+  background-color: rgba(239, 68, 68, 0.05);
+  border-color: rgba(239, 68, 68, 0.2);
+}
+
+/* Info Card */
+.cg-card-info {
+  border-color: var(--cg-tycoon-info);
+  background-color: rgba(14, 165, 233, 0.02);
+}
+
+.cg-card-info .cg-card-header {
+  background-color: rgba(14, 165, 233, 0.05);
+  border-color: rgba(14, 165, 233, 0.2);
+}
+
+/* ==========================================================================
+   CARD STATES
+   ========================================================================== */
+
+.cg-card-elevated {
+  box-shadow: var(--cg-shadow-lg);
+}
+
+.cg-card-elevated:hover {
+  box-shadow: var(--cg-shadow-xl);
+  transform: translateY(-4px);
+}
+
+.cg-card-flat {
+  box-shadow: none;
+  border-width: 2px;
+}
+
+.cg-card-flat:hover {
+  box-shadow: var(--cg-shadow-sm);
+  transform: translateY(-1px);
+}
+
+.cg-card-interactive {
+  cursor: pointer;
+  user-select: none;
+}
+
+.cg-card-interactive:hover {
+  border-color: var(--cg-tycoon-primary);
+}
+
+.cg-card-interactive:active {
+  transform: translateY(0);
+  box-shadow: var(--cg-shadow-sm);
+}
+
+.cg-card-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   GAME-SPECIFIC CARDS
+   ========================================================================== */
+
+/* Stats Card */
+.cg-card-stats {
+  background: linear-gradient(135deg, var(--cg-bg-primary) 0%, var(--cg-bg-secondary) 100%);
+  border-color: var(--cg-tycoon-primary);
+  text-align: center;
+}
+
+.cg-card-stats .cg-card-title {
+  font-family: var(--cg-font-mono);
+  font-size: var(--cg-text-2xl);
+  color: var(--cg-tycoon-primary);
+  margin-bottom: var(--cg-space-1);
+}
+
+.cg-card-stats .cg-card-subtitle {
+  font-size: var(--cg-text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--cg-text-muted);
+}
+
+/* Money Card */
+.cg-card-money {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
+  border-color: var(--cg-tycoon-accent);
+  box-shadow: var(--cg-glow-accent);
+}
+
+.cg-card-money .cg-card-title {
+  font-family: var(--cg-font-mono);
+  font-size: var(--cg-text-3xl);
+  font-weight: var(--cg-font-bold);
+  color: var(--cg-tycoon-accent);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.cg-card-money:hover {
+  box-shadow: var(--cg-glow-accent), var(--cg-shadow-lg);
+}
+
+/* Achievement Card */
+.cg-card-achievement {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(34, 197, 94, 0.05) 100%);
+  border-color: var(--cg-tycoon-success);
+  position: relative;
+  overflow: hidden;
+}
+
+.cg-card-achievement::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left var(--cg-transition-slow);
+}
+
+.cg-card-achievement:hover::before {
+  left: 100%;
+}
+
+/* Game Panel Card */
+.cg-card-game {
+  background: linear-gradient(135deg, var(--cg-game-panel) 0%, var(--cg-game-panel-light) 100%);
+  border-color: var(--cg-game-border);
+  box-shadow: var(--cg-game-shadow);
+  color: var(--cg-game-text);
+}
+
+.cg-card-game .cg-card-title {
+  color: var(--cg-game-text);
+}
+
+.cg-card-game:hover {
+  box-shadow: var(--cg-game-shadow-lg);
+}
+
+/* Territory Card */
+.cg-card-territory {
+  background: var(--cg-bg-primary);
+  border: 2px solid var(--cg-tycoon-secondary);
+  position: relative;
+}
+
+.cg-card-territory::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-top: 20px solid var(--cg-tycoon-secondary);
+}
+
+.cg-card-territory.owned {
+  border-color: var(--cg-tycoon-success);
+}
+
+.cg-card-territory.owned::after {
+  border-top-color: var(--cg-tycoon-success);
+}
+
+/* ==========================================================================
+   CARD GROUPS & LAYOUTS
+   ========================================================================== */
+
+.cg-card-group {
+  display: flex;
+  gap: var(--cg-space-4);
+}
+
+.cg-card-group .cg-card {
+  flex: 1;
+}
+
+.cg-card-deck {
+  display: grid;
+  gap: var(--cg-space-4);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.cg-card-masonry {
+  columns: 3;
+  column-gap: var(--cg-space-4);
+}
+
+.cg-card-masonry .cg-card {
+  break-inside: avoid;
+  margin-bottom: var(--cg-space-4);
+}
+
+/* ==========================================================================
+   CARD IMAGES & MEDIA
+   ========================================================================== */
+
+.cg-card-img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--cg-radius-lg) var(--cg-radius-lg) 0 0;
+}
+
+.cg-card-img-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: var(--cg-space-4);
+  border-radius: var(--cg-radius-lg);
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.cg-card-img-top {
+  border-radius: var(--cg-radius-lg) var(--cg-radius-lg) 0 0;
+}
+
+.cg-card-img-bottom {
+  border-radius: 0 0 var(--cg-radius-lg) var(--cg-radius-lg);
+}
+
+/* ==========================================================================
+   CARD ACTIONS
+   ========================================================================== */
+
+.cg-card-actions {
+  display: flex;
+  gap: var(--cg-space-2);
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: var(--cg-space-3);
+}
+
+.cg-card-actions-left {
+  justify-content: flex-start;
+}
+
+.cg-card-actions-center {
+  justify-content: center;
+}
+
+.cg-card-actions-between {
+  justify-content: space-between;
+}
+
+/* ==========================================================================
+   CARD BADGES & INDICATORS
+   ========================================================================== */
+
+.cg-card-badge {
+  position: absolute;
+  top: var(--cg-space-2);
+  right: var(--cg-space-2);
+  padding: var(--cg-space-1) var(--cg-space-2);
+  background-color: var(--cg-tycoon-primary);
+  color: white;
+  font-size: var(--cg-text-xs);
+  font-weight: var(--cg-font-medium);
+  border-radius: var(--cg-radius-full);
+  box-shadow: var(--cg-shadow-sm);
+}
+
+.cg-card-badge-accent {
+  background-color: var(--cg-tycoon-accent);
+}
+
+.cg-card-badge-success {
+  background-color: var(--cg-tycoon-success);
+}
+
+.cg-card-badge-warning {
+  background-color: var(--cg-tycoon-warning);
+}
+
+.cg-card-badge-danger {
+  background-color: var(--cg-tycoon-danger);
+}
+
+/* ==========================================================================
+   RESPONSIVE CARDS
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .cg-card-group {
+    flex-direction: column;
+  }
+  
+  .cg-card-deck {
+    grid-template-columns: 1fr;
+  }
+  
+  .cg-card-masonry {
+    columns: 1;
+  }
+  
+  .cg-card-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .cg-card-actions .cg-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .cg-card-header,
+  .cg-card-body,
+  .cg-card-footer {
+    padding: var(--cg-space-3);
+  }
+  
+  .cg-card-lg .cg-card-header,
+  .cg-card-lg .cg-card-body,
+  .cg-card-lg .cg-card-footer {
+    padding: var(--cg-space-4);
+  }
+}
+
+/* ==========================================================================
+   ACCESSIBILITY ENHANCEMENTS
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .cg-card,
+  .cg-card-achievement::before {
+    transition: none;
+  }
+  
+  .cg-card:hover,
+  .cg-card-elevated:hover,
+  .cg-card-interactive:hover {
+    transform: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .cg-card {
+    border-width: 2px;
+  }
+  
+  .cg-card-flat {
+    border-width: 3px;
+  }
+}
+
+/* ==========================================================================
+   CARD ANIMATIONS
+   ========================================================================== */
+
+@keyframes cg-card-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cg-card-animate {
+  animation: cg-card-slide-in 0.3s ease-out;
+}
+
+.cg-card-animate:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.cg-card-animate:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.cg-card-animate:nth-child(4) {
+  animation-delay: 0.3s;
+} 

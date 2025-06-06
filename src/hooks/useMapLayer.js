@@ -175,7 +175,7 @@ export const useMapLayer = (map, data, config = {}) => {
     return () => {
       removeLayer();
     };
-  }, [map, data, addLayer, removeLayer, ...dependencies]);
+  }, [map, data, addLayer, removeLayer, sourceId, dependencies]);
 
   return {
     isLayerAdded: layersAddedRef.current,

@@ -1,0 +1,594 @@
+/* ==========================================================================
+   NAVIGATION - ClayGrounds Tycoon
+   Navigation layout styles for tycoon game interface
+   ========================================================================== */
+
+/* ==========================================================================
+   BASE NAVIGATION STYLES
+   ========================================================================== */
+
+.cg-nav {
+  /* Layout */
+  position: fixed;
+  top: var(--cg-header-height);
+  bottom: 0;
+  z-index: var(--cg-z-navigation);
+  
+  /* Sizing */
+  width: var(--cg-sidebar-width);
+  
+  /* Appearance */
+  background-color: var(--cg-bg-primary);
+  border-right: 1px solid var(--cg-border-color);
+  box-shadow: var(--cg-shadow-sm);
+  
+  /* Scrolling */
+  overflow-y: auto;
+  overflow-x: hidden;
+  
+  /* Transitions */
+  transition: all var(--cg-transition-normal);
+  
+  /* Performance */
+  transform: translateZ(0);
+}
+
+.cg-nav-left {
+  left: 0;
+  border-right: 1px solid var(--cg-border-color);
+}
+
+.cg-nav-right {
+  right: 0;
+  border-left: 1px solid var(--cg-border-color);
+  border-right: none;
+}
+
+/* ==========================================================================
+   NAVIGATION CONTAINER
+   ========================================================================== */
+
+.cg-nav-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: var(--cg-space-4);
+}
+
+.cg-nav-header {
+  margin-bottom: var(--cg-space-4);
+  padding-bottom: var(--cg-space-3);
+  border-bottom: 1px solid var(--cg-border-color);
+}
+
+.cg-nav-title {
+  font-size: var(--cg-text-lg);
+  font-weight: var(--cg-font-semibold);
+  color: var(--cg-text-primary);
+  margin: 0 0 var(--cg-space-2) 0;
+}
+
+.cg-nav-subtitle {
+  font-size: var(--cg-text-sm);
+  color: var(--cg-text-secondary);
+  margin: 0;
+}
+
+.cg-nav-body {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.cg-nav-footer {
+  margin-top: var(--cg-space-4);
+  padding-top: var(--cg-space-3);
+  border-top: 1px solid var(--cg-border-color);
+}
+
+/* ==========================================================================
+   NAVIGATION MENU
+   ========================================================================== */
+
+.cg-nav-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cg-nav-section {
+  margin-bottom: var(--cg-space-6);
+}
+
+.cg-nav-section:last-child {
+  margin-bottom: 0;
+}
+
+.cg-nav-section-title {
+  font-size: var(--cg-text-xs);
+  font-weight: var(--cg-font-semibold);
+  color: var(--cg-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 var(--cg-space-3) 0;
+  padding: 0 var(--cg-space-2);
+}
+
+.cg-nav-item {
+  margin-bottom: var(--cg-space-1);
+}
+
+.cg-nav-link {
+  display: flex;
+  align-items: center;
+  gap: var(--cg-space-3);
+  padding: var(--cg-space-3);
+  color: var(--cg-text-secondary);
+  text-decoration: none;
+  border-radius: var(--cg-radius-md);
+  transition: all var(--cg-transition-fast);
+  position: relative;
+}
+
+.cg-nav-link:hover {
+  color: var(--cg-text-primary);
+  background-color: var(--cg-bg-secondary);
+}
+
+.cg-nav-link.active {
+  color: var(--cg-tycoon-primary);
+  background-color: rgba(16, 185, 129, 0.1);
+  font-weight: var(--cg-font-medium);
+}
+
+.cg-nav-link.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 20px;
+  background-color: var(--cg-tycoon-primary);
+  border-radius: 0 var(--cg-radius-sm) var(--cg-radius-sm) 0;
+}
+
+.cg-nav-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.cg-nav-text {
+  flex: 1;
+  font-size: var(--cg-text-sm);
+  font-weight: var(--cg-font-medium);
+}
+
+.cg-nav-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 var(--cg-space-1);
+  background-color: var(--cg-tycoon-accent);
+  color: white;
+  font-size: var(--cg-text-xs);
+  font-weight: var(--cg-font-bold);
+  border-radius: var(--cg-radius-full);
+  line-height: 1;
+}
+
+.cg-nav-arrow {
+  width: 16px;
+  height: 16px;
+  transition: transform var(--cg-transition-fast);
+}
+
+/* ==========================================================================
+   NAVIGATION SUBMENU
+   ========================================================================== */
+
+.cg-nav-submenu {
+  list-style: none;
+  margin: var(--cg-space-2) 0 0 0;
+  padding: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--cg-transition-normal);
+}
+
+.cg-nav-item.expanded .cg-nav-submenu {
+  max-height: 500px; /* Adjust based on content */
+}
+
+.cg-nav-item.expanded .cg-nav-arrow {
+  transform: rotate(90deg);
+}
+
+.cg-nav-sublink {
+  display: flex;
+  align-items: center;
+  gap: var(--cg-space-2);
+  padding: var(--cg-space-2) var(--cg-space-3) var(--cg-space-2) var(--cg-space-10);
+  color: var(--cg-text-muted);
+  text-decoration: none;
+  font-size: var(--cg-text-sm);
+  border-radius: var(--cg-radius-md);
+  transition: all var(--cg-transition-fast);
+}
+
+.cg-nav-sublink:hover {
+  color: var(--cg-text-secondary);
+  background-color: var(--cg-bg-secondary);
+}
+
+.cg-nav-sublink.active {
+  color: var(--cg-tycoon-primary);
+  background-color: rgba(16, 185, 129, 0.05);
+}
+
+/* ==========================================================================
+   USER PROFILE IN NAVIGATION
+   ========================================================================== */
+
+.cg-nav-user {
+  display: flex;
+  align-items: center;
+  gap: var(--cg-space-3);
+  padding: var(--cg-space-3);
+  background-color: var(--cg-bg-secondary);
+  border-radius: var(--cg-radius-lg);
+  margin-bottom: var(--cg-space-4);
+}
+
+.cg-nav-user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--cg-radius-full);
+  background-color: var(--cg-tycoon-primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--cg-font-bold);
+  font-size: var(--cg-text-base);
+  flex-shrink: 0;
+}
+
+.cg-nav-user-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.cg-nav-user-name {
+  font-size: var(--cg-text-sm);
+  font-weight: var(--cg-font-semibold);
+  color: var(--cg-text-primary);
+  margin: 0 0 var(--cg-space-1) 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cg-nav-user-role {
+  font-size: var(--cg-text-xs);
+  color: var(--cg-text-muted);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ==========================================================================
+   GAME-SPECIFIC NAVIGATION ELEMENTS
+   ========================================================================== */
+
+/* Money Display in Navigation */
+.cg-nav-money {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--cg-space-3);
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  border-radius: var(--cg-radius-lg);
+  margin-bottom: var(--cg-space-4);
+}
+
+.cg-nav-money-label {
+  font-size: var(--cg-text-xs);
+  color: var(--cg-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.cg-nav-money-value {
+  font-family: var(--cg-font-mono);
+  font-size: var(--cg-text-lg);
+  font-weight: var(--cg-font-bold);
+  color: var(--cg-tycoon-accent);
+}
+
+/* Stats in Navigation */
+.cg-nav-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--cg-space-2);
+  margin-bottom: var(--cg-space-4);
+}
+
+.cg-nav-stat {
+  padding: var(--cg-space-2);
+  background-color: var(--cg-bg-secondary);
+  border-radius: var(--cg-radius-md);
+  text-align: center;
+}
+
+.cg-nav-stat-value {
+  font-family: var(--cg-font-mono);
+  font-size: var(--cg-text-base);
+  font-weight: var(--cg-font-bold);
+  color: var(--cg-text-primary);
+  margin: 0 0 var(--cg-space-1) 0;
+}
+
+.cg-nav-stat-label {
+  font-size: var(--cg-text-xs);
+  color: var(--cg-text-muted);
+  margin: 0;
+}
+
+/* Territory Progress */
+.cg-nav-progress {
+  margin-bottom: var(--cg-space-4);
+}
+
+.cg-nav-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--cg-space-2);
+}
+
+.cg-nav-progress-label {
+  font-size: var(--cg-text-sm);
+  font-weight: var(--cg-font-medium);
+  color: var(--cg-text-primary);
+}
+
+.cg-nav-progress-value {
+  font-size: var(--cg-text-sm);
+  color: var(--cg-text-secondary);
+}
+
+.cg-nav-progress-bar {
+  width: 100%;
+  height: 8px;
+  background-color: var(--cg-bg-tertiary);
+  border-radius: var(--cg-radius-full);
+  overflow: hidden;
+}
+
+.cg-nav-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--cg-tycoon-primary) 0%, var(--cg-tycoon-success) 100%);
+  border-radius: var(--cg-radius-full);
+  transition: width var(--cg-transition-normal);
+}
+
+/* ==========================================================================
+   NAVIGATION STATES
+   ========================================================================== */
+
+.cg-nav-collapsed {
+  width: var(--cg-sidebar-width-collapsed);
+}
+
+.cg-nav-collapsed .cg-nav-text,
+.cg-nav-collapsed .cg-nav-badge,
+.cg-nav-collapsed .cg-nav-arrow,
+.cg-nav-collapsed .cg-nav-section-title,
+.cg-nav-collapsed .cg-nav-user-info,
+.cg-nav-collapsed .cg-nav-money,
+.cg-nav-collapsed .cg-nav-stats,
+.cg-nav-collapsed .cg-nav-progress {
+  display: none;
+}
+
+.cg-nav-collapsed .cg-nav-link {
+  justify-content: center;
+  padding: var(--cg-space-3) var(--cg-space-2);
+}
+
+.cg-nav-collapsed .cg-nav-user {
+  justify-content: center;
+  padding: var(--cg-space-2);
+}
+
+.cg-nav-hidden {
+  transform: translateX(-100%);
+}
+
+.cg-nav-right.cg-nav-hidden {
+  transform: translateX(100%);
+}
+
+/* ==========================================================================
+   NAVIGATION VARIANTS
+   ========================================================================== */
+
+/* Game Mode Navigation */
+.cg-nav-game {
+  background: linear-gradient(180deg, var(--cg-game-panel) 0%, var(--cg-game-panel-light) 100%);
+  border-color: var(--cg-game-border);
+  color: var(--cg-game-text);
+}
+
+.cg-nav-game .cg-nav-title,
+.cg-nav-game .cg-nav-link {
+  color: var(--cg-game-text);
+}
+
+.cg-nav-game .cg-nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.cg-nav-game .cg-nav-link.active {
+  background-color: rgba(16, 185, 129, 0.2);
+}
+
+/* Floating Navigation */
+.cg-nav-floating {
+  position: absolute;
+  top: var(--cg-space-4);
+  bottom: var(--cg-space-4);
+  left: var(--cg-space-4);
+  width: calc(var(--cg-sidebar-width) - var(--cg-space-8));
+  border-radius: var(--cg-radius-xl);
+  box-shadow: var(--cg-shadow-lg);
+  border: 1px solid var(--cg-border-color);
+}
+
+.cg-nav-floating.cg-nav-right {
+  left: auto;
+  right: var(--cg-space-4);
+}
+
+/* ==========================================================================
+   RESPONSIVE NAVIGATION
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .cg-nav {
+    width: var(--cg-sidebar-width-collapsed);
+  }
+  
+  .cg-nav-text,
+  .cg-nav-badge,
+  .cg-nav-arrow,
+  .cg-nav-section-title,
+  .cg-nav-user-info,
+  .cg-nav-money,
+  .cg-nav-stats,
+  .cg-nav-progress {
+    display: none;
+  }
+  
+  .cg-nav-link {
+    justify-content: center;
+    padding: var(--cg-space-3) var(--cg-space-2);
+  }
+  
+  .cg-nav-user {
+    justify-content: center;
+    padding: var(--cg-space-2);
+  }
+}
+
+@media (max-width: 768px) {
+  .cg-nav {
+    transform: translateX(-100%);
+  }
+  
+  .cg-nav-right {
+    transform: translateX(100%);
+  }
+  
+  .cg-nav.open {
+    transform: translateX(0);
+  }
+  
+  .cg-nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: var(--cg-z-overlay);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--cg-transition-fast);
+  }
+  
+  .cg-nav-overlay.open {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+/* ==========================================================================
+   ACCESSIBILITY ENHANCEMENTS
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .cg-nav,
+  .cg-nav-link,
+  .cg-nav-arrow,
+  .cg-nav-submenu,
+  .cg-nav-progress-fill {
+    transition: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .cg-nav {
+    border-width: 2px;
+  }
+  
+  .cg-nav-link.active {
+    border: 2px solid var(--cg-tycoon-primary);
+  }
+}
+
+/* ==========================================================================
+   NAVIGATION ANIMATIONS
+   ========================================================================== */
+
+@keyframes cg-nav-slide-in {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes cg-nav-slide-in-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.cg-nav-animate {
+  animation: cg-nav-slide-in 0.3s ease-out;
+}
+
+.cg-nav-right.cg-nav-animate {
+  animation: cg-nav-slide-in-right 0.3s ease-out;
+}
+
+/* Staggered menu item animations */
+.cg-nav-item {
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: cg-nav-item-fade-in 0.3s ease-out forwards;
+}
+
+.cg-nav-item:nth-child(1) { animation-delay: 0.1s; }
+.cg-nav-item:nth-child(2) { animation-delay: 0.2s; }
+.cg-nav-item:nth-child(3) { animation-delay: 0.3s; }
+.cg-nav-item:nth-child(4) { animation-delay: 0.4s; }
+.cg-nav-item:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes cg-nav-item-fade-in {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+} 

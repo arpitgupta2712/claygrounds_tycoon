@@ -4,10 +4,8 @@ import Auth from './pages/Auth';
 import Home from './pages/Home';
 import PerformanceMonitor from './components/ui/PerformanceMonitor';
 import { startCacheCleanup } from './utils/dataCache';
-import './styles/auth.css';
+import './styles/main.css';
 import './App.css';
-import './styles/theme.css';
-import './styles/layout.css';
 
 function isTokenExpired(token) {
   if (!token) return true;

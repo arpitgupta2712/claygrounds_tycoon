@@ -1,0 +1,280 @@
+/* ==========================================================================
+   CSS CUSTOM PROPERTIES - ClayGrounds Tycoon Design System
+   ========================================================================== */
+
+:root {
+  /* ==========================================================================
+     TYCOON COLOR PALETTE
+     ========================================================================== */
+  
+  /* Primary Tycoon Colors */
+  --cg-tycoon-primary: #10B981;      /* Success Green - Growth, Profit */
+  --cg-tycoon-secondary: #3B82F6;    /* Business Blue - Professional, Trust */
+  --cg-tycoon-accent: #F59E0B;       /* Gold/Money - Wealth, Achievement */
+  --cg-tycoon-danger: #EF4444;       /* Loss Red - Danger, Decline */
+  --cg-tycoon-warning: #F97316;      /* Warning Orange - Caution, Alert */
+  --cg-tycoon-info: #06B6D4;         /* Info Cyan - Information, Data */
+  --cg-tycoon-success: #22C55E;      /* Success Light Green - Achievements */
+  
+  /* Game UI Colors */
+  --cg-game-bg: #0F172A;             /* Dark game background */
+  --cg-game-bg-light: #1E293B;       /* Lighter game background */
+  --cg-game-panel: #1E293B;          /* Panel background */
+  --cg-game-panel-light: #334155;    /* Lighter panel background */
+  --cg-game-border: #334155;         /* Panel borders */
+  --cg-game-border-light: #475569;   /* Lighter borders */
+  --cg-game-text: #F1F5F9;           /* Light text */
+  --cg-game-text-muted: #94A3B8;     /* Muted text */
+  --cg-game-text-dark: #64748B;      /* Dark muted text */
+  
+  /* Business Theme Colors */
+  --cg-business-bg: #FFFFFF;         /* Light business background */
+  --cg-business-bg-alt: #F8FAFC;     /* Alternative light background */
+  --cg-business-panel: #FFFFFF;      /* Business panel background */
+  --cg-business-border: #E2E8F0;     /* Business borders */
+  --cg-business-text: #1E293B;       /* Dark text for light theme */
+  --cg-business-text-muted: #64748B; /* Muted text for light theme */
+  
+  /* ==========================================================================
+     SEMANTIC COLORS
+     ========================================================================== */
+  
+  /* Status Colors */
+  --cg-status-active: var(--cg-tycoon-success);
+  --cg-status-inactive: var(--cg-game-text-muted);
+  --cg-status-pending: var(--cg-tycoon-warning);
+  --cg-status-error: var(--cg-tycoon-danger);
+  
+  /* Revenue/Financial Colors */
+  --cg-revenue-positive: var(--cg-tycoon-primary);
+  --cg-revenue-negative: var(--cg-tycoon-danger);
+  --cg-revenue-neutral: var(--cg-game-text-muted);
+  
+  /* Map Colors */
+  --cg-map-state-fill: #416870;
+  --cg-map-state-line: #013540;
+  --cg-map-state-active: var(--cg-tycoon-primary);
+  --cg-map-district-fill: #b1f727;
+  --cg-map-district-line: #013540;
+  --cg-map-city-fill: var(--cg-tycoon-accent);
+  --cg-map-city-line: #B45309;
+  
+  /* ==========================================================================
+     TYPOGRAPHY
+     ========================================================================== */
+  
+  /* Font Families */
+  --cg-font-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  --cg-font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Consolas', monospace;
+  --cg-font-display: 'Inter', var(--cg-font-primary);
+  
+  /* Font Sizes */
+  --cg-text-xs: 0.75rem;     /* 12px */
+  --cg-text-sm: 0.875rem;    /* 14px */
+  --cg-text-base: 1rem;      /* 16px */
+  --cg-text-lg: 1.125rem;    /* 18px */
+  --cg-text-xl: 1.25rem;     /* 20px */
+  --cg-text-2xl: 1.5rem;     /* 24px */
+  --cg-text-3xl: 1.875rem;   /* 30px */
+  --cg-text-4xl: 2.25rem;    /* 36px */
+  --cg-text-5xl: 3rem;       /* 48px */
+  
+  /* Font Weights */
+  --cg-font-light: 300;
+  --cg-font-normal: 400;
+  --cg-font-medium: 500;
+  --cg-font-semibold: 600;
+  --cg-font-bold: 700;
+  --cg-font-extrabold: 800;
+  
+  /* Line Heights */
+  --cg-leading-tight: 1.25;
+  --cg-leading-normal: 1.5;
+  --cg-leading-relaxed: 1.75;
+  
+  /* ==========================================================================
+     SPACING & SIZING
+     ========================================================================== */
+  
+  /* Spacing Scale */
+  --cg-space-0: 0;
+  --cg-space-1: 0.25rem;     /* 4px */
+  --cg-space-2: 0.5rem;      /* 8px */
+  --cg-space-3: 0.75rem;     /* 12px */
+  --cg-space-4: 1rem;        /* 16px */
+  --cg-space-5: 1.25rem;     /* 20px */
+  --cg-space-6: 1.5rem;      /* 24px */
+  --cg-space-8: 2rem;        /* 32px */
+  --cg-space-10: 2.5rem;     /* 40px */
+  --cg-space-12: 3rem;       /* 48px */
+  --cg-space-16: 4rem;       /* 64px */
+  --cg-space-20: 5rem;       /* 80px */
+  --cg-space-24: 6rem;       /* 96px */
+  
+  /* Game-specific Spacing */
+  --cg-game-padding: var(--cg-space-4);
+  --cg-game-margin: var(--cg-space-2);
+  --cg-game-gap: var(--cg-space-3);
+  
+  /* Border Radius */
+  --cg-radius-none: 0;
+  --cg-radius-sm: 0.125rem;   /* 2px */
+  --cg-radius-base: 0.25rem;  /* 4px */
+  --cg-radius-md: 0.375rem;   /* 6px */
+  --cg-radius-lg: 0.5rem;     /* 8px */
+  --cg-radius-xl: 0.75rem;    /* 12px */
+  --cg-radius-2xl: 1rem;      /* 16px */
+  --cg-radius-full: 9999px;
+  
+  /* Game Border Radius */
+  --cg-game-border-radius: var(--cg-radius-lg);
+  --cg-game-border-radius-sm: var(--cg-radius-md);
+  --cg-game-border-radius-lg: var(--cg-radius-xl);
+  
+  /* ==========================================================================
+     LAYOUT DIMENSIONS
+     ========================================================================== */
+  
+  /* Navigation Widths */
+  --cg-left-nav-width: 280px;
+  --cg-right-nav-width: 320px;
+  --cg-header-height: 64px;
+  --cg-footer-height: 48px;
+  
+  /* Breakpoints */
+  --cg-breakpoint-sm: 640px;
+  --cg-breakpoint-md: 768px;
+  --cg-breakpoint-lg: 1024px;
+  --cg-breakpoint-xl: 1280px;
+  --cg-breakpoint-2xl: 1536px;
+  
+  /* Z-Index Scale */
+  --cg-z-dropdown: 1000;
+  --cg-z-sticky: 1020;
+  --cg-z-fixed: 1030;
+  --cg-z-modal-backdrop: 1040;
+  --cg-z-modal: 1050;
+  --cg-z-popover: 1060;
+  --cg-z-tooltip: 1070;
+  --cg-z-toast: 1080;
+  
+  /* ==========================================================================
+     ANIMATIONS & TRANSITIONS
+     ========================================================================== */
+  
+  /* Transition Timings */
+  --cg-transition-fast: 0.15s ease;
+  --cg-transition-base: 0.3s ease;
+  --cg-transition-slow: 0.5s ease;
+  --cg-transition-slower: 0.75s ease;
+  
+  /* Easing Functions */
+  --cg-ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --cg-ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --cg-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --cg-ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  
+  /* Animation Durations */
+  --cg-duration-75: 75ms;
+  --cg-duration-100: 100ms;
+  --cg-duration-150: 150ms;
+  --cg-duration-200: 200ms;
+  --cg-duration-300: 300ms;
+  --cg-duration-500: 500ms;
+  --cg-duration-700: 700ms;
+  --cg-duration-1000: 1000ms;
+  
+  /* ==========================================================================
+     SHADOWS & EFFECTS
+     ========================================================================== */
+  
+  /* Box Shadows */
+  --cg-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --cg-shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --cg-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --cg-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --cg-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --cg-shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  
+  /* Game-specific Shadows */
+  --cg-game-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --cg-game-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+  
+  /* Glows for Game Elements */
+  --cg-glow-primary: 0 0 20px rgba(16, 185, 129, 0.3);
+  --cg-glow-accent: 0 0 20px rgba(245, 158, 11, 0.3);
+  --cg-glow-danger: 0 0 20px rgba(239, 68, 68, 0.3);
+  
+  /* ==========================================================================
+     COMPONENT-SPECIFIC VARIABLES
+     ========================================================================== */
+  
+  /* Buttons */
+  --cg-btn-height-sm: 32px;
+  --cg-btn-height-base: 40px;
+  --cg-btn-height-lg: 48px;
+  --cg-btn-padding-x: var(--cg-space-4);
+  --cg-btn-padding-y: var(--cg-space-2);
+  
+  /* Forms */
+  --cg-input-height: 40px;
+  --cg-input-padding-x: var(--cg-space-3);
+  --cg-input-border-width: 1px;
+  
+  /* Cards */
+  --cg-card-padding: var(--cg-space-6);
+  --cg-card-border-radius: var(--cg-radius-lg);
+  
+  /* Navigation */
+  --cg-nav-item-height: 48px;
+  --cg-nav-item-padding: var(--cg-space-4);
+  
+  /* ==========================================================================
+     THEME SWITCHING
+     ========================================================================== */
+  
+  /* Current Theme Variables (will be switched via JavaScript) */
+  --cg-bg-primary: var(--cg-business-bg);
+  --cg-bg-secondary: var(--cg-business-bg-alt);
+  --cg-bg-panel: var(--cg-business-panel);
+  --cg-border-color: var(--cg-business-border);
+  --cg-text-primary: var(--cg-business-text);
+  --cg-text-secondary: var(--cg-business-text-muted);
+}
+
+/* ==========================================================================
+   DARK THEME (Game Mode)
+   ========================================================================== */
+
+[data-theme="game"] {
+  --cg-bg-primary: var(--cg-game-bg);
+  --cg-bg-secondary: var(--cg-game-bg-light);
+  --cg-bg-panel: var(--cg-game-panel);
+  --cg-border-color: var(--cg-game-border);
+  --cg-text-primary: var(--cg-game-text);
+  --cg-text-secondary: var(--cg-game-text-muted);
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --cg-transition-fast: 0s;
+    --cg-transition-base: 0s;
+    --cg-transition-slow: 0s;
+    --cg-transition-slower: 0s;
+  }
+}
+
+/* ==========================================================================
+   HIGH CONTRAST MODE
+   ========================================================================== */
+
+@media (prefers-contrast: high) {
+  :root {
+    --cg-game-border: #FFFFFF;
+    --cg-business-border: #000000;
+  }
+} 
