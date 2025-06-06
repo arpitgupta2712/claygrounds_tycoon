@@ -1,0 +1,385 @@
+/* ==========================================================================
+   CLAYGROUNDS TYCOON - LAYOUT FIXES
+   Fixes for overlapping elements and proper positioning
+   ========================================================================== */
+
+/* ==========================================================================
+   MAIN LAYOUT CORRECTIONS
+   ========================================================================== */
+
+/* Fix main game interface to account for navigation */
+.cg-game-interface {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - var(--cg-header-height));
+  background: linear-gradient(135deg, var(--cg-game-bg) 0%, var(--cg-game-bg-light) 100%);
+  overflow: hidden;
+  transition: margin-left var(--cg-transition-normal), margin-right var(--cg-transition-normal);
+}
+
+/* Adjust layout when left navigation is open */
+.cg-game-interface.nav-left-open {
+  margin-left: var(--cg-sidebar-width);
+  width: calc(100% - var(--cg-sidebar-width));
+}
+
+/* Adjust layout when right navigation is open */
+.cg-game-interface.nav-right-open {
+  margin-right: var(--cg-sidebar-width);
+  width: calc(100% - var(--cg-sidebar-width));
+}
+
+/* When both navigations are open */
+.cg-game-interface.nav-both-open {
+  margin-left: var(--cg-sidebar-width);
+  margin-right: var(--cg-sidebar-width);
+  width: calc(100% - calc(var(--cg-sidebar-width) * 2));
+}
+
+/* ==========================================================================
+   NAVIGATION Z-INDEX FIXES
+   ========================================================================== */
+
+/* Ensure navigation appears above map but below modals */
+.cg-nav {
+  z-index: var(--cg-z-navigation);
+  position: fixed;
+  top: var(--cg-header-height);
+  bottom: 0;
+  width: var(--cg-sidebar-width);
+  background: var(--cg-game-nav-bg);
+  backdrop-filter: blur(15px);
+  border-right: 2px solid var(--cg-neon-blue);
+  box-shadow: 
+    0 0 30px rgba(0, 212, 255, 0.2),
+    inset -1px 0 0 rgba(0, 212, 255, 0.1);
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: transform var(--cg-transition-normal);
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+.cg-nav.open {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.cg-nav-right {
+  right: 0;
+  left: auto;
+  border-left: 2px solid var(--cg-neon-blue);
+  border-right: none;
+  transform: translateX(100%);
+}
+
+.cg-nav-right.open {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* ==========================================================================
+   MAP CONTAINER FIXES
+   ========================================================================== */
+
+.cg-game-map-container {
+  position: relative;
+  width: 100%;
+  height: calc(100% - 32px);
+  background: var(--cg-game-bg);
+  border: 2px solid var(--cg-game-border);
+  border-radius: var(--cg-radius-lg);
+  overflow: hidden;
+  box-shadow: 
+    inset 0 0 50px rgba(0, 212, 255, 0.1),
+    0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.cg-main-game-map {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, #1a1f2e 0%, #252a3a 100%);
+  border-radius: var(--cg-radius-lg);
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   OVERLAY POSITIONING FIXES
+   ========================================================================== */
+
+/* Map title overlay - ensure it's not cut off */
+.cg-map-title-overlay {
+  position: absolute;
+  top: var(--cg-space-3);
+  left: var(--cg-space-3);
+  background: var(--cg-game-overlay);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--cg-neon-blue);
+  border-radius: var(--cg-radius-md);
+  padding: var(--cg-space-2) var(--cg-space-3);
+  box-shadow: 
+    0 0 20px rgba(0, 212, 255, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  pointer-events: auto;
+  max-width: 280px;
+  z-index: var(--cg-z-floating);
+  font-size: 0.9rem;
+}
+
+/* Quick stats overlay - prevent overflow */
+.cg-quick-stats-overlay {
+  position: absolute;
+  top: var(--cg-space-3);
+  right: var(--cg-space-3);
+  display: flex;
+  gap: var(--cg-space-2);
+  pointer-events: auto;
+  z-index: var(--cg-z-floating);
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  max-width: calc(100% - 320px); /* Account for title overlay */
+}
+
+/* Map controls - ensure they don't overlap */
+.cg-map-controls-overlay {
+  position: absolute;
+  bottom: var(--cg-space-3);
+  left: var(--cg-space-3);
+  right: var(--cg-space-3);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  pointer-events: auto;
+  z-index: var(--cg-z-floating);
+  gap: var(--cg-space-2);
+}
+
+/* ==========================================================================
+   HEADER FIXES
+   ========================================================================== */
+
+/* Ensure header stays on top and accounts for navigation */
+.cg-header-game {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--cg-z-header); /* Above navigation */
+  background: var(--cg-game-header-bg);
+  backdrop-filter: blur(15px);
+  border-bottom: 2px solid var(--cg-neon-blue);
+  box-shadow: 
+    0 0 30px rgba(0, 212, 255, 0.2),
+    inset 0 -1px 0 rgba(0, 212, 255, 0.3);
+  height: var(--cg-header-height);
+}
+
+/* ==========================================================================
+   RESPONSIVE FIXES
+   ========================================================================== */
+
+/* Tablet adjustments */
+@media (max-width: 1024px) {
+  .cg-game-interface.nav-left-open,
+  .cg-game-interface.nav-right-open {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+  }
+  
+  .cg-nav {
+    z-index: var(--cg-z-modal-backdrop); /* Higher z-index on tablet */
+  }
+  
+  .cg-quick-stats-overlay {
+    max-width: calc(100% - 250px);
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .cg-game-interface.nav-left-open,
+  .cg-game-interface.nav-right-open,
+  .cg-game-interface.nav-both-open {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+  }
+  
+  .cg-nav {
+    z-index: var(--cg-z-modal);
+    width: 280px; /* Slightly narrower on mobile */
+  }
+  
+  .cg-map-title-overlay {
+    top: var(--cg-space-2);
+    left: var(--cg-space-2);
+    right: var(--cg-space-2);
+    max-width: none;
+    padding: var(--cg-space-2);
+    font-size: 0.8rem;
+  }
+  
+  .cg-quick-stats-overlay {
+    top: auto;
+    bottom: 70px;
+    left: var(--cg-space-2);
+    right: var(--cg-space-2);
+    justify-content: center;
+    max-width: none;
+  }
+  
+  .cg-map-controls-overlay {
+    bottom: var(--cg-space-2);
+    left: var(--cg-space-2);
+    right: var(--cg-space-2);
+    flex-direction: column;
+    gap: var(--cg-space-1);
+    align-items: center;
+  }
+}
+
+/* ==========================================================================
+   NAVIGATION BACKDROP
+   ========================================================================== */
+
+/* Add backdrop when navigation is open on mobile */
+.cg-nav-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: var(--cg-z-overlay);
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--cg-transition-fast);
+  cursor: pointer;
+}
+
+.cg-nav-backdrop.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ==========================================================================
+   UTILITY CLASSES FOR LAYOUT STATES
+   ========================================================================== */
+
+/* Classes to be added via JavaScript when navigation opens/closes */
+.layout-nav-left-open .cg-game-interface {
+  margin-left: var(--cg-sidebar-width);
+  width: calc(100% - var(--cg-sidebar-width));
+}
+
+.layout-nav-right-open .cg-game-interface {
+  margin-right: var(--cg-sidebar-width);
+  width: calc(100% - var(--cg-sidebar-width));
+}
+
+.layout-nav-both-open .cg-game-interface {
+  margin-left: var(--cg-sidebar-width);
+  margin-right: var(--cg-sidebar-width);
+  width: calc(100% - calc(var(--cg-sidebar-width) * 2));
+}
+
+/* Mobile: no layout shifts */
+@media (max-width: 1024px) {
+  .layout-nav-left-open .cg-game-interface,
+  .layout-nav-right-open .cg-game-interface,
+  .layout-nav-both-open .cg-game-interface {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+  }
+}
+
+/* ==========================================================================
+   SCROLLBAR FIXES FOR NAVIGATION
+   ========================================================================== */
+
+/* Custom scrollbar for navigation */
+.cg-nav::-webkit-scrollbar {
+  width: 6px;
+}
+
+.cg-nav::-webkit-scrollbar-track {
+  background: rgba(0, 212, 255, 0.1);
+  border-radius: 3px;
+}
+
+.cg-nav::-webkit-scrollbar-thumb {
+  background: rgba(0, 212, 255, 0.3);
+  border-radius: 3px;
+}
+
+.cg-nav::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 212, 255, 0.5);
+}
+
+/* ==========================================================================
+   ADDITIONAL FIXES FOR SPECIFIC ELEMENTS
+   ========================================================================== */
+
+/* Ensure game status bar doesn't conflict */
+.cg-game-status-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 32px;
+  background: var(--cg-game-footer-bg);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--cg-game-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--cg-space-3);
+  font-size: 0.7rem;
+  color: var(--cg-game-text-muted);
+  z-index: var(--cg-z-floating);
+}
+
+/* Map overlay UI should not interfere with clicks when not interactive */
+.cg-map-overlay-ui {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: var(--cg-z-overlay);
+}
+
+/* Only specific overlay elements should be interactive */
+.cg-map-overlay-ui .cg-map-title-overlay,
+.cg-map-overlay-ui .cg-quick-stats-overlay,
+.cg-map-overlay-ui .cg-map-controls-overlay {
+  pointer-events: auto;
+}
+
+/* ==========================================================================
+   CSS VARIABLES FOR LAYOUT (ensure these are defined)
+   ========================================================================== */
+
+:root {
+  --cg-sidebar-width: 280px;
+  --cg-sidebar-width-collapsed: 64px;
+  --cg-header-height: 64px;
+  --cg-footer-height: 40px;
+  --cg-transition-normal: 0.3s ease;
+  --cg-transition-fast: 0.15s ease;
+  
+  /* Z-index scale */
+  --cg-z-navigation: 1000;
+  --cg-z-header: 1100;
+  --cg-z-overlay: 999;
+  --cg-z-modal-backdrop: 1200;
+  --cg-z-modal: 1300;
+  --cg-z-floating: 20;
+} 

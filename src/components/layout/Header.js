@@ -20,7 +20,8 @@ const Header = ({
           <button
             className={`cg-btn cg-btn-game cg-btn-icon ${leftNavOpen ? 'active' : ''}`}
             onClick={onLeftNavToggle}
-            title={leftNavOpen ? "Close Command Panel" : "Open Command Panel"}
+            data-toggle="left-nav"
+            title={leftNavOpen ? "Close Command Panel (Ctrl+B)" : "Open Command Panel (Ctrl+B)"}
           >
             <span className="cg-nav-icon">⚡</span>
           </button>
@@ -59,7 +60,8 @@ const Header = ({
           <button
             className={`cg-btn cg-btn-game cg-btn-icon ${rightNavOpen ? 'active' : ''}`}
             onClick={onRightNavToggle}
-            title={rightNavOpen ? "Close Control Panel" : "Open Control Panel"}
+            data-toggle="right-nav"
+            title={rightNavOpen ? "Close Control Panel (Ctrl+Shift+B)" : "Open Control Panel (Ctrl+Shift+B)"}
           >
             <span className="cg-nav-icon">⚙️</span>
           </button>

@@ -1,102 +1,60 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import LeftNavigation from './LeftNavigation';
 import RightNavigation from './RightNavigation';
+import NavigationBackdrop from './NavigationBackdrop';
+import { useLayoutManager } from '../../hooks/useLayoutManager';
 
 const MainLayout = ({ children, className = "" }) => {
-  const [leftNavOpen, setLeftNavOpen] = useState(false);
-  const [rightNavOpen, setRightNavOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const {
+    leftNavOpen,
+    rightNavOpen,
+    isMobile,
+    toggleLeftNav,
+    toggleRightNav,
+    closeAllNav
+  } = useLayoutManager();
 
-  // Handle responsive behavior
-  useEffect(() => {
-    const checkMobile = () => {
-      const mobile = window.innerWidth < 768;
-      setIsMobile(mobile);
-      
-      // Auto-close navigation on mobile when switching to mobile view
-      if (mobile) {
-        setLeftNavOpen(false);
-        setRightNavOpen(false);
-      }
-    };
-
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  // Handle escape key to close navigation
-  useEffect(() => {
-    const handleEscape = (event) => {
-      if (event.key === 'Escape') {
-        if (leftNavOpen) setLeftNavOpen(false);
-        if (rightNavOpen) setRightNavOpen(false);
-      }
-    };
-
-    window.addEventListener('keydown', handleEscape);
-    return () => window.removeEventListener('keydown', handleEscape);
-  }, [leftNavOpen, rightNavOpen]);
-
-  const handleLeftNavToggle = () => {
-    setLeftNavOpen(!leftNavOpen);
-    // Close right nav if opening left nav on mobile
-    if (isMobile && !leftNavOpen) {
-      setRightNavOpen(false);
-    }
-  };
-
-  const handleRightNavToggle = () => {
-    setRightNavOpen(!rightNavOpen);
-    // Close left nav if opening right nav on mobile
-    if (isMobile && !rightNavOpen) {
-      setLeftNavOpen(false);
-    }
-  };
-
-  const mainContentStyle = {
-    marginLeft: leftNavOpen && !isMobile ? 'var(--cg-left-nav-width)' : '0',
-    marginRight: rightNavOpen && !isMobile ? 'var(--cg-right-nav-width)' : '0',
-    transition: 'margin var(--cg-transition-base)'
-  };
+  // Generate CSS classes for layout state
+  const layoutClasses = [
+    'cg-main-layout',
+    className,
+    leftNavOpen && !isMobile ? 'layout-nav-left-open' : '',
+    rightNavOpen && !isMobile ? 'layout-nav-right-open' : '',
+    leftNavOpen && rightNavOpen && !isMobile ? 'layout-nav-both-open' : ''
+  ].filter(Boolean).join(' ');
 
   return (
-    <div className={`cg-main-layout ${className}`}>
+    <div className={layoutClasses}>
       {/* Header */}
       <Header
-        onLeftNavToggle={handleLeftNavToggle}
-        onRightNavToggle={handleRightNavToggle}
+        onLeftNavToggle={toggleLeftNav}
+        onRightNavToggle={toggleRightNav}
         leftNavOpen={leftNavOpen}
         rightNavOpen={rightNavOpen}
       />
 
-      {/* Navigation Overlays for Mobile */}
-      {isMobile && (leftNavOpen || rightNavOpen) && (
-        <div 
-          className="cg-nav-backdrop"
-          onClick={() => {
-            setLeftNavOpen(false);
-            setRightNavOpen(false);
-          }}
-        />
-      )}
+      {/* Navigation Backdrop for Mobile */}
+      <NavigationBackdrop
+        isVisible={isMobile && (leftNavOpen || rightNavOpen)}
+        onClick={closeAllNav}
+      />
 
       {/* Left Navigation */}
       <LeftNavigation
         isOpen={leftNavOpen}
-        onToggle={setLeftNavOpen}
+        onToggle={toggleLeftNav}
       />
 
       {/* Right Navigation */}
       <RightNavigation
         isOpen={rightNavOpen}
-        onToggle={setRightNavOpen}
+        onToggle={toggleRightNav}
       />
 
       {/* Main Content Area */}
-      <main className="cg-main-content" style={mainContentStyle}>
+      <main className="cg-main-content">
         <div className="cg-content-container">
           {children}
         </div>
