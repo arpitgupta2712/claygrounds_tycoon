@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useState, useCallback, useRef, useMemo } from 'react';
+import { useKeyboardNavigation } from '../../hooks/useKeyboardNavigation';
 
 const RightNavigation = ({ 
   isOpen = false, 
   onToggle,
   className = "" 
 }) => {
-  const gameControlSections = [
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const navRef = useRef(null);
+  const itemsRef = useRef([]);
+  const gameControlSections = useMemo(() => [
     {
       id: 'map-controls',
       title: 'Map Controls',
@@ -50,24 +54,149 @@ const RightNavigation = ({
         { id: 'tutorial-mode', icon: '🎓', label: 'Tutorial Mode', toggle: true, active: false }
       ]
     }
-  ];
+  ], []);
 
-  const quickTools = [
-    { id: 'export-map', icon: '📤', label: 'Export Map', color: 'primary' },
+  const quickTools = useMemo(() => [
+    { id: 'export-map', icon: '📤', label: 'Export Map', color: 'primary', shortcut: '4' },
     { id: 'share-view', icon: '🔗', label: 'Share View', color: 'secondary' },
     { id: 'print', icon: '🖨️', label: 'Print', color: 'outline' },
-    { id: 'help', icon: '❓', label: 'Help', color: 'info' }
-  ];
+    { id: 'help', icon: '❓', label: 'Help', color: 'info', shortcut: 'h' }
+  ], []);
+
+  // Get all interactive items for keyboard navigation (memoized)
+  const allItems = useMemo(() => {
+    const items = [];
+    
+    // Add all control items
+    gameControlSections.forEach(section => {
+      section.items.forEach(item => {
+        items.push({ ...item, sectionId: section.id, type: item.toggle ? 'toggle' : 'action' });
+      });
+    });
+    
+    // Add quick tools
+    quickTools.forEach(tool => {
+      items.push({ ...tool, type: 'tool' });
+    });
+    
+    return items;
+  }, [gameControlSections, quickTools]);
+
+  // Handle keyboard navigation
+  const handleNavigation = useCallback((direction) => {
+    if (!isOpen) return;
+    
+    const maxIndex = allItems.length - 1;
+    let newIndex = selectedIndex;
+    
+    switch (direction) {
+      case 'up':
+        newIndex = selectedIndex > 0 ? selectedIndex - 1 : maxIndex;
+        break;
+      case 'down':
+        newIndex = selectedIndex < maxIndex ? selectedIndex + 1 : 0;
+        break;
+      default:
+        return;
+    }
+    
+    setSelectedIndex(newIndex);
+    
+    // Focus the selected item
+    const selectedItem = itemsRef.current[newIndex];
+    if (selectedItem) {
+      selectedItem.focus();
+    }
+  }, [isOpen, selectedIndex, allItems.length]);
+
+  // Handle item selection/toggle
+  const handleItemAction = useCallback((index) => {
+    const item = allItems[index];
+    if (!item) return;
+    
+    console.log(`Action on: ${item.label} (${item.type})`);
+    
+    if (item.type === 'toggle') {
+      // Handle toggle action
+      console.log(`Toggling ${item.label}`);
+    } else if (item.type === 'action') {
+      // Handle action button
+      console.log(`Executing ${item.label}`);
+    } else if (item.type === 'tool') {
+      // Handle quick tool
+      console.log(`Using tool: ${item.label}`);
+    }
+  }, [allItems]);
+
+  // Initialize keyboard navigation
+  useKeyboardNavigation({
+    enabled: isOpen,
+    onAction: useCallback((action, event) => {
+      if (!isOpen) return;
+      
+      switch (action) {
+        case 'navigate-up':
+          handleNavigation('up');
+          break;
+        case 'navigate-down':
+          handleNavigation('down');
+          break;
+        case 'select-action':
+        case 'confirm-action':
+          handleItemAction(selectedIndex);
+          break;
+        case 'zoom-in':
+          // Find zoom in item and trigger it
+          const zoomInIndex = allItems.findIndex(item => item.id === 'zoom-in');
+          if (zoomInIndex !== -1) handleItemAction(zoomInIndex);
+          break;
+        case 'zoom-out':
+          // Find zoom out item and trigger it
+          const zoomOutIndex = allItems.findIndex(item => item.id === 'zoom-out');
+          if (zoomOutIndex !== -1) handleItemAction(zoomOutIndex);
+          break;
+        case 'reset-view':
+          // Find reset view item and trigger it
+          const resetIndex = allItems.findIndex(item => item.id === 'reset-view');
+          if (resetIndex !== -1) handleItemAction(resetIndex);
+          break;
+        case 'fullscreen':
+          // Find fullscreen item and trigger it
+          const fullscreenIndex = allItems.findIndex(item => item.id === 'fullscreen');
+          if (fullscreenIndex !== -1) handleItemAction(fullscreenIndex);
+          break;
+        case 'toggle-help':
+          // Find help item and trigger it
+          const helpIndex = allItems.findIndex(item => item.id === 'help');
+          if (helpIndex !== -1) handleItemAction(helpIndex);
+          break;
+        case 'quick-action-4':
+          // Export map quick action
+          const exportIndex = allItems.findIndex(item => item.id === 'export-map');
+          if (exportIndex !== -1) handleItemAction(exportIndex);
+          break;
+        default:
+          break;
+      }
+    }, [isOpen, handleNavigation, handleItemAction, selectedIndex, allItems])
+  });
 
   if (!isOpen) return null;
 
   return (
-    <aside className={`cg-nav cg-nav-right ${isOpen ? 'open' : ''} ${className}`}>
+    <aside 
+      ref={navRef}
+      className={`cg-nav cg-nav-right ${isOpen ? 'open' : ''} ${className}`}
+      aria-label="Game Control Panel"
+    >
       <div className="cg-nav-container">
         {/* Game Control Header */}
         <div className="cg-nav-header">
           <h2 className="cg-nav-title">⚙️ Control Panel</h2>
           <p className="cg-nav-subtitle">Game Controls & Settings</p>
+          <div className="cg-nav-hint">
+            <small>Use ↑↓ to navigate, Enter to toggle/select</small>
+          </div>
         </div>
 
         {/* Game Controls Content */}

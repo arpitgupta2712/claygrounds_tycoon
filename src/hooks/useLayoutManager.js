@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { useKeyboardNavigation } from './useKeyboardNavigation';
 
 /**
  * Custom hook for managing layout state and navigation
@@ -64,39 +65,37 @@ export const useLayoutManager = () => {
     }
   }, [isMobile]);
 
-  // Keyboard shortcuts handler
-  const handleKeyDown = useCallback((event) => {
-    // ESC key to close navigation
-    if (event.key === 'Escape') {
-      if (leftNavOpen || rightNavOpen) {
-        closeAllNav();
-        event.preventDefault();
+  // Initialize keyboard navigation
+  const keyboardNav = useKeyboardNavigation({
+    enabled: true,
+    onAction: useCallback((action, event) => {
+      switch (action) {
+        case 'close-all-nav':
+          if (leftNavOpen || rightNavOpen) {
+            closeAllNav();
+          }
+          break;
+        case 'toggle-left-nav':
+          toggleLeftNav();
+          break;
+        case 'toggle-right-nav':
+          toggleRightNav();
+          break;
+        default:
+          // Let other components handle other actions
+          break;
       }
-    }
-    
-    // Ctrl+B or Cmd+B to toggle left nav
-    if ((event.ctrlKey || event.metaKey) && event.key === 'b') {
-      toggleLeftNav();
-      event.preventDefault();
-    }
-    
-    // Ctrl+Shift+B or Cmd+Shift+B to toggle right nav
-    if ((event.ctrlKey || event.metaKey) && event.shiftKey && event.key === 'B') {
-      toggleRightNav();
-      event.preventDefault();
-    }
-  }, [leftNavOpen, rightNavOpen, closeAllNav, toggleLeftNav, toggleRightNav]);
+    }, [leftNavOpen, rightNavOpen, closeAllNav, toggleLeftNav, toggleRightNav])
+  });
 
   // Set up event listeners
   useEffect(() => {
     window.addEventListener('resize', handleResize);
-    window.addEventListener('keydown', handleKeyDown);
     
     return () => {
       window.removeEventListener('resize', handleResize);
-      window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [handleResize, handleKeyDown]);
+  }, [handleResize]);
 
   // Calculate available dimensions
   const getAvailableWidth = useCallback(() => {
@@ -156,7 +155,10 @@ export const useLayoutManager = () => {
     // Utilities
     getLayoutState,
     getAvailableWidth,
-    getAvailableHeight
+    getAvailableHeight,
+    
+    // Keyboard Navigation
+    keyboardNav
   };
 };
 
