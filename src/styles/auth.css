@@ -1,0 +1,151 @@
+.cg-auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  padding: 20px;
+}
+
+.cg-auth-container {
+  background: white;
+  border-radius: 12px;
+  padding: 40px;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.cg-auth-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.cg-auth-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+}
+
+.cg-auth-subtitle {
+  font-size: 16px;
+  color: #666;
+}
+
+.cg-auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.cg-employee-select {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cg-select-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cg-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.cg-select {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  width: 100%;
+  background-color: white;
+  transition: border-color 0.2s;
+}
+
+.cg-select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.cg-password-input {
+  width: 100%;
+}
+
+.cg-input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.cg-input {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  width: 100%;
+  transition: border-color 0.2s;
+}
+
+.cg-input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.cg-btn-icon {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  font-size: 18px;
+}
+
+.cg-btn-primary {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.cg-btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.cg-btn-primary:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.cg-btn-block {
+  width: 100%;
+}
+
+.cg-error-message {
+  color: #dc3545;
+  font-size: 14px;
+  text-align: center;
+  margin-top: 8px;
+}
+
+.cg-loading {
+  text-align: center;
+  color: #666;
+  padding: 20px;
+}
+
+.cg-error {
+  color: #dc3545;
+  text-align: center;
+  padding: 20px;
+} 

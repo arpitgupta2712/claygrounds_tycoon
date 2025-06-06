@@ -7,6 +7,11 @@ const Header = ({
   rightNavOpen = false,
   className = "" 
 }) => {
+  const handleLogout = () => {
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('user');
+    window.location.href = '/';
+  };
   return (
     <header className={`cg-header ${className}`}>
       <div className="cg-header-content">
@@ -32,7 +37,7 @@ const Header = ({
           </div>
         </div>
 
-        {/* Right Navigation Toggle */}
+        {/* Right Navigation Toggle and Logout */}
         <div className="cg-header-right">
           <button
             className="cg-btn cg-btn-ghost cg-btn-icon"
@@ -42,6 +47,14 @@ const Header = ({
             <span className="cg-header-nav-icon">
               {rightNavOpen ? '✕' : '⚙️'}
             </span>
+          </button>
+          <button
+            className="cg-btn cg-btn-outline cg-btn-sm"
+            style={{ marginLeft: 12 }}
+            onClick={handleLogout}
+            title="Logout"
+          >
+            Logout
           </button>
         </div>
       </div>
