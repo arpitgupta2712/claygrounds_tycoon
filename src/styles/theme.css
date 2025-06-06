@@ -113,6 +113,15 @@
   --cg-sidebar-left-width: 300px;
   --cg-sidebar-bg: var(--cg-bg-glass);
   --cg-sidebar-border: var(--cg-border-light);
+  
+  /* Map Boundary Colors */
+  --cg-map-state-fill: #b1f727;
+  --cg-map-state-line: #013540;
+  --cg-map-district-fill: #b1f727;
+  --cg-map-district-line: #013540;
+  --cg-map-active-state: var(--cg-primary);
+  --cg-map-marker: var(--cg-primary);
+  --cg-map-marker-hover: var(--cg-primary-dark);
 }
 
 /* Dark Theme Support */
@@ -258,4 +267,25 @@
   padding: var(--cg-space-1);
   width: 2rem;
   height: 2rem;
+}
+
+/* Map Control Panels */
+.cg-boundary-control {
+  width: 300px;
+  background: var(--cg-bg-glass);
+  border: 1px solid var(--cg-border-light);
+  border-radius: var(--cg-radius-lg);
+  box-shadow: var(--cg-shadow-glass);
+}
+
+.cg-boundary-selector {
+  display: flex;
+  gap: var(--cg-space-2);
+  padding: var(--cg-space-2);
+}
+
+.cg-boundary-selector .cg-btn {
+  flex: 1;
+  white-space: nowrap;
+  font-size: var(--cg-text-sm);
 } 

@@ -1,15 +1,49 @@
 import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import ControlPanel from '../ui/ControlPanel';
+import { mapApiStateToGeoJson } from '../../utils/stateNameMap';
+import { getStateFillColorExpression } from '../../utils/mapHighlightUtils';
 
 const MapContainer = ({ className = "" }) => {
   const mapContainerRef = useRef(null);
   const mapRef = useRef(null);
   const [boundaryView, setBoundaryView] = useState('state'); // 'state' or 'district'
   const [mapLoaded, setMapLoaded] = useState(false);
+  const [locations, setLocations] = useState([]);
+  const [activeStates, setActiveStates] = useState(new Set());
 
   const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN || '';
   const indiaCenter = [78.9629, 20.5937];
+
+  // Get theme colors from CSS variables
+  const getThemeColor = (varName, fallback) => {
+    if (typeof window === 'undefined') return fallback;
+    return getComputedStyle(document.documentElement).getPropertyValue(varName).trim() || fallback;
+  };
+  const stateFill = getThemeColor('--cg-map-state-fill', '#416870');
+  const stateLine = getThemeColor('--cg-map-state-line', '#013540');
+  const districtFill = getThemeColor('--cg-map-district-fill', '#b1f727');
+  const districtLine = getThemeColor('--cg-map-district-line', '#013540');
+  const activeStateFill = getThemeColor('--cg-primary', '#10B981');
+
+  // Fetch and process locations data
+  useEffect(() => {
+    const fetchLocations = async () => {
+      try {
+        const response = await fetch('https://partner.claygrounds.com/api/locations/all');
+        const data = await response.json();
+        setLocations(data);
+        // Use mapping utility for robust state matching
+        const states = new Set(data.map(loc => mapApiStateToGeoJson(loc.state)));
+        setActiveStates(states);
+      } catch (error) {
+        console.error('Error fetching locations:', error);
+      }
+    };
+
+    fetchLocations();
+  }, []);
 
   useEffect(() => {
     if (!mapContainerRef.current || !MAPBOX_TOKEN) return;
@@ -18,9 +52,9 @@ const MapContainer = ({ className = "" }) => {
 
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
-      style: 'mapbox://styles/mapbox/streets-v11',
+      style: 'mapbox://styles/mapbox/light-v11', // Using light style for better contrast
       center: indiaCenter,
-      zoom: 5,
+      zoom: 4,
       pitch: 0,
       bearing: 0,
       antialias: true,
@@ -39,19 +73,35 @@ const MapContainer = ({ className = "" }) => {
 
     map.on('load', () => {
       setMapLoaded(true);
-      new mapboxgl.Marker({ color: '#10B981' })
-        .setLngLat(indiaCenter)
-        .setPopup(
-          new mapboxgl.Popup({ offset: 25 })
-            .setHTML('<h3>🏗️ ClayGrounds Tycoon</h3><p>Welcome to your Sports Empire!</p>')
-        )
-        .addTo(map);
+      // Only set filter if the layer exists
+      if (map.getLayer('country-label')) {
+        map.setFilter('country-label', ['==', ['get', 'country_code'], 'IND']);
+      }
+      if (map.getLayer('country')) {
+        map.setFilter('country', ['==', ['get', 'country_code'], 'IND']);
+      }
+      // Add markers for each location
+      locations.forEach(location => {
+        if (location.latitude && location.longitude) {
+          new mapboxgl.Marker({ color: activeStateFill })
+            .setLngLat([location.longitude, location.latitude])
+            .setPopup(
+              new mapboxgl.Popup({ offset: 25 })
+                .setHTML(`
+                  <h3>${location.location_name}</h3>
+                  <p>${location.city}, ${location.state}</p>
+                  <p>Status: ${location.operational_status}</p>
+                `)
+            )
+            .addTo(map);
+        }
+      });
     });
 
     return () => {
       map.remove();
     };
-  }, [MAPBOX_TOKEN, indiaCenter]);
+  }, [MAPBOX_TOKEN, indiaCenter, locations, activeStateFill]);
 
   // Effect to handle boundary layer switching
   useEffect(() => {
@@ -60,11 +110,9 @@ const MapContainer = ({ className = "" }) => {
 
     // Helper to remove both layers and sources
     const removeLayersAndSources = () => {
-      // State
       if (map.getLayer('state-boundaries')) map.removeLayer('state-boundaries');
       if (map.getLayer('state-fill')) map.removeLayer('state-fill');
       if (map.getSource('india-states')) map.removeSource('india-states');
-      // District
       if (map.getLayer('district-boundaries')) map.removeLayer('district-boundaries');
       if (map.getLayer('district-fill')) map.removeLayer('district-fill');
       if (map.getSource('india-districts')) map.removeSource('india-districts');
@@ -72,44 +120,45 @@ const MapContainer = ({ className = "" }) => {
 
     removeLayersAndSources();
 
-    if (boundaryView === 'state') {
-      // --- State Boundaries Debug ---
+    if (boundaryView === 'state' && activeStates.size > 0) {
       fetch('/india_states.geojson')
         .then(res => res.json())
         .then(data => {
-          console.log('🗺️ Loaded india_states.geojson:', data);
+          // Debug: Compare activeStates and geojson ST_NM
+          const geoStates = new Set(data.features.map(f => (f.properties.ST_NM || '').trim().toLowerCase()));
+          const userStates = new Set(Array.from(activeStates).map(s => (s || '').trim().toLowerCase()));
+          console.log('GeoJSON states:', geoStates);
+          console.log('Active user states:', userStates);
+          const missing = Array.from(userStates).filter(s => !geoStates.has(s));
+          if (missing.length) {
+            console.warn('States in user locations but not in GeoJSON:', missing);
+          }
           map.addSource('india-states', {
             type: 'geojson',
             data: data
           });
-          console.log('✅ Added india-states source');
-
           map.addLayer({
             id: 'state-fill',
             type: 'fill',
             source: 'india-states',
             paint: {
-              'fill-color': '#088',
-              'fill-opacity': 0.2
+              'fill-color': getStateFillColorExpression(activeStates, activeStateFill, stateFill),
+              'fill-opacity': 0.5
             }
           });
-          console.log('✅ Added state-fill layer');
-
           map.addLayer({
             id: 'state-boundaries',
             type: 'line',
             source: 'india-states',
             paint: {
-              'line-color': '#000',
+              'line-color': stateLine,
               'line-width': 2
             }
           });
-          console.log('✅ Added state-boundaries layer');
         })
         .catch(err => {
           console.error('❌ Error loading india_states.geojson:', err);
         });
-      // --- End State Boundaries Debug ---
     } else if (boundaryView === 'district') {
       // --- District Boundaries Debug ---
       fetch('/india_districts.geojson')
@@ -127,8 +176,8 @@ const MapContainer = ({ className = "" }) => {
             type: 'fill',
             source: 'india-districts',
             paint: {
-              'fill-color': '#f39c12',
-              'fill-opacity': 0.15
+              'fill-color': districtFill,
+              'fill-opacity': 0.5
             }
           });
           console.log('✅ Added district-fill layer');
@@ -138,7 +187,7 @@ const MapContainer = ({ className = "" }) => {
             type: 'line',
             source: 'india-districts',
             paint: {
-              'line-color': '#c0392b',
+              'line-color': districtLine,
               'line-width': 1.5
             }
           });
@@ -149,7 +198,7 @@ const MapContainer = ({ className = "" }) => {
         });
       // --- End District Boundaries Debug ---
     }
-  }, [boundaryView, mapLoaded]);
+  }, [boundaryView, mapLoaded, activeStates, stateFill, stateLine, districtFill, districtLine, activeStateFill]);
 
   if (!MAPBOX_TOKEN) {
     return (
@@ -171,20 +220,30 @@ const MapContainer = ({ className = "" }) => {
         className="cg-map"
         style={{ width: '100%', height: '100%' }}
       />
-      {/* Toggle for boundaries - moved after map for visibility */}
-      <div style={{ position: 'absolute', zIndex: 1000, top: 16, left: 16, background: '#fff', borderRadius: 8, boxShadow: '0 2px 8px #0001', padding: 8 }}>
-        <button
-          onClick={() => setBoundaryView('state')}
-          style={{ marginRight: 8, fontWeight: boundaryView === 'state' ? 'bold' : 'normal' }}
+      {/* Boundary Control Panel */}
+      <div style={{ position: 'absolute', zIndex: 1000, top: 16, left: 16 }}>
+        <ControlPanel
+          title="Boundary View"
+          icon="🗺️"
+          isCollapsible={false}
+          className="cg-boundary-control"
         >
-          State Boundaries
-        </button>
-        <button
-          onClick={() => setBoundaryView('district')}
-          style={{ fontWeight: boundaryView === 'district' ? 'bold' : 'normal' }}
-        >
-          District Boundaries
-        </button>
+          <div className="cg-boundary-selector">
+            <button
+              className={`cg-btn ${boundaryView === 'state' ? 'cg-btn-primary' : 'cg-btn-outline'}`}
+              onClick={() => setBoundaryView('state')}
+              style={{ marginRight: 8 }}
+            >
+              State Boundaries
+            </button>
+            <button
+              className={`cg-btn ${boundaryView === 'district' ? 'cg-btn-primary' : 'cg-btn-outline'}`}
+              onClick={() => setBoundaryView('district')}
+            >
+              District Boundaries
+            </button>
+          </div>
+        </ControlPanel>
       </div>
       {/* Map Overlay Info */}
       <div className="cg-map-overlay">
