@@ -37,11 +37,18 @@ const Auth = () => {
       return;
     }
     setLoading(true);
+    
+    console.log('Attempting login with:', { phone, password: '***' });
+    console.log('API Base URL:', process.env.REACT_APP_API_BASE_URL);
+    
     try {
       const response = await api.post('/employees/auth/login', {
         phone,
         password
       });
+      
+      console.log('Login response:', response.data);
+      
       if (response.data.success) {
         if (isTokenExpired(response.data.token)) {
           setError('Authentication token is expired. Please try again.');
@@ -55,7 +62,20 @@ const Auth = () => {
         setError(response.data.message || 'Authentication failed');
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'Authentication failed');
+      console.error('Login error:', err);
+      console.error('Error response:', err.response?.data);
+      console.error('Error status:', err.response?.status);
+      console.error('Error message:', err.message);
+      
+      if (err.response?.data?.message) {
+        setError(err.response.data.message);
+      } else if (err.response?.status === 401) {
+        setError('Invalid phone number or password');
+      } else if (err.message.includes('Network Error')) {
+        setError('Network error. Please check your connection and try again.');
+      } else {
+        setError('Authentication failed. Please try again.');
+      }
     } finally {
       setLoading(false);
     }

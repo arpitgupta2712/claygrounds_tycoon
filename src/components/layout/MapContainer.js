@@ -1,7 +1,12 @@
 import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import ControlPanel from '../ui/ControlPanel';
+import ControlSidebar from '../ui/ControlSidebar';
+import StatesControlPanel from '../ui/StatesControlPanel';
+import DistrictsControlPanel from '../ui/DistrictsControlPanel';
+import MapStyleControlPanel from '../ui/MapStyleControlPanel';
+import ViewControlPanel from '../ui/ViewControlPanel';
+import { DataLoadingSpinner } from '../ui/LoadingStates';
 import { mapApiStateToGeoJson } from '../../utils/stateNameMap';
 import { getStateFillColorExpression } from '../../utils/mapHighlightUtils';
 
@@ -12,6 +17,9 @@ const MapContainer = ({ className = "" }) => {
   const [mapLoaded, setMapLoaded] = useState(false);
   const [locations, setLocations] = useState([]);
   const [activeStates, setActiveStates] = useState(new Set());
+  const [isControlsOpen, setIsControlsOpen] = useState(false);
+  const [selectedStates, setSelectedStates] = useState(new Set());
+  const [selectedDistricts, setSelectedDistricts] = useState(new Set());
 
   const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN || '';
   const indiaCenter = [78.9629, 20.5937];
@@ -220,31 +228,58 @@ const MapContainer = ({ className = "" }) => {
         className="cg-map"
         style={{ width: '100%', height: '100%' }}
       />
-      {/* Boundary Control Panel */}
-      <div style={{ position: 'absolute', zIndex: 1000, top: 16, left: 16 }}>
-        <ControlPanel
-          title="Boundary View"
-          icon="🗺️"
-          isCollapsible={false}
-          className="cg-boundary-control"
+      {/* Advanced Control Sidebar */}
+      <ControlSidebar 
+        isOpen={isControlsOpen}
+        onToggle={() => setIsControlsOpen(!isControlsOpen)}
+        position="left"
+      >
+        <ViewControlPanel 
+          boundaryView={boundaryView}
+          onBoundaryViewChange={setBoundaryView}
+        />
+        
+        {boundaryView === 'state' && (
+          <StatesControlPanel
+            selectedStates={selectedStates}
+            onStatesChange={setSelectedStates}
+            activeStates={activeStates}
+          />
+        )}
+        
+        {boundaryView === 'district' && (
+          <DistrictsControlPanel
+            selectedDistricts={selectedDistricts}
+            onDistrictsChange={setSelectedDistricts}
+            selectedStates={selectedStates}
+          />
+        )}
+        
+        <MapStyleControlPanel />
+      </ControlSidebar>
+      
+      {/* Control Toggle Button */}
+      {!isControlsOpen && (
+        <button
+          className="cg-btn cg-btn-primary cg-map-controls-toggle"
+          onClick={() => setIsControlsOpen(true)}
+          style={{
+            position: 'absolute',
+            top: '16px',
+            left: '16px',
+            zIndex: 1000,
+            borderRadius: '50%',
+            width: '48px',
+            height: '48px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+          title="Open Map Controls"
         >
-          <div className="cg-boundary-selector">
-            <button
-              className={`cg-btn ${boundaryView === 'state' ? 'cg-btn-primary' : 'cg-btn-outline'}`}
-              onClick={() => setBoundaryView('state')}
-              style={{ marginRight: 8 }}
-            >
-              State Boundaries
-            </button>
-            <button
-              className={`cg-btn ${boundaryView === 'district' ? 'cg-btn-primary' : 'cg-btn-outline'}`}
-              onClick={() => setBoundaryView('district')}
-            >
-              District Boundaries
-            </button>
-          </div>
-        </ControlPanel>
-      </div>
+          ⚙️
+        </button>
+      )}
       {/* Map Overlay Info */}
       <div className="cg-map-overlay">
         <div className="cg-map-info">

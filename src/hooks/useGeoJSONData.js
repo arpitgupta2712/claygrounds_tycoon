@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
-import { globalCache, CACHE_KEYS, CACHE_TTL } from '../utils/dataCache';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { globalCache, CACHE_TTL } from '../utils/dataCache';
 
 /**
  * Custom hook for fetching and caching GeoJSON data
@@ -20,7 +20,7 @@ export const useGeoJSONData = (url, options = {}) => {
   const [error, setError] = useState(null);
   const abortControllerRef = useRef(null);
 
-  const fetchData = async (forceRefresh = false) => {
+  const fetchData = useCallback(async (forceRefresh = false) => {
     if (!url) {
       setLoading(false);
       return;
@@ -105,7 +105,7 @@ export const useGeoJSONData = (url, options = {}) => {
       setLoading(false);
       abortControllerRef.current = null;
     }
-  };
+  }, [url, cacheDuration, enableCache]);
 
   const refetch = () => {
     fetchData(true);
@@ -120,7 +120,7 @@ export const useGeoJSONData = (url, options = {}) => {
         abortControllerRef.current.abort();
       }
     };
-  }, [url, cacheDuration, enableCache]);
+  }, [fetchData]);
 
   return {
     data,

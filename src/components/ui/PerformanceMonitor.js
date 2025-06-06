@@ -24,7 +24,7 @@ const PerformanceMonitor = ({
   // Track component renders
   useEffect(() => {
     setRenderCount(prev => prev + 1);
-  });
+  }, []);
 
   // Memoized position styles
   const positionStyles = useMemo(() => {
@@ -224,7 +224,7 @@ export const withPerformanceMonitoring = (WrappedComponent, componentName = 'Com
       }
       
       setLastRenderTime(now);
-    });
+    }, [renderCount, lastRenderTime, componentName]);
 
     return <WrappedComponent {...props} />;
   });
@@ -259,7 +259,7 @@ export const usePerformanceTracking = (componentName) => {
         averageRenderTime: metrics.averageRenderTime
       });
     }
-  });
+  }, [metrics.lastRenderTime, metrics.renderCount, metrics.averageRenderTime, componentName]);
 
   return metrics;
 };

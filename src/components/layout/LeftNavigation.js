@@ -1,52 +1,87 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const LeftNavigation = ({ 
   isOpen = false, 
   onToggle,
   className = "" 
 }) => {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      try {
+        setUser(JSON.parse(userData));
+      } catch (error) {
+        console.error('Error parsing user data:', error);
+      }
+    }
+  }, []);
   const navigationItems = [
     {
       id: 'dashboard',
       icon: '🏠',
       label: 'Dashboard',
       description: 'Overview and analytics',
-      active: true
+      active: true,
+      path: '/home'
     },
     {
       id: 'map',
       icon: '🗺️',
       label: 'Interactive Map',
       description: 'Explore territories in 3D',
-      active: false
+      active: false,
+      path: '/map'
     },
     {
       id: 'facilities',
       icon: '🏟️',
       label: 'Facilities',
       description: 'Manage sports facilities',
-      active: false
+      active: false,
+      path: '/facilities',
+      badge: '0'
+    },
+    {
+      id: 'territories',
+      icon: '🎯',
+      label: 'Territories',
+      description: 'Territory management',
+      active: false,
+      path: '/territories'
     },
     {
       id: 'analytics',
       icon: '📊',
       label: 'Analytics',
       description: 'Performance insights',
-      active: false
+      active: false,
+      path: '/analytics'
     },
     {
       id: 'reports',
       icon: '📈',
       label: 'Reports',
       description: 'Generate reports',
-      active: false
+      active: false,
+      path: '/reports'
+    },
+    {
+      id: 'locations',
+      icon: '📍',
+      label: 'Locations',
+      description: 'Location database',
+      active: false,
+      path: '/locations'
     },
     {
       id: 'settings',
       icon: '⚙️',
       label: 'Settings',
       description: 'App configuration',
-      active: false
+      active: false,
+      path: '/settings'
     }
   ];
 
@@ -137,8 +172,9 @@ const LeftNavigation = ({
               <span className="cg-profile-avatar-icon">👤</span>
             </div>
             <div className="cg-profile-info">
-              <div className="cg-profile-name">Admin User</div>
-              <div className="cg-profile-role">System Administrator</div>
+              <div className="cg-profile-name">{user?.employee_name || 'User'}</div>
+              <div className="cg-profile-role">{user?.designation || 'Employee'}</div>
+              <div className="cg-profile-access">{user?.access_role || 'User'}</div>
             </div>
             <button className="cg-btn cg-btn-ghost cg-btn-icon-sm cg-profile-menu">
               ⋮
