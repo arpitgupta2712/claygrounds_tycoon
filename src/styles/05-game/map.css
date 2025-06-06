@@ -479,6 +479,596 @@
   line-height: 1.5;
 }
 
+/* ===== ENHANCED BUSINESS INTELLIGENCE FEATURES ===== */
+
+/* View Mode Controls */
+.view-mode-controls {
+  display: flex;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.view-mode-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--cg-border-color);
+  background: var(--cg-surface-color);
+  color: var(--cg-text-color);
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.view-mode-btn:hover {
+  background: var(--cg-hover-color);
+  border-color: var(--cg-accent-color);
+}
+
+.view-mode-btn.active {
+  background: var(--cg-accent-color);
+  color: white;
+  border-color: var(--cg-accent-color);
+}
+
+/* Business Summary Cards */
+.business-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
+  padding: 1rem;
+  background: var(--cg-surface-color);
+  border-radius: 0.5rem;
+  border: 1px solid var(--cg-border-color);
+}
+
+.summary-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: var(--cg-background-color);
+  border-radius: 0.375rem;
+  border: 1px solid var(--cg-border-light);
+}
+
+.summary-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.summary-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.summary-value {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--cg-text-color);
+}
+
+.summary-label {
+  font-size: 0.75rem;
+  color: var(--cg-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Enhanced State Buttons */
+.state-button.enhanced {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 1rem;
+  min-height: 120px;
+  text-align: left;
+}
+
+.state-button-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.state-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--cg-text-color);
+}
+
+.trend-indicator {
+  font-size: 1.25rem;
+}
+
+.trend-indicator.up {
+  animation: pulse-up 2s infinite;
+}
+
+.trend-indicator.down {
+  animation: pulse-down 2s infinite;
+}
+
+@keyframes pulse-up {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes pulse-down {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.state-business-preview {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+.business-metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.metric-icon {
+  font-size: 0.875rem;
+  opacity: 0.8;
+}
+
+.metric-value {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--cg-accent-color);
+}
+
+/* Business Analytics Dashboard */
+.business-analytics-ui {
+  padding: 1rem;
+}
+
+.analytics-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.analytics-section {
+  background: var(--cg-surface-color);
+  border-radius: 0.5rem;
+  border: 1px solid var(--cg-border-color);
+  overflow: hidden;
+}
+
+.analytics-section h4 {
+  margin: 0;
+  padding: 1rem;
+  background: var(--cg-background-color);
+  border-bottom: 1px solid var(--cg-border-color);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--cg-text-color);
+}
+
+.performance-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.performance-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--cg-border-light);
+  transition: background-color 0.2s ease;
+}
+
+.performance-item:last-child {
+  border-bottom: none;
+}
+
+.performance-item:hover {
+  background: var(--cg-hover-color);
+}
+
+.performance-item .rank {
+  font-weight: 600;
+  color: var(--cg-accent-color);
+  font-size: 0.875rem;
+}
+
+.performance-item .state-name {
+  font-weight: 500;
+  color: var(--cg-text-color);
+}
+
+.performance-item .revenue,
+.performance-item .growth,
+.performance-item .opportunity {
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.performance-item .revenue {
+  color: var(--cg-success-color, #10b981);
+}
+
+.performance-item .growth {
+  color: var(--cg-info-color, #3b82f6);
+}
+
+.performance-item .opportunity {
+  color: var(--cg-warning-color, #f59e0b);
+}
+
+.select-btn {
+  padding: 0.375rem 0.75rem;
+  background: var(--cg-accent-color);
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.select-btn:hover {
+  background: var(--cg-accent-hover);
+  transform: translateY(-1px);
+}
+
+/* State Preview in Loading State */
+.state-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--cg-surface-color);
+  border-radius: 0.375rem;
+  border: 1px solid var(--cg-border-color);
+}
+
+.preview-metric {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--cg-text-color);
+}
+
+.preview-metric span {
+  font-weight: 500;
+}
+
+/* State Business Info */
+.state-business-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0.5rem 0;
+  padding: 0.75rem;
+  background: var(--cg-surface-color);
+  border-radius: 0.375rem;
+  border: 1px solid var(--cg-border-light);
+}
+
+.business-info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--cg-text-muted);
+  padding: 0.25rem 0.5rem;
+  background: var(--cg-background-color);
+  border-radius: 0.25rem;
+}
+
+/* Enhanced Map Container */
+.cg-map-container.enhanced {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Territory Popups */
+.territory-popup {
+  min-width: 280px;
+  max-width: 320px;
+  background: var(--cg-surface-color);
+  border-radius: 0.5rem;
+  border: 1px solid var(--cg-border-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.territory-popup.loading {
+  opacity: 0.8;
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: var(--cg-background-color);
+  border-bottom: 1px solid var(--cg-border-color);
+}
+
+.popup-header h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--cg-text-color);
+}
+
+.popup-header .trend-indicator {
+  font-size: 1.25rem;
+  animation: pulse 2s infinite;
+}
+
+.popup-content {
+  padding: 1rem;
+}
+
+.business-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  background: var(--cg-background-color);
+  border-radius: 0.375rem;
+  border: 1px solid var(--cg-border-light);
+}
+
+.metric-icon {
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+.metric-value {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--cg-accent-color);
+}
+
+.metric-label {
+  font-size: 0.625rem;
+  color: var(--cg-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.district-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.info-icon {
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+.info-text {
+  color: var(--cg-text-color);
+  font-weight: 500;
+}
+
+.popup-action {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--cg-border-light);
+}
+
+.explore-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--cg-accent-color);
+  color: white;
+  border: none;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.explore-btn:hover {
+  background: var(--cg-accent-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Center Popup Styles */
+.center-popup-content {
+  padding: 1rem;
+  text-align: center;
+  min-width: 200px;
+}
+
+.center-popup-content h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--cg-text-color);
+}
+
+.center-popup-content p {
+  margin: 0 0 1rem 0;
+  font-size: 0.875rem;
+  color: var(--cg-text-muted);
+}
+
+.hub-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.hub-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  background: var(--cg-surface-color);
+  border-radius: 0.25rem;
+  border: 1px solid var(--cg-border-light);
+}
+
+.hub-stat span {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--cg-accent-color);
+}
+
+.hub-stat small {
+  font-size: 0.625rem;
+  color: var(--cg-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Territory Info Overlay */
+.territory-info-overlay {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1000;
+  background: var(--cg-surface-color);
+  border-radius: 0.5rem;
+  border: 1px solid var(--cg-border-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(8px);
+  max-width: 300px;
+}
+
+.territory-info-content {
+  padding: 1rem;
+}
+
+.territory-info-content h4 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--cg-text-color);
+}
+
+.territory-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.territory-metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  background: var(--cg-background-color);
+  border-radius: 0.25rem;
+  border: 1px solid var(--cg-border-light);
+}
+
+.territory-metric .metric-icon {
+  font-size: 0.875rem;
+  opacity: 0.8;
+}
+
+.territory-metric .metric-value {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--cg-accent-color);
+}
+
+.territory-metric .metric-label {
+  font-size: 0.625rem;
+  color: var(--cg-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.district-info {
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--cg-border-light);
+}
+
+.district-info h5 {
+  margin: 0 0 0.25rem 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--cg-text-color);
+}
+
+.district-info p {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--cg-text-muted);
+}
+
+/* Mapbox Popup Overrides */
+.mapboxgl-popup-content {
+  padding: 0 !important;
+  border-radius: 0.5rem !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.mapboxgl-popup-tip {
+  border-top-color: var(--cg-surface-color) !important;
+}
+
+.mapboxgl-popup-close-button {
+  display: none !important;
+}
+
+/* Animation for Territory Selection */
+@keyframes territory-select {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.territory-popup.selected {
+  animation: territory-select 0.3s ease;
+}
+
+/* Loading Animation for Business Data */
+@keyframes loading-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.territory-popup.loading .popup-content {
+  animation: loading-pulse 1.5s infinite;
+}
+
 /* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
   .cg-map-controls {
@@ -521,6 +1111,120 @@
     width: 35px;
     height: 35px;
   }
+
+  /* Business Intelligence Responsive */
+  .view-mode-controls {
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+
+  .view-mode-btn {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .business-summary {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    padding: 0.75rem;
+  }
+
+  .summary-card {
+    padding: 0.5rem;
+  }
+
+  .state-button.enhanced {
+    min-height: 100px;
+    padding: 0.75rem;
+  }
+
+  .state-business-preview {
+    gap: 0.25rem;
+  }
+
+  .metric-value {
+    font-size: 0.625rem;
+  }
+
+  .performance-item {
+    grid-template-columns: auto 1fr auto;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .performance-item .revenue,
+  .performance-item .growth,
+  .performance-item .opportunity {
+    display: none;
+  }
+
+  .state-business-info {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .business-info-item {
+    font-size: 0.625rem;
+  }
+
+  .territory-popup {
+    min-width: 240px;
+    max-width: 280px;
+  }
+
+  .business-metrics {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .metric {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.375rem 0.5rem;
+  }
+
+  .metric-value {
+    font-size: 0.75rem;
+  }
+
+  .metric-label {
+    font-size: 0.5rem;
+  }
+
+  .territory-info-overlay {
+    top: 0.5rem;
+    left: 0.5rem;
+    right: 0.5rem;
+    max-width: none;
+  }
+
+  .territory-metrics {
+    grid-template-columns: 1fr;
+    gap: 0.375rem;
+  }
+
+  .territory-metric {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.375rem 0.5rem;
+  }
+
+  .center-popup-content {
+    padding: 0.75rem;
+    min-width: 180px;
+  }
+
+  .hub-stats {
+    gap: 0.375rem;
+  }
+
+  .hub-stat {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.375rem 0.5rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -543,6 +1247,78 @@
   .cg-building-marker.headquarters {
     width: 30px;
     height: 30px;
+  }
+}
+
+/* ===== DARK MODE SUPPORT ===== */
+@media (prefers-color-scheme: dark) {
+  .summary-card {
+    background: var(--cg-surface-dark, #1f2937);
+    border-color: var(--cg-border-dark, #374151);
+  }
+
+  .analytics-section {
+    background: var(--cg-surface-dark, #1f2937);
+    border-color: var(--cg-border-dark, #374151);
+  }
+
+  .analytics-section h4 {
+    background: var(--cg-background-dark, #111827);
+    border-color: var(--cg-border-dark, #374151);
+  }
+
+  .performance-item:hover {
+    background: var(--cg-hover-dark, #374151);
+  }
+
+  .state-preview {
+    background: var(--cg-surface-dark, #1f2937);
+    border-color: var(--cg-border-dark, #374151);
+  }
+
+  .state-business-info {
+    background: var(--cg-surface-dark, #1f2937);
+    border-color: var(--cg-border-dark, #374151);
+  }
+
+  .business-info-item {
+    background: var(--cg-background-dark, #111827);
+  }
+
+  .territory-popup {
+    background: var(--cg-surface-dark, #1f2937);
+    border-color: var(--cg-border-dark, #374151);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .popup-header {
+    background: var(--cg-background-dark, #111827);
+    border-color: var(--cg-border-dark, #374151);
+  }
+
+  .metric {
+    background: var(--cg-background-dark, #111827);
+    border-color: var(--cg-border-dark, #374151);
+  }
+
+  .territory-info-overlay {
+    background: var(--cg-surface-dark, #1f2937);
+    border-color: var(--cg-border-dark, #374151);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .territory-metric {
+    background: var(--cg-background-dark, #111827);
+    border-color: var(--cg-border-dark, #374151);
+  }
+
+  .hub-stat {
+    background: var(--cg-surface-dark, #1f2937);
+    border-color: var(--cg-border-dark, #374151);
+  }
+
+  .mapboxgl-popup-tip {
+    border-top-color: var(--cg-surface-dark, #1f2937) !important;
   }
 }
 
@@ -578,6 +1354,14 @@
   .cg-territory-marker.contested,
   .cg-territory-boundary.contested,
   .cg-map-loading-spinner {
+    animation: none;
+  }
+
+  .trend-indicator.up,
+  .trend-indicator.down,
+  .popup-header .trend-indicator,
+  .territory-popup.selected,
+  .territory-popup.loading .popup-content {
     animation: none;
   }
 } 
