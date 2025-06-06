@@ -1,10 +1,12 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 const MapContainer = ({ className = "" }) => {
   const mapContainerRef = useRef(null);
   const mapRef = useRef(null);
+  const [boundaryView, setBoundaryView] = useState('state'); // 'state' or 'district'
+  const [mapLoaded, setMapLoaded] = useState(false);
 
   const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN || '';
   const indiaCenter = [78.9629, 20.5937];
@@ -35,12 +37,9 @@ const MapContainer = ({ className = "" }) => {
       showUserHeading: true
     }), 'top-right');
 
-    // Add a welcome message
     map.on('load', () => {
-      // Add a simple marker at India center
-      new mapboxgl.Marker({
-        color: '#10B981'
-      })
+      setMapLoaded(true);
+      new mapboxgl.Marker({ color: '#10B981' })
         .setLngLat(indiaCenter)
         .setPopup(
           new mapboxgl.Popup({ offset: 25 })
@@ -52,7 +51,105 @@ const MapContainer = ({ className = "" }) => {
     return () => {
       map.remove();
     };
-  }, [MAPBOX_TOKEN]);
+  }, [MAPBOX_TOKEN, indiaCenter]);
+
+  // Effect to handle boundary layer switching
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !mapLoaded) return;
+
+    // Helper to remove both layers and sources
+    const removeLayersAndSources = () => {
+      // State
+      if (map.getLayer('state-boundaries')) map.removeLayer('state-boundaries');
+      if (map.getLayer('state-fill')) map.removeLayer('state-fill');
+      if (map.getSource('india-states')) map.removeSource('india-states');
+      // District
+      if (map.getLayer('district-boundaries')) map.removeLayer('district-boundaries');
+      if (map.getLayer('district-fill')) map.removeLayer('district-fill');
+      if (map.getSource('india-districts')) map.removeSource('india-districts');
+    };
+
+    removeLayersAndSources();
+
+    if (boundaryView === 'state') {
+      // --- State Boundaries Debug ---
+      fetch('/india_states.geojson')
+        .then(res => res.json())
+        .then(data => {
+          console.log('🗺️ Loaded india_states.geojson:', data);
+          map.addSource('india-states', {
+            type: 'geojson',
+            data: data
+          });
+          console.log('✅ Added india-states source');
+
+          map.addLayer({
+            id: 'state-fill',
+            type: 'fill',
+            source: 'india-states',
+            paint: {
+              'fill-color': '#088',
+              'fill-opacity': 0.2
+            }
+          });
+          console.log('✅ Added state-fill layer');
+
+          map.addLayer({
+            id: 'state-boundaries',
+            type: 'line',
+            source: 'india-states',
+            paint: {
+              'line-color': '#000',
+              'line-width': 2
+            }
+          });
+          console.log('✅ Added state-boundaries layer');
+        })
+        .catch(err => {
+          console.error('❌ Error loading india_states.geojson:', err);
+        });
+      // --- End State Boundaries Debug ---
+    } else if (boundaryView === 'district') {
+      // --- District Boundaries Debug ---
+      fetch('/india_districts.geojson')
+        .then(res => res.json())
+        .then(data => {
+          console.log('🗺️ Loaded india_districts.geojson:', data);
+          map.addSource('india-districts', {
+            type: 'geojson',
+            data: data
+          });
+          console.log('✅ Added india-districts source');
+
+          map.addLayer({
+            id: 'district-fill',
+            type: 'fill',
+            source: 'india-districts',
+            paint: {
+              'fill-color': '#f39c12',
+              'fill-opacity': 0.15
+            }
+          });
+          console.log('✅ Added district-fill layer');
+
+          map.addLayer({
+            id: 'district-boundaries',
+            type: 'line',
+            source: 'india-districts',
+            paint: {
+              'line-color': '#c0392b',
+              'line-width': 1.5
+            }
+          });
+          console.log('✅ Added district-boundaries layer');
+        })
+        .catch(err => {
+          console.error('❌ Error loading india_districts.geojson:', err);
+        });
+      // --- End District Boundaries Debug ---
+    }
+  }, [boundaryView, mapLoaded]);
 
   if (!MAPBOX_TOKEN) {
     return (
@@ -68,13 +165,27 @@ const MapContainer = ({ className = "" }) => {
   }
 
   return (
-    <div className={`cg-map-container ${className}`}>
+    <div className={`cg-map-container ${className}`} style={{ position: 'relative' }}>
       <div 
         ref={mapContainerRef} 
         className="cg-map"
         style={{ width: '100%', height: '100%' }}
       />
-      
+      {/* Toggle for boundaries - moved after map for visibility */}
+      <div style={{ position: 'absolute', zIndex: 1000, top: 16, left: 16, background: '#fff', borderRadius: 8, boxShadow: '0 2px 8px #0001', padding: 8 }}>
+        <button
+          onClick={() => setBoundaryView('state')}
+          style={{ marginRight: 8, fontWeight: boundaryView === 'state' ? 'bold' : 'normal' }}
+        >
+          State Boundaries
+        </button>
+        <button
+          onClick={() => setBoundaryView('district')}
+          style={{ fontWeight: boundaryView === 'district' ? 'bold' : 'normal' }}
+        >
+          District Boundaries
+        </button>
+      </div>
       {/* Map Overlay Info */}
       <div className="cg-map-overlay">
         <div className="cg-map-info">

@@ -38,7 +38,7 @@ const Auth = () => {
     }
     setLoading(true);
     try {
-      const response = await api.post('/auth/login', {
+      const response = await api.post('/employees/auth/login', {
         phone,
         password
       });

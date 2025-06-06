@@ -18,7 +18,6 @@ import StateBoundariesLayer from './StateBoundariesLayer';
 import ControlSidebar from '../ui/ControlSidebar';
 import SidebarToggle from '../ui/SidebarToggle';
 import ViewControlPanel from '../ui/ViewControlPanel';
-import MapStyleControlPanel, { MAP_STYLES } from '../ui/MapStyleControlPanel';
 import StatesControlPanel from '../ui/StatesControlPanel';
 import CitiesControlPanel from '../ui/CitiesControlPanel';
 import DistrictsControlPanel from '../ui/DistrictsControlPanel';
@@ -26,6 +25,7 @@ import TerritorySelectionPanel from '../ui/TerritorySelectionPanel';
 
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN || '';
 const indiaCenter = [78.9629, 20.5937];
+const DEFAULT_MAP_STYLE = 'mapbox://styles/mapbox/streets-v11';
 
 // Enhanced 3D urban environment settings with view modes
 const VIEW_SETTINGS = {
@@ -108,8 +108,7 @@ const MapContainer = () => {
   const [availableStates, setAvailableStates] = useState([]);
   const [isAnimating, setIsAnimating] = useState(false);
   
-  // Map style and view management
-  const [currentMapStyle, setCurrentMapStyle] = useState(MAP_STYLES.STREETS.style);
+  // Map view management
   const [currentView, setCurrentView] = useState(VIEW_TYPES.TOP_DOWN.id);
 
   // Modal state
@@ -335,20 +334,6 @@ const MapContainer = () => {
     
   }, [currentView, isAnimating]);
 
-  // Handle map style change
-  const handleStyleChange = useCallback((newStyle) => {
-    if (!mapRef.current || newStyle === currentMapStyle) return;
-    
-    console.log(`🎨 Changing map style to: ${newStyle}`);
-    setCurrentMapStyle(newStyle);
-    mapRef.current.setStyle(newStyle);
-    
-    // Re-add custom layers after style change
-    mapRef.current.once('style.load', () => {
-      addCustomLayers();
-    });
-  }, [currentMapStyle, addCustomLayers]);
-
   // Handle city click
   const handleCityClick = useCallback((city, coordinates) => {
     // Close existing popup
@@ -551,45 +536,33 @@ const MapContainer = () => {
 
   // Initialize map
   useEffect(() => {
-    if (!mapContainerRef.current || !MAPBOX_TOKEN) return;
-    
+    if (!mapContainerRef.current) return;
+
     mapboxgl.accessToken = MAPBOX_TOKEN;
-    console.log('🗺️ Initializing ClayGrounds Tycoon with Enhanced 3D Environment...');
     
-    const initialSettings = VIEW_SETTINGS[currentView];
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
-      style: currentMapStyle,
+      style: DEFAULT_MAP_STYLE,
       center: indiaCenter,
-      zoom: initialSettings.overviewZoom,
-      pitch: initialSettings.pitch,
-      bearing: initialSettings.bearing,
-      antialias: true,
+      zoom: 4,
+      pitch: 0,
+      bearing: 0
     });
-    
+
     mapRef.current = map;
 
-    // Add controls
-    map.addControl(new mapboxgl.NavigationControl());
-    map.addControl(new mapboxgl.FullscreenControl());
-    map.addControl(new mapboxgl.GeolocateControl({
-      positionOptions: { enableHighAccuracy: true },
-      trackUserLocation: true,
-      showUserHeading: true
-    }));
-
-    // Add custom layers on style load
-    map.on('style.load', addCustomLayers);
+    map.on('load', () => {
+      console.log('🗺️ Map loaded successfully');
+      addCustomLayers();
+    });
 
     return () => {
-      clearMarkers();
-      if (cityPopup) {
-        cityPopup.remove();
+      if (mapRef.current) {
+        mapRef.current.remove();
+        mapRef.current = null;
       }
-      map.remove();
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Only run once on mount
+  }, []);
 
   // Clear district selection when state changes
   useEffect(() => {
@@ -640,29 +613,20 @@ const MapContainer = () => {
   }
 
   return (
-    <div className="mapbox-map-container urban-3d">
-      {loading && (
-        <div className="loading-overlay">
-          <h3>🏗️ Loading Urban Environment...</h3>
-          <p>Preparing 3D city view...</p>
-        </div>
-      )}
-      {error && (
-        <div className="error-overlay">
-          <h3>⚠️ Connection Error</h3>
-          <p>{error}</p>
-        </div>
-      )}
+    <div className="cg-map-container">
+      <div ref={mapContainerRef} className="cg-map" />
       
-      <div ref={mapContainerRef} style={mapContainerStyle} />
-      
-      {/* Add State Boundaries Layer */}
+      {/* State Boundaries Layer */}
       <StateBoundariesLayer
         map={mapRef.current}
         selectedState={selectedState}
         availableStates={availableStates}
         isVisible={true}
-        onStateClick={selectState}
+        onStateClick={(stateName) => {
+          console.log('🗺️ State selected:', stateName);
+          setSelectedState(stateName);
+          setViewMode(VIEW_MODES.STATE_FOCUSED);
+        }}
         viewMode={viewMode}
       />
       
@@ -760,9 +724,10 @@ const MapContainer = () => {
       )}
 
       {/* Sidebar Toggle Button */}
-      <SidebarToggle 
+      <SidebarToggle
         isOpen={sidebarOpen}
-        onToggle={setSidebarOpen}
+        onToggle={() => setSidebarOpen(!sidebarOpen)}
+        position="right"
       />
 
       {/* Left Sidebar Toggle Button */}
@@ -777,29 +742,24 @@ const MapContainer = () => {
       {/* Control Sidebar */}
       <ControlSidebar
         isOpen={sidebarOpen}
-        onToggle={setSidebarOpen}
-        title="Map Controls"
+        onClose={() => setSidebarOpen(false)}
       >
         {/* View Control Panel */}
         <ViewControlPanel
           currentView={currentView}
-          onViewChange={handleViewChange}
+          onViewChange={setCurrentView}
           isVisible={viewMode !== VIEW_MODES.STATE_FOCUSED}
-        />
-
-        {/* Map Style Control Panel */}
-        <MapStyleControlPanel
-          currentStyle={currentMapStyle}
-          onStyleChange={handleStyleChange}
-          isVisible={viewMode === VIEW_MODES.STATE_SELECTION}
         />
 
         {/* States Control Panel */}
         <StatesControlPanel
           availableStates={availableStates}
           selectedState={selectedState}
-          onStateSelect={selectState}
-          onClearSelection={clearStateSelection}
+          onStateSelect={(state) => {
+            console.log('🗺️ State selected from panel:', state);
+            setSelectedState(state);
+            setViewMode(VIEW_MODES.STATE_FOCUSED);
+          }}
           isVisible={viewMode === VIEW_MODES.STATE_SELECTION}
         />
 
@@ -823,12 +783,9 @@ const MapContainer = () => {
       </ControlSidebar>
 
       <LocationModal
-        location={selectedLocationForModal}
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        onNavigate={handleModalNavigation}
-        locationIndex={currentLocationIndex}
-        totalLocations={stateLocations.length}
+        location={selectedLocationForModal}
       />
     </div>
   );
